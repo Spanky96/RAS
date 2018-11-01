@@ -72,14 +72,6 @@ module.exports = {
         loader: 'url-loader'
       },
       {
-        test: /\.css$/,
-        include: [
-          /src/,
-          '/node_modules/element-ui/lib/'   //增加此项
-        ],
-        loader: 'style-loader!css-loader'
-      },
-      {
         test: /\.scss$/,
         loaders: ["style", "css", "sass"]
       },
