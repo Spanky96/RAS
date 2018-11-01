@@ -1,9 +1,5 @@
-# sell
-
-> bjcf app
-
 ## Build Setup
-
+天眼大数据风控系统
 
 ``` bash
 # First vue
