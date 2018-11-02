@@ -1,7 +1,9 @@
 ## Build Setup
 天眼大数据风控系统
-
-``` bash
+http://element.eleme.io/#/zh-CN/component/form
+http://www.iconfont.cn/manage/index?manage_type=myprojects&projectId=900430
+http://118.31.52.245/yip/index.html#/quanjumoshi/datayuan
+https://cra.pintuzhengxin.com/#/report/personal frtx 123456
 # First vue
 # node -v; version > 4
 # install vue-cli

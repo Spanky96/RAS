@@ -2,6 +2,7 @@ import Vue from 'vue';
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import './assets/icon/iconfont.css';
+import './assets/css/animate.css';
 import App from './App';
 // 支持IE 浏览器
 import 'babel-polyfill';
