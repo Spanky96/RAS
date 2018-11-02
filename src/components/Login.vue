@@ -17,47 +17,29 @@
           </div>
           <div class="el-tabs__content">
             <div class="userdenglu">
-              <form class="el-form login-form">
-                <div class="el-form-item el-form-item--feedback is-required">
-                  <div class="el-form-item__content" style="margin-left: 0px;">
-                    <div class="el-input el-input--small el-input--prefix">
-                      <input type="text" autocomplete="off" placeholder="请输入用户名" class="el-input__inner" v-model="username">
-                      <span class="el-input__prefix"><i class="iconfont icon-yonghu"></i></span>
-                    </div>
-                  </div>
-                </div>
-                <div class="el-form-item el-form-item--feedback is-required">
-                  <div class="el-form-item__content" style="margin-left: 0px;">
-                    <div class="el-input el-input--small el-input--prefix el-input--suffix">
-                      <input autocomplete="off" placeholder="请输入密码" class="el-input__inner password-input" :class="{'show-password': showPassword}" v-model="password"><span
-                        class="el-input__prefix"><i class="iconfont icon-mima"></i>
-                        </span>
-                        <span class="el-input__suffix">
-                          <span class="el-input__suffix-inner" style="cursor:pointer;"  @click="showPassword = !showPassword;">
-                            <i class="el-icon-view el-input__icon"></i>
-                          </span>
-                        </span>
-                    </div>
-                  </div>
-                </div>
-                <div class="el-form-item el-form-item--feedback is-required">
-                  <div class="el-form-item__content" style="margin-left: 0px;">
-                    <div class="el-row" span="24">
-                      <div class="el-col el-col-14">
-                        <div class="el-input el-input--small el-input--prefix">
-                          <input type="text" autocomplete="off" maxlength="4" placeholder="请输入验证码" class="el-input__inner" v-model="validateCode">
-                          <span class="el-input__prefix"><i class="iconfont icon-yanzhengma"></i></span>
-                        </div>
-                      </div>
-                      <div class="el-col el-col-10">
-                        <div class="login-code"><span class="login-code-img">{{validateCode}}</span></div>
-                      </div>
-                    </div> <button type="button" class="el-button login-submit el-button--primary el-button--small"
-                      element-loading-spinner="iconfont icon-jiazailoading-B">
-                      <span>登 录</span></button>
-                  </div>
-                </div>
-              </form>
+              <el-form :model="loginForm" status-icon size="small" class="login-form" :rules="rules" lable-width="0px" ref="loginForm">
+                <el-form-item prop="username">
+                  <el-input placeholder="请输入用户名" v-model="loginForm.username" prefix-icon="iconfont icon-yonghu"></el-input>
+                </el-form-item>
+                <el-form-item prop="password" >
+                  <el-input placeholder="请输入密码" class="password-input" :class="{'show-password': showPassword}" v-model="loginForm.password" prefix-icon="iconfont icon-mima">
+                    <i slot="suffix" class="el-icon-view" style="cursor:pointer;"  @click="showPassword = !showPassword;"></i>
+                  </el-input>
+                </el-form-item>
+                <el-form-item prop="validateCode">
+                  <el-row :span="24">
+                    <el-col :span="14">
+                      <el-input placeholder="请输入验证码" v-model="loginForm.validateCode" prefix-icon="iconfont icon-yanzhengma" maxlength="4"></el-input>
+                    </el-col>
+                    <el-col :span="10">
+                      <div class="login-code"><span class="login-code-img" v-once>{{validateCode}}</span></div>
+                    </el-col>
+                  </el-row>
+                </el-form-item>
+                <el-form-item>
+                  <el-button type="primary" @click="onSubmit" class="login-submit">登 录</el-button>
+                </el-form-item>
+              </el-form>
             </div>
           </div>
         </div>
@@ -71,25 +53,77 @@
     name: 'Login',
     components: {},
     data () {
+      if (this.$db.getObject('user')) {
+        this.$router.push({path: '/'});
+      }
+
+      // 生成验证码
       var validateCode = parseInt(Math.random() * 10000);
       validateCode < 1000 && (validateCode += 1000);
+
+      // 验证码校验脚本
+      var codeValidate = (rule, value, callback) => {
+        if (value == '') {
+          callback(new Error('请输入验证码'));
+        } else if (value !== validateCode) {
+          callback(new Error('验证码不正确!'));
+        } else {
+          callback();
+        }
+      };
       return {
-        username: 'qwerty',
-        password: '654321',
+        loginForm: {
+          username: 'qwerty',
+          password: '654321',
+          validateCode: validateCode
+        },
+        validateCode: validateCode,
         showPassword: false,
-        validateCode: validateCode
+        rules: {
+          username: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
+          password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
+          validateCode: [{ validator: codeValidate, trigger: 'blur' }]
+        }
       };
     },
-    methods: {}
+    methods: {
+      onSubmit: function () {
+        var vm = this;
+        vm.$refs['loginForm'].validate((valid) => {
+          if (valid) {
+            // 调用接口验证账号密码
+            if (vm.loginForm.password == "123456") {
+              // 成功
+              // 存储用户登录信息
+              vm.$db.set('user', {username: vm.loginForm.username});
+              // 跳转到主页
+              vm.$router.push('/');
+            } else {
+              // 失败
+              vm.loginForm.password = '';
+              vm.$message({
+                message: '账号或密码不正确',
+                type: 'error'
+              });
+            }
+          }
+        });
+      }
+    }
   };
 
 </script>
-<style lang="scss" scoped>
+
+<style lang="scss">
 .password-input {
-  -webkit-text-security: disc;
+  input {
+    -webkit-text-security: disc;
+  }
 }
 .show-password {
+ input {
   -webkit-text-security: unset;
+ }
 }
 .full-screen {
   position: absolute;
@@ -117,102 +151,99 @@
     background-image: url(../assets/imgs/bg.png);
     background-size: cover;
   }
-}
-
-.login-border {
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  padding: 30px 50px 25px;
-  background-color: #fff;
-  border-radius: 6px;
-  box-shadow: 1px 1px 2px #eee;
-}
-
-.login-main {
-  border-radius: 3px;
-  box-sizing: border-box;
-  background-color: #fff;
-  > {
-    h3 {
-      margin-bottom: 20px;
-    }
-    p {
-      color: #76838f;
-    }
+  .login-border {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    padding: 30px 50px 25px;
+    background-color: #fff;
+    border-radius: 6px;
+    box-shadow: 1px 1px 2px #eee;
   }
-}
 
-.login-title {
-  margin: 0;
-  text-align: center;
-  color: #409eff;
-  letter-spacing: 3px;
-}
-
-.login-submit {
-  margin-top: 20px;
-  width: 100%;
-  border-radius: 28px;
-}
-
-.login-form {
-  margin: 10px 0;
-  .el-form-item__content {
-    width: 270px;
-  }
-  .el-form-item {
-    margin-bottom: 12px;
-  }
-  .el-input {
-    input {
-      text-indent: 5px;
-      border-color: #dcdcdc;
-      border-radius: 3px;
-    }
-    .el-input__prefix i {
-      padding: 0 5px;
-      font-size: 16px !important;
+  .login-main {
+    border-radius: 3px;
+    box-sizing: border-box;
+    background-color: #fff;
+    > {
+      h3 {
+        margin-bottom: 20px;
+      }
+      p {
+        color: #76838f;
+      }
     }
   }
-}
 
-.login-code {
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-align: center;
-  align-items: center;
-  -ms-flex-pack: distribute;
-  justify-content: space-around;
-  margin: 0 0 0 10px;
-}
+  .login-title {
+    margin: 0;
+    text-align: center;
+    color: #409eff;
+    letter-spacing: 3px;
+  }
 
-.login-code-img {
-  margin-top: 2px;
-  width: 100px;
-  height: 32px;
-  background-color: #fdfdfd;
-  border: 1px solid #f0f0f0;
-  color: #333;
-  font-size: 14px;
-  font-weight: 700;
-  letter-spacing: 5px;
-  line-height: 32px;
-  text-indent: 5px;
-  text-align: center;
-}
+  .login-submit {
+    width: 100%;
+    border-radius: 28px;
+  }
 
-.userdenglu .el-loading-mask {
-  background: hsla(0, 0%, 100%, 0);
-  top: 94%;
-  left: 18%;
-  .el-loading-spinner .icon-jiazailoading-B {
-    animation: rotating 2s linear infinite;
-    color: #fff;
-    font-size: 12px;
+  .login-form {
+    margin: 10px 0;
+    .el-form-item__content {
+      width: 270px;
+    }
+    .el-form-item {
+      margin-bottom: 18px;
+    }
+    .el-input {
+      input {
+        text-indent: 5px;
+        border-color: #dcdcdc;
+        border-radius: 3px;
+      }
+      .el-input__prefix i {
+        padding: 0 5px;
+        font-size: 16px !important;
+      }
+    }
+  }
+
+  .login-code {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: center;
+    align-items: center;
+    -ms-flex-pack: distribute;
+    justify-content: space-around;
+    margin: 0 0 0 10px;
+  }
+
+  .login-code-img {
+    width: 100px;
+    height: 32px;
+    background-color: #fdfdfd;
+    border: 1px solid #f0f0f0;
+    color: #333;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 5px;
+    line-height: 32px;
+    text-indent: 5px;
+    text-align: center;
+  }
+
+  .userdenglu .el-loading-mask {
+    background: hsla(0, 0%, 100%, 0);
+    top: 94%;
+    left: 18%;
+    .el-loading-spinner .icon-jiazailoading-B {
+      animation: rotating 2s linear infinite;
+      color: #fff;
+      font-size: 12px;
+    }
   }
 }
 </style>

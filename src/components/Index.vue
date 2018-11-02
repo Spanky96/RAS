@@ -14,13 +14,13 @@
           active-text-color="#ffd04b">
           <el-menu-item :index="item.index" v-for="(item, index) in menu" :key="index" @click="changeView(index)">{{item.name}}</el-menu-item>
         </el-menu>
-        <el-dropdown>
+        <el-dropdown @command="handleDropdownMenuCommand">
           <el-button class="dropdown-btn">
             <i class="el-icon-setting"></i>
           </el-button>
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item>修改密码</el-dropdown-item>
-            <el-dropdown-item>退出登录</el-dropdown-item>
+            <el-dropdown-item command="changePW">修改密码</el-dropdown-item>
+            <el-dropdown-item command="logout">退出登录</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
       </el-header>
@@ -60,6 +60,10 @@
     },
 
     data () {
+      var userInfo = this.$db.getObject('user');
+      if (!userInfo) {
+        this.$router.push({path: '/login'});
+      }
       var menu = [
         {
           index: "1",
@@ -206,6 +210,12 @@
       },
       linkView (key) {
         this.$router.push({path: key});
+      },
+      handleDropdownMenuCommand (command) {
+        if (command === 'logout') {
+          this.$db.remove('user');
+          this.$router.push({path: '/login'});
+        }
       }
     }
   };
