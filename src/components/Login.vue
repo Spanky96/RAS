@@ -94,8 +94,8 @@
             // 调用接口验证账号密码
             if (vm.loginForm.password == "123456") {
               // 成功
-              // 存储用户登录信息
-              vm.$db.set('user', {username: vm.loginForm.username});
+              // 存储用户登录信息 以及接口中获取的accessToken
+              vm.$db.set('user', {username: vm.loginForm.username, accessToken: '123456'});
               // 跳转到主页
               vm.$router.push('/');
             } else {
@@ -115,23 +115,6 @@
 </script>
 
 <style lang="scss">
-.password-input {
-  input {
-    -webkit-text-security: disc;
-  }
-}
-.show-password {
- input {
-  -webkit-text-security: unset;
- }
-}
-.full-screen {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-}
 .login-container {
   display: -ms-flexbox;
   display: flex;

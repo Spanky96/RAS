@@ -12,12 +12,17 @@
             </el-form-item>
           </el-col>
           <el-col :span="10">
-            <el-form-item label="身份证号码" label-width="0" prop="cardNo" class="form-item">
-              <el-input v-model="inputFrom.cardNo"></el-input>
+            <el-form-item label="身份证号码" label-width="0" prop="idCard" class="form-item">
+              <el-input v-model="inputFrom.idCard"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
-        <el-row type="flex" justify="end">
+        <el-row type="flex" justify="space-between" align="bottom">
+          <el-col :span="10">
+            <el-form-item label="有效期起始日期" label-width="0" prop="beginDate" class="form-item">
+              <el-date-picker type="date" v-model="inputFrom.beginDate"></el-date-picker>
+            </el-form-item>
+          </el-col>
           <el-col :span="4">
             <el-form-item>
               <el-button type="primary" @click="onSubmit" round size="small">执行查询</el-button>
@@ -42,7 +47,11 @@
         </tr>
         <tr class="text-left">
           <td>身份证号码</td>
-          <td>{{result.idNumber}}</td>
+          <td>{{result.idCard}}</td>
+        </tr>
+        <tr class="text-left">
+          <td>有效期起始日期</td>
+          <td>{{result.beginDate}}</td>
         </tr>
       </table>
     </el-card>
@@ -54,7 +63,7 @@
 
 <script>
 export default {
-  name: 'PersonalIdentityIdCheck',
+  name: 'PersonalIdentityInvalid',
   components: {
   },
   data () {
@@ -70,17 +79,20 @@ export default {
     return {
       inputFrom: {
         name: '',
-        cardNo: ''
+        idCard: '',
+        beginDate: ''
       },
       rules: {
         name: [{ required: true, message: '请输入姓名', trigger: 'blur' }],
-        cardNo: [{ validator: idCardValidator, trigger: 'blur' }]
+        idCard: [{ validator: idCardValidator, trigger: 'blur' }],
+        beginDate: [{ required: true, message: '你选择起始日期', trigger: 'blur' }]
       },
       result: {
         example: true,
         success: true,
         name: '赵雷',
-        idNumber: '320281199606286774'
+        idCard: '320281199606286774',
+        beginDate: '2011-06-28'
       }
     };
   },
@@ -101,7 +113,8 @@ export default {
               username: userInfo.username,
               accessToken: userInfo.accessToken,
               name: vm.inputFrom.name,
-              idNumber: vm.inputFrom.cardNo
+              idCard: vm.inputFrom.idCard,
+              beginDate: vm.inputFrom.beginDate
             }}).then(function (res) {
             if (res.data.code == '200') {
                 console.log('1');
@@ -124,7 +137,8 @@ export default {
         example: false,
         success: true,
         name: '赵雷',
-        idNumber: '320281199606286774'
+        idCard: '320281199606286774',
+        beginDate: '2011-06-28'
       };
     },
     onFail: function () {
@@ -132,7 +146,8 @@ export default {
         example: false,
         success: false,
         name: '赵雷',
-        idNumber: '320281199606286000'
+        idCard: '320281199606286000',
+        beginDate: '2011-06-30'
       };
     }
   }

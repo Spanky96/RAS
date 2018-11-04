@@ -12,7 +12,7 @@
           background-color="#545c64"
           text-color="#fff"
           active-text-color="#ffd04b">
-          <el-menu-item :index="item.index" v-for="(item, index) in menu" :key="index" @click="changeView(index)">{{item.name}}</el-menu-item>
+          <el-menu-item :index="item.index" v-for="(item, index) in menu" :key="index" @click="changeView(item, index)">{{item.name}}</el-menu-item>
         </el-menu>
         <el-dropdown @command="handleDropdownMenuCommand">
           <el-button class="dropdown-btn">
@@ -43,7 +43,7 @@
               </el-submenu>
             </el-menu>
         </el-aside>
-        <el-main :class="{collapse: isCollapse}"><router-view></router-view></el-main>
+        <el-main :class="{collapse: isCollapse}" class="mainbody"><router-view></router-view></el-main>
       </el-container>
     </el-container>
   </div>
@@ -64,9 +64,10 @@
       if (!userInfo) {
         this.$router.push({path: '/login'});
       }
+      // index 为导航插件的必要项，我们同时也把它当作我们的路由path
       var menu = [
         {
-          index: "1",
+          index: "/guide",
           name: '风控向导',
           link: 'guide'
         },
@@ -79,7 +80,7 @@
             index: "2-1",
             subs: [
               {name: '身份证二要素', index: '/personal/identity/idCheck', icon: 'shenfenxinxiyanzheng'},
-              {name: '失效身份证一致性验证', index: "/personal/identity/idCheck", icon: 'Id'},
+              {name: '失效身份证一致性验证', index: "/personal/identity/invalid", icon: 'Id'},
               {name: '银行卡三要素', index: "2-1-3", icon: 'xinyongqia'},
               {name: '银行卡四要素', index: "2-1-4", icon: 'xinyongqia'},
               {name: '开户行查询', index: "2-1-5", icon: 'xinyongqia1'}
@@ -196,8 +197,13 @@
     },
 
     methods: {
-      changeView (menuIndex) {
+      changeView (menuItem, menuIndex) {
         this.currentIndex = menuIndex;
+        if (!menuItem.functions) {
+          // menu 无子菜单
+          this.isCollapse = true;
+          this.$router.push({path: menuItem.index});
+        }
       },
       handleOpen (key, keyPath) {
         console.log(key, keyPath);
@@ -215,6 +221,9 @@
         if (command === 'logout') {
           this.$db.remove('user');
           this.$router.push({path: '/login'});
+        }
+        if (command === 'changePW') {
+          this.$router.push({path: '/resetPassword'});
         }
       }
     }
@@ -288,7 +297,16 @@
   .el-main {
     &.collapse {
       margin-left: -245px;
+      left: 310px;
     }
     margin-left: -50px;
+    left: 301px;
+  }
+  .mainbody {
+    background: url(../assets/imgs/mainbody.png);
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    top: 59px;
   }
 </style>
