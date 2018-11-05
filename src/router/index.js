@@ -6,6 +6,7 @@ import ResetPassword from '@/components/ResetPassword';
 import Guide from '@/components/Guide';
 import PersonalIdentityIdCheck from '@/components/personal/identity/IdCheck';
 import PersonalIdentityInvalid from '@/components/personal/identity/invalid';
+import FaceTest from '@/components/faceTest/FaceTest';
 
 Vue.use(Router);
 export default new Router({
@@ -29,6 +30,11 @@ export default new Router({
           path: 'personal/identity/invalid',
           name: 'PersonalIdentityInvalid',
           component: PersonalIdentityInvalid
+        },
+        {
+          path: '/face-test',
+          name: 'FaceTest',
+          component: FaceTest
         }
       ]
     },
