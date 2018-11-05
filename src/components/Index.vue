@@ -9,9 +9,9 @@
           class="el-menu-demo"
           mode="horizontal"
           @select="handleSelect"
-          background-color="#545c64"
-          text-color="#fff"
-          active-text-color="#ffd04b">
+          background-color="#00142A"
+          text-color="rgba(255, 255, 255, 0.65)"
+          active-text-color="#409eff">
           <el-menu-item :index="item.index" v-for="(item, index) in menu" :key="index" @click="changeView(item, index)">{{item.name}}</el-menu-item>
         </el-menu>
         <el-dropdown @command="handleDropdownMenuCommand">
@@ -26,8 +26,8 @@
       </el-header>
       <el-container>
         <el-aside>
-          <el-menu background-color="#545c64" text-color="#fff"
-            active-text-color="#ffd04b" class="el-menu-vertical-demo"
+          <el-menu background-color="#00142A" text-color="rgba(255, 255, 255, 0.65)"
+            active-text-color="#409eff" class="el-menu-vertical-demo"
             @open="handleOpen" @close="handleClose"
             :collapse="isCollapse">
               <el-submenu :index="func.index" v-for="(func, index) in menu[currentIndex].functions" :key="index">
@@ -43,7 +43,7 @@
               </el-submenu>
             </el-menu>
         </el-aside>
-        <el-main :class="{collapse: isCollapse}" class="mainbody"><router-view></router-view></el-main>
+        <el-main :class="{collapse: isCollapse}" class="mainbody sub-page"><router-view @print="print"></router-view></el-main>
       </el-container>
     </el-container>
   </div>
@@ -225,6 +225,9 @@
         if (command === 'changePW') {
           this.$router.push({path: '/resetPassword'});
         }
+      },
+      print: function (data) {
+        this.$print(document.getElementById(data.dom || 'resultTable'), data.title);
       }
     }
   };
@@ -242,16 +245,21 @@
     bottom: 0;
     overflow-y: auto;
     overflow-x: hidden;
-    border-top: 1px solid #ffd04b;
     i {
-      color: #fff;
       font-size: 18px;
       margin-right: 10px;
     }
   }
+  .el-menu-demo {
+    &.el-menu--horizontal {
+      border-bottom: none;
+    }
+    .el-menu-item.is-active {
+      border-bottom: 4px solid #409EFF;
+    }
+  }
   .el-menu--vertical {
     i {
-      color: #fff;
       font-size: 18px;
       margin-right: 10px;
     }
@@ -259,14 +267,13 @@
   .el-header {
     padding: 0;
     display: flex;
-    background: #545c64;
+    background: #00142A;
     font-size: 24px;
     line-height: 60px;
     text-align: center;
     color: white;
     .toggle-btn {
       width: 60px;
-      border-left: 1px solid #ffd04b;
       cursor: pointer;
       i {
         font-size: 20px;
@@ -274,10 +281,11 @@
       }
     }
     .company-logo {
+      background: #002140;
       width: 251px;
       &.collapse {
         width: 65px;
-        color: #00edff;
+        color: #409eff;
       }
     }
     .el-menu-demo {
@@ -302,7 +310,7 @@
     margin-left: -50px;
     left: 301px;
   }
-  .mainbody {
+  .sub-page {
     background: url(../assets/imgs/mainbody.png);
     position: absolute;
     right: 0;

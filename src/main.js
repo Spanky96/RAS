@@ -13,8 +13,10 @@ import router from './router';
 // 支持$http
 import axios from 'axios';
 import Vum from './vum.js';
+import Print from '@/plugs/print';
 
 Vue.use(ElementUI);
+Vue.use(Print);
 Vue.prototype.$http = axios;
 Vue.config.productionTip = false;
 Vue.prototype.$db = db;

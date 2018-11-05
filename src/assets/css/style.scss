@@ -35,6 +35,10 @@
   border-radius:10px;
 }
 .mainbody {
+  .print-title {
+    margin-bottom: 20px;
+    text-align: center;
+  }
   .el-card__header {
     display: block;
     color: #858585;
@@ -81,6 +85,9 @@
           border: 1px solid hsla(0,0%,72%,.17);
         }
       }
+    }
+    .ext-button {
+      padding: 5px 10px;
     }
   }
 }
