@@ -49,19 +49,13 @@
   </div>
 </template>
 <script>
-  import header from "./Header.vue";
-  import aside from "./Aside.vue";
-
   export default {
     name: "Index",
-    components: {
-      "v-header": header,
-      "v-aside": aside
-    },
+    components: {},
 
     data () {
-      var userInfo = this.$db.getObject('user');
-      if (!userInfo) {
+      var authorization = this.$db.get('authorization');
+      if (!authorization) {
         this.$router.push({path: '/login'});
       }
       // index 为导航插件的必要项，我们同时也把它当作我们的路由path
@@ -81,7 +75,7 @@
             subs: [
               {name: '身份证二要素', index: '/personal/identity/idCheck', icon: 'shenfenxinxiyanzheng'},
               {name: '失效身份证一致性验证', index: "/personal/identity/invalid", icon: 'Id'},
-              {name: '银行卡三要素', index: "2-1-3", icon: 'xinyongqia'},
+              {name: '银行卡三要素', index: "/personal/identity/bankV3", icon: 'xinyongqia'},
               {name: '银行卡四要素', index: "2-1-4", icon: 'xinyongqia'},
               {name: '开户行查询', index: "2-1-5", icon: 'xinyongqia1'}
             ]},
@@ -219,7 +213,7 @@
       },
       handleDropdownMenuCommand (command) {
         if (command === 'logout') {
-          this.$db.remove('user');
+          this.$db.remove('authorization');
           this.$router.push({path: '/login'});
         }
         if (command === 'changePW') {

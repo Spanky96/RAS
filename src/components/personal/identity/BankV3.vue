@@ -2,7 +2,7 @@
   <div>
     <el-card style="margin-bottom:25px">
       <div slot="header" class="clearfix">
-        <span>身份证一致性验证</span>
+        <span>银行卡三要素</span>
       </div>
       <el-form :model="inputFrom" :rules="rules" ref="inputFrom" id="inputForm">
         <el-row>
@@ -54,7 +54,7 @@
 
 <script>
 export default {
-  name: 'PersonalIdentityIdCheck',
+  name: 'BankV3',
   components: {
   },
   data () {

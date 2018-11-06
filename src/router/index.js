@@ -7,6 +7,7 @@ import Guide from '@/components/Guide';
 import PersonalIdentityIdCheck from '@/components/personal/identity/IdCheck';
 import PersonalIdentityInvalid from '@/components/personal/identity/invalid';
 import FaceTest from '@/components/faceTest/FaceTest';
+import BankV3 from '@/components/personal/identity/BankV3';
 
 Vue.use(Router);
 export default new Router({
@@ -35,6 +36,11 @@ export default new Router({
           path: '/face-test',
           name: 'FaceTest',
           component: FaceTest
+        },
+        {
+          path: 'personal/identity/bankV3',
+          name: 'BankV3',
+          component: BankV3
         }
       ]
     },

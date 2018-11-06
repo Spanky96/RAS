@@ -24,7 +24,7 @@
     name: "ResetPassword",
     components: {},
     data () {
-      if (!this.$db.getObject("user")) {
+      if (!this.$db.get('authorization')) {
         this.$router.push({
           path: "/login"
         });

@@ -42,7 +42,7 @@
       <table class="table card-text">
         <tr class="text-left">
           <td width="20%">匹配结果</td>
-          <td><el-tag :type="result.success ? 'success': 'danger'" class="tag">{{result.success ? '一致': '不一致'}}</el-tag></td>
+          <td><el-tag :type="resultsuccess.logo" class="tag">{{resultsuccess.name}}</el-tag></td>
         </tr>
         <tr class="text-left">
           <td>姓名</td>
@@ -58,9 +58,6 @@
         </tr>
       </table>
     </el-card>
-    <!--TODO 接口实现后删除 主要用是用来告知如何处理result对象 -->
-    <el-button type="primary" @click="onSuccess" round size="small">测试成功按钮</el-button>
-    <el-button type="primary" @click="onFail" round size="small">测试失败按钮</el-button>
   </div>
 </template>
 
@@ -92,7 +89,7 @@ export default {
       },
       result: {
         example: true,
-        success: true,
+        resultType: 'SAME',
         name: '赵雷',
         idCard: '320281199606286774',
         beginDate: '2011-06-28'
@@ -110,17 +107,25 @@ export default {
             spinner: 'el-icon-loading',
             background: 'rgba(0, 0, 0, 0.2)'
           });
-          var userInfo = vm.$db.getObject('user');
-          vm.$http.get('api/ripcredit/idCardElements/result', {
+          // var userInfo = vm.$db.getObject('user');
+          vm.$http.get('api/rip/invalidIDConsistency', {
             params: {
-              username: userInfo.username,
-              accessToken: userInfo.accessToken,
               name: vm.inputFrom.name,
               idCard: vm.inputFrom.idCard,
               beginDate: vm.inputFrom.beginDate
-            }}).then(function (res) {
-            if (res.data.code == '200') {
-                console.log('1');
+            },
+            headers: {
+              authorization: vm.$db.get('authorization')
+            }
+            }).then(function (res) {
+            if (res.data.success && res.data.data) {
+                  vm.result = {
+                    example: false,
+                    resultType: res.data.data.compareStatus,
+                    name: res.data.data.name,
+                    idCard: res.data.data.identityCard,
+                    beginDate: res.data.data.beginDate
+                    };
             } else {
               vm.$message({
                 showClose: true,
@@ -133,25 +138,19 @@ export default {
           });
         }
       });
-    },
-    // TODO 接口实现后删除 主要用是用来告知如何处理result对象
-    onSuccess: function () {
-      this.result = {
-        example: false,
-        success: true,
-        name: '赵雷',
-        idCard: '320281199606286774',
-        beginDate: '2011-06-28'
-      };
-    },
-    onFail: function () {
-      this.result = {
-        example: false,
-        success: false,
-        name: '赵雷',
-        idCard: '320281199606286000',
-        beginDate: '2011-06-30'
-      };
+    }
+  },
+  computed: {
+    resultsuccess: function () {
+      if (this.result.resultType == 'SAME') {
+        return {name: '一致', logo: 'success'};
+      }
+      if (this.result.resultType == 'DIFFERENT') {
+        return {name: '不一致', logo: 'danger'};
+      }
+      if (this.result.resultType == 'NO_DATA') {
+       return {name: '无数据', logo: 'info'};
+      }
     }
   }
 };

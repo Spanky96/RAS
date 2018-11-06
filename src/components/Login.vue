@@ -53,10 +53,9 @@
     name: 'Login',
     components: {},
     data () {
-      if (this.$db.getObject('user')) {
+      if (this.$db.get('authorization')) {
         this.$router.push({path: '/'});
       }
-
       // 生成验证码
       var validateCode = parseInt(Math.random() * 10000);
       validateCode < 1000 && (validateCode += 1000);
@@ -73,8 +72,8 @@
       };
       return {
         loginForm: {
-          username: 'qwerty',
-          password: '654321',
+          username: '',
+          password: '',
           validateCode: validateCode
         },
         validateCode: validateCode,
@@ -91,21 +90,22 @@
         var vm = this;
         vm.$refs['loginForm'].validate((valid) => {
           if (valid) {
-            // 调用接口验证账号密码
-            if (vm.loginForm.password == "123456") {
-              // 成功
-              // 存储用户登录信息 以及接口中获取的accessToken
-              vm.$db.set('user', {username: vm.loginForm.username, accessToken: '123456'});
-              // 跳转到主页
-              vm.$router.push('/');
-            } else {
-              // 失败
-              vm.loginForm.password = '';
-              vm.$message({
-                message: '账号或密码不正确',
-                type: 'error'
-              });
-            }
+            vm.$http.get('api/login', {
+              params: {
+                username: vm.loginForm.username,
+                password: vm.loginForm.password
+              }}).then(function (res) {
+              if (res.data.code == '1') {
+                vm.$db.set('authorization', res.data.authorization);
+                vm.$router.push({path: '/'});
+              } else {
+                vm.loginForm.password = '';
+                vm.$message({
+                  message: res.data.message,
+                  type: 'error'
+                });
+              }
+            });
           }
         });
       }
