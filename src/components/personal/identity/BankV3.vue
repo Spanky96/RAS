@@ -16,6 +16,11 @@
               <el-input v-model="inputFrom.cardNo"></el-input>
             </el-form-item>
           </el-col>
+          <el-col :span="10">
+            <el-form-item label="银行卡号" label-width="0" prop="bankCardNo" class="form-item">
+              <el-input v-model="inputFrom.bankCardNo"></el-input>
+            </el-form-item>
+          </el-col>
         </el-row>
         <el-row type="flex" justify="end">
           <el-col :span="4">
@@ -67,19 +72,30 @@ export default {
         callback(new Error('请输入合法的身份证号'));
       }
     };
+    var bankCardValidator = (rule, value, callback) => {
+      if (value == '') {
+        callback(new Error('请输入银行卡号'));
+      } else if (/^\d{16}|\d{19}$/.test(value)) {
+        callback();
+      } else {
+        callback(new Error('请输入合法的银行卡号'));
+      }
+    };
     return {
       inputFrom: {
         name: '',
-        cardNo: ''
+        cardNo: '',
+        bankCardNo: ''
       },
       rules: {
         name: [{ required: true, message: '请输入姓名', trigger: 'blur' }],
-        cardNo: [{ validator: idCardValidator, trigger: 'blur' }]
+        cardNo: [{ validator: idCardValidator, trigger: 'blur' }],
+        bankCardNo: [{ validator: bankCardValidator, trigger: 'blur' }]
       },
       result: {
         example: true,
         success: true,
-        name: '赵雷',
+        name: '赵1雷',
         idNumber: '320281199606286770'
       }
     };
@@ -95,10 +111,11 @@ export default {
             spinner: 'el-icon-loading',
             background: 'rgba(0, 0, 0, 0.2)'
           });
-          vm.$http.get('api/rip/idCardElements', {
+          vm.$http.get('api/rip/threeElementsOfBankCard', {
             params: {
               name: vm.inputFrom.name,
-              idNumber: vm.inputFrom.cardNo
+              idNumber: vm.inputFrom.cardNo,
+              bankCard: vm.inputFrom.bankCardNo
             },
             headers: {
               authorization: vm.$db.get('authorization')
