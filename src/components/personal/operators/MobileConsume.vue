@@ -73,21 +73,12 @@ export default {
   components: {
   },
   data () {
-    var mobileValidator = (rule, value, callback) => {
-      if (value == '') {
-        callback(new Error('请输入手机号码'));
-      } else if (/^1[34578]\d{9}$/.test(value)) {
-        callback();
-      } else {
-        callback(new Error('请输入正确的手机号码'));
-      }
-    };
     return {
       inputFrom: {
         mobile: ''
       },
       rules: {
-        mobile: [{ validator: mobileValidator, trigger: 'blur' }]
+        mobile: [{ validator: this.$validator.mobileValidator, trigger: 'blur' }]
       },
       result: {
         example: true,

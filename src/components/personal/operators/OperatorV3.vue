@@ -71,24 +71,6 @@ export default {
   components: {
   },
   data () {
-    var mobileValidator = (rule, value, callback) => {
-      if (value == '') {
-        callback(new Error('请输入手机号码'));
-      } else if (/^1[34578]\d{9}$/.test(value)) {
-        callback();
-      } else {
-        callback(new Error('请输入正确的手机号码'));
-      }
-    };
-    var idCardValidator = (rule, value, callback) => {
-      if (value == '') {
-        callback(new Error('请输入身份证号'));
-      } else if (/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/.test(value)) {
-        callback();
-      } else {
-        callback(new Error('请输入合法的身份证号'));
-      }
-    };
     return {
       inputFrom: {
         name: '',
@@ -97,8 +79,8 @@ export default {
       },
       rules: {
         name: [{ required: true, message: '请输入姓名', trigger: 'blur' }],
-        mobile: [{ validator: mobileValidator, trigger: 'blur' }],
-        cardNo: [{ validator: idCardValidator, trigger: 'blur' }]
+        mobile: [{ validator: this.$validator.mobileValidator, trigger: 'blur' }],
+        cardNo: [{ validator: this.$validator.idCardValidator, trigger: 'blur' }]
       },
       result: {
         example: true,
