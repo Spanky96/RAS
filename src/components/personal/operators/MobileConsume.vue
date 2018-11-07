@@ -98,7 +98,7 @@ export default {
         operator: '电信',
         gradeCode: 'CTC04',
         gradeDesc: '(100,200]',
-        status: 'EXIST'
+        status: '数据存在'
 
       }
     };
@@ -124,6 +124,7 @@ export default {
             }
             }).then(function (res) {
             if (res.data.success && res.data.data) {
+              if (res.data.data.status == 'EXIST') {
                 vm.result = {
                     example: false,
                     resultType: '0000',
@@ -133,8 +134,21 @@ export default {
                     operator: res.data.data.operator,
                     gradeCode: res.data.data.gradeCode,
                     gradeDesc: res.data.data.gradeDesc,
-                    status: res.data.data.status
+                    status: '数据存在'
                     };
+              } else if (res.data.data.status == 'NO_DATA') {
+                vm.result = {
+                    example: false,
+                    resultType: '0000',
+                    mobile: vm.inputFrom.mobile,
+                    province: res.data.data.province,
+                    city: res.data.data.city,
+                    operator: res.data.data.operator,
+                    gradeCode: res.data.data.gradeCode,
+                    gradeDesc: res.data.data.gradeDesc,
+                    status: '无数据'
+                    };
+              }
             } else {
               vm.$message({
                 showClose: true,

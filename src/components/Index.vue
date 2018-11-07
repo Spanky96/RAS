@@ -93,13 +93,13 @@
             index: "2-3",
             icon: 'risk',
             subs: [
-              {name: '不良信息排查', index: "2-3-1", icon: 'fengxianfenxi'},
-              {name: '个人负面排查', index: "2-3-2", icon: 'fengxianzhongxin'},
-              {name: '个人黑名单综合', index: "2-3-4", icon: 'chakantiezigengduoheimingdan'},
-              {name: '个人涉诉-A', index: "2-3-4", icon: 'renzhengshenhe'},
-              {name: '多重借贷', index: "2-3-5", icon: 'duotoujiedai--'},
-              {name: '个人信用认证', index: "2-3-6", icon: 'hetongpingshen'},
-              {name: '失信联系人', index: "2-3-7", icon: '2shenfenzhenghaoma'}
+              {name: '不良信息排查', index: "/personal/riskTips/negativeInfo", icon: 'fengxianfenxi'},
+              {name: '个人负面排查', index: "/personal/riskTips/personalNegativeInfo", icon: 'fengxianzhongxin'},
+              {name: '个人黑名单综合', index: "/personal/riskTips/personalRiskInfo", icon: 'chakantiezigengduoheimingdan'},
+              {name: '个人涉诉-A', index: "/personal/riskTips/personalLawsuitA", icon: 'renzhengshenhe'},
+              {name: '多重借贷', index: "/personal/riskTips/multipleLoan", icon: 'duotoujiedai--'},
+              {name: '个人信用认证', index: "/personal/riskTips/individualCredit", icon: 'hetongpingshen'},
+              {name: '失信执行', index: "/2-3-7", icon: '2shenfenzhenghaoma'}
             ]},
             {name: '交易信用信息',
             index: "2-4",

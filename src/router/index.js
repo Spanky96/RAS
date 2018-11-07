@@ -17,6 +17,13 @@ import InNetTime from '@/components/personal/operators/InNetTime';
 import InNetStatus from '@/components/personal/operators/InNetStatus';
 import MobileConsume from '@/components/personal/operators/MobileConsume';
 
+import NegativeInfo from '@/components/personal/riskTips/NegativeInfo';
+import PersonalNegativeInfo from '@/components/personal/riskTips/PersonalNegativeInfo';
+import PersonalRiskInfo from '@/components/personal/riskTips/PersonalRiskInfo';
+import PersonalLawsuitA from '@/components/personal/riskTips/PersonalLawsuitA';
+import MultipleLoan from '@/components/personal/riskTips/MultipleLoan';
+import IndividualCredit from '@/components/personal/riskTips/IndividualCredit';
+
 Vue.use(Router);
 export default new Router({
   routes: [
@@ -84,6 +91,36 @@ export default new Router({
           path: 'personal/operators/mobileConsume',
           name: 'MobileConsume',
           component: MobileConsume
+        },
+        {
+          path: 'personal/riskTips/negativeInfo',
+          name: 'NegativeInfo',
+          component: NegativeInfo
+        },
+        {
+          path: 'personal/riskTips/personalNegativeInfo',
+          name: 'PersonalNegativeInfo',
+          component: PersonalNegativeInfo
+        },
+        {
+          path: 'personal/riskTips/personalRiskInfo',
+          name: 'PersonalRiskInfo',
+          component: PersonalRiskInfo
+        },
+        {
+          path: 'personal/riskTips/personalLawsuitA',
+          name: 'PersonalLawsuitA',
+          component: PersonalLawsuitA
+        },
+        {
+          path: 'personal/riskTips/multipleLoan',
+          name: 'MultipleLoan',
+          component: MultipleLoan
+        },
+        {
+          path: 'personal/riskTips/individualCredit',
+          name: 'IndividualCredit',
+          component: IndividualCredit
         }
       ]
     },
