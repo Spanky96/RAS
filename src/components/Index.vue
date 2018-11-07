@@ -76,18 +76,18 @@
               {name: '身份证二要素', index: '/personal/identity/idCheck', icon: 'shenfenxinxiyanzheng'},
               {name: '失效身份证一致性验证', index: "/personal/identity/invalid", icon: 'Id'},
               {name: '银行卡三要素', index: "/personal/identity/bankV3", icon: 'xinyongqia'},
-              {name: '银行卡四要素', index: "2-1-4", icon: 'xinyongqia'},
-              {name: '开户行查询', index: "2-1-5", icon: 'xinyongqia1'}
+              {name: '银行卡四要素', index: "/personal/identity/bankV4", icon: 'xinyongqia'},
+              {name: '开户行查询', index: "/personal/identity/baseBank", icon: 'xinyongqia1'}
             ]},
             {name: '运营商验证',
             icon: 'yunyingshang',
             index: "2-2",
             subs: [
-              {name: '运营商二要素认证', index: "2-2-1", icon: 'yunyingshang-xuanzhong'},
-              {name: '运营商三要素认证', index: "2-2-2", icon: 'yunyingshang-xuanzhong'},
-              {name: '运营商在网时长', index: "2-2-3", icon: 'iconfonticon-jianko'},
-              {name: '运营商状态', index: "2-2-4", icon: 'iconfonticon-baobia'},
-              {name: '运营商消费等级', index: "2-2-5", icon: 'jilu1'}
+              {name: '运营商二要素认证', index: "/personal/operators/operatorV2", icon: 'yunyingshang-xuanzhong'},
+              {name: '运营商三要素认证', index: "/personal/operators/operatorV3", icon: 'yunyingshang-xuanzhong'},
+              {name: '手机在网时长', index: "/personal/operators/inNetTime", icon: 'iconfonticon-jianko'},
+              {name: '手机在网状态', index: "/personal/operators/inNetStatus", icon: 'iconfonticon-baobia'},
+              {name: '手机消费档次', index: "/personal/operators/mobileConsume", icon: 'jilu1'}
             ]},
             {name: '风险提示',
             index: "2-3",
