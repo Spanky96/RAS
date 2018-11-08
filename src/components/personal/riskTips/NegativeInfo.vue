@@ -130,15 +130,6 @@ export default {
   components: {
   },
   data () {
-    var idCardValidator = (rule, value, callback) => {
-      if (value == '') {
-        callback(new Error('请输入身份证号'));
-      } else if (/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/.test(value)) {
-        callback();
-      } else {
-        callback(new Error('请输入合法的身份证号'));
-      }
-    };
     return {
       inputFrom: {
         name: '',
@@ -150,7 +141,11 @@ export default {
       },
       rules: {
         name: [{ required: true, message: '请输入姓名', trigger: 'blur' }],
-        idCard: [{ validator: idCardValidator, trigger: 'blur' }]
+        idCard: [{ validator: this.$validator.idCardValidator, trigger: 'blur' }],
+        escape: [{ required: true, message: '请选择' }],
+        crime: [{ required: true, message: '请选择' }],
+        drug: [{ required: true, message: '请选择' }],
+        drugRelated: [{ required: true, message: '请选择' }]
       },
       result: {
         example: true,
@@ -183,11 +178,8 @@ export default {
             spinner: 'el-icon-loading',
             background: 'rgba(0, 0, 0, 0.2)'
           });
-          // var userInfo = vm.$db.getObject('user');
           vm.$http.get('api/rip/mobileConsumptionLevel', {
-            params: {
-              mobile: vm.inputFrom.mobile
-            },
+            params: vm.inputFrom,
             headers: {
               authorization: vm.$db.get('authorization')
             }
@@ -195,28 +187,28 @@ export default {
             if (res.data.success && res.data.data) {
               if (res.data.data.status == 'EXIST') {
                 vm.result = {
-                    example: false,
-                    resultType: '0000',
-                    mobile: vm.inputFrom.mobile,
-                    province: res.data.data.province,
-                    city: res.data.data.city,
-                    operator: res.data.data.operator,
-                    gradeCode: res.data.data.gradeCode,
-                    gradeDesc: res.data.data.gradeDesc,
-                    status: '数据存在'
-                    };
+                  example: false,
+                  resultType: '0000',
+                  mobile: vm.inputFrom.mobile,
+                  province: res.data.data.province,
+                  city: res.data.data.city,
+                  operator: res.data.data.operator,
+                  gradeCode: res.data.data.gradeCode,
+                  gradeDesc: res.data.data.gradeDesc,
+                  status: '数据存在'
+                };
               } else if (res.data.data.status == 'NO_DATA') {
                 vm.result = {
-                    example: false,
-                    resultType: '0000',
-                    mobile: vm.inputFrom.mobile,
-                    province: res.data.data.province,
-                    city: res.data.data.city,
-                    operator: res.data.data.operator,
-                    gradeCode: res.data.data.gradeCode,
-                    gradeDesc: res.data.data.gradeDesc,
-                    status: '无数据'
-                    };
+                  example: false,
+                  resultType: '0000',
+                  mobile: vm.inputFrom.mobile,
+                  province: res.data.data.province,
+                  city: res.data.data.city,
+                  operator: res.data.data.operator,
+                  gradeCode: res.data.data.gradeCode,
+                  gradeDesc: res.data.data.gradeDesc,
+                  status: '无数据'
+                };
               }
             } else {
               vm.$message({
@@ -242,28 +234,6 @@ export default {
       }
       if (this.result.resultType == '3') {
        return {name: '无数据', logo: 'info'};
-      }
-    },
-    result: function () {
-      if (this.result.escape == 'true') {
-        return {name: '是'};
-      } else {
-        return {name: '否'};
-      }
-      if (this.result.crime == 'true') {
-        return {name: '是'};
-      } else {
-        return {name: '否'};
-      }
-      if (this.result.drug == 'true') {
-        return {name: '是'};
-      } else {
-        return {name: '否'};
-      }
-      if (this.result.drugRelated == 'true') {
-        return {name: '是'};
-      } else {
-        return {name: '否'};
       }
     }
   }
