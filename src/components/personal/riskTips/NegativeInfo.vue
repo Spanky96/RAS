@@ -61,7 +61,7 @@
       <table class="table card-text">
         <tr class="text-left">
           <td width="20%">查询结果</td>
-          <td><el-tag :type="resultsuccess.logo" class="tag">{{resultsuccess.name}}</el-tag></td>
+          <td><el-tag :type="result.resultType | resultLogoFmt" class="tag">{{result.resultType | resultSuccessFmt}}</el-tag></td>
         </tr>
         <tr class="text-left">
           <td>姓名</td>
@@ -73,35 +73,35 @@
         </tr>
         <tr class="text-left">
           <td>是否在逃</td>
-          <td>{{result.escape}}</td>
+          <td>{{result.escape | isOrNoFmt}}</td>
         </tr>
         <tr class="text-left">
           <td>是否有前科</td>
-          <td>{{result.crime}}</td>
+          <td>{{result.crime | isOrNoFmt}}</td>
         </tr>
         <tr class="text-left">
           <td>是否吸毒</td>
-          <td>{{result.drug}}</td>
+          <td>{{result.drug | isOrNoFmt}}</td>
         </tr>
         <tr class="text-left">
           <td>是否涉毒</td>
-          <td>{{result.drugRelated}}</td>
+          <td>{{result.drugRelated | isOrNoFmt}}</td>
         </tr>
         <tr class="text-right">
           <td>在逃比对结果</td>
-          <td>{{result.escapeCompared}}</td>
+          <td>{{result.escapeCompared | isConsistentFmt}}</td>
         </tr>
         <tr class="text-left">
           <td>前科比对结果</td>
-          <td>{{result.crimeCompared}}</td>
+          <td>{{result.crimeCompared | isConsistentFmt}}</td>
         </tr>
         <tr class="text-left">
           <td>吸毒比对结果</td>
-          <td>{{result.drugCompared}}</td>
+          <td>{{result.drugCompared | isConsistentFmt}}</td>
         </tr>
         <tr class="text-left">
           <td>涉毒比对结果</td>
-          <td>{{result.drugRelatedCompared}}</td>
+          <td>{{result.drugRelatedCompared | isConsistentFmt}}</td>
         </tr>
         <tr class="text-left">
           <td>前科事件数量</td>
@@ -152,14 +152,14 @@ export default {
         resultType: '0000',
         name: '吴磊',
         idCard: '320281199606286770',
-        escape: '是',
-        crime: '是',
-        drug: '是',
-        drugRelated: '是',
-        escapeCompared: '不一致',
-        crimeCompared: '一致',
-        drugCompared: '不一致',
-        drugRelatedCompared: '不一致',
+        escape: true,
+        crime: true,
+        drug: false,
+        drugRelated: false,
+        escapeCompared: true,
+        crimeCompared: true,
+        drugCompared: false,
+        drugRelatedCompared: false,
         checkCount: '2',
         caseTime: '[15,20）',
         caseType: '侵犯人身权利案',
@@ -222,19 +222,6 @@ export default {
           });
         }
       });
-    }
-  },
-  computed: {
-    resultsuccess: function () {
-      if (this.result.resultType == '0000') {
-        return {name: '成功', logo: 'success'};
-      }
-      if (this.result.resultType == '9998') {
-        return {name: '失败', logo: 'danger'};
-      }
-      if (this.result.resultType == '3') {
-       return {name: '无数据', logo: 'info'};
-      }
     }
   }
 };

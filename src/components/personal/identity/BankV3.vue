@@ -42,7 +42,7 @@
       <table class="table card-text">
         <tr class="text-left">
           <td width="20%">匹配结果</td>
-          <td><el-tag :type="result.success ? 'success': 'danger'" class="tag">{{result.success ? '一致': '不一致'}}</el-tag></td>
+          <td><el-tag :type="result.success | isSuccessLogoFmt" class="tag">{{result.success | isConsistentFmt}}</el-tag></td>
         </tr>
         <tr class="text-left">
           <td>姓名</td>

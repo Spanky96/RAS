@@ -32,7 +32,7 @@
       <table class="table card-text">
         <tr class="text-left">
           <td width="20%">匹配结果</td>
-          <td><el-tag :type="result.success ? 'success': 'danger'" class="tag">{{result.success ? '成功': '失败'}}</el-tag></td>
+          <td><el-tag :type="result.success | isSuccessLogoFmt" class="tag">{{result.success | isSuccessFmt}}</el-tag></td>
         </tr>
         <tr class="text-left">
           <td>银行卡号</td>

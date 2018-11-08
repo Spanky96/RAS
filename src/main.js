@@ -15,6 +15,8 @@ import axios from 'axios';
 import Vum from './vum.js';
 import Print from '@/plugs/print';
 import validator from './validator';
+import filters from './filters';
+
 Vue.use(ElementUI);
 Vue.use(Print);
 Vue.prototype.$http = axios;
@@ -24,6 +26,9 @@ Vue.prototype.$validator = validator;
 axios.defaults.withCredentials = true;
 Vue.use(Vum);
 
+for (let key in filters) {
+  Vue.filter(key, filters[key]);
+}
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

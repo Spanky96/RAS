@@ -32,7 +32,7 @@
       <table class="table card-text">
         <tr class="text-left">
           <td width="20%">查询结果</td>
-          <td><el-tag :type="resultsuccess.logo" class="tag">{{resultsuccess.name}}</el-tag></td>
+          <td><el-tag :type="result.resultType | resultLogoFmt" class="tag">{{result.resultType | resultSuccessFmt}}</el-tag></td>
         </tr>
         <tr class="text-left">
           <td>手机号码</td>
@@ -116,19 +116,6 @@ export default {
           });
         }
       });
-    }
-  },
-  computed: {
-    resultsuccess: function () {
-      if (this.result.resultType == '0000') {
-        return {name: '成功', logo: 'success'};
-      }
-      if (this.result.resultType == '9998') {
-        return {name: '失败', logo: 'danger'};
-      }
-      if (this.result.resultType == '3') {
-       return {name: '无数据', logo: 'info'};
-      }
     }
   }
 };

@@ -42,7 +42,7 @@
       <table class="table card-text">
         <tr class="text-left">
           <td width="20%">匹配结果</td>
-          <td><el-tag :type="resultsuccess.logo" class="tag">{{resultsuccess.name}}</el-tag></td>
+          <td><el-tag :type="resultSuccess.logo" class="tag">{{resultSuccess.name}}</el-tag></td>
         </tr>
         <tr class="text-left">
           <td>姓名</td>
@@ -132,7 +132,7 @@ export default {
     }
   },
   computed: {
-    resultsuccess: function () {
+    resultSuccess: function () {
       if (this.result.resultType == 'SAME') {
         return {name: '一致', logo: 'success'};
       }
