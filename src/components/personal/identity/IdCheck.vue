@@ -58,15 +58,6 @@ export default {
   components: {
   },
   data () {
-    var idCardValidator = (rule, value, callback) => {
-      if (value == '') {
-        callback(new Error('请输入身份证号'));
-      } else if (/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/.test(value)) {
-        callback();
-      } else {
-        callback(new Error('请输入合法的身份证号'));
-      }
-    };
     return {
       inputFrom: {
         name: '',
@@ -74,7 +65,7 @@ export default {
       },
       rules: {
         name: [{ required: true, message: '请输入姓名', trigger: 'blur' }],
-        cardNo: [{ validator: idCardValidator, trigger: 'blur' }]
+        cardNo: [{ validator: this.$validator.idCardValidator, trigger: 'blur' }]
       },
       result: {
         example: true,
