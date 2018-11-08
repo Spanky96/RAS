@@ -40,15 +40,15 @@ module.exports = {
 
     cssSourceMap: true,
 
-    proxyTable: { 
-      '/api': { 
-        target: 'http://132.232.90.132:8081/', //源地址 
-        changeOrigin: true, //改变源 
-        pathRewrite: { 
-          '^/api': 'http://132.232.90.132:8081/customer/api/' //路径重写 
-          } 
-      } 
-    }
+    // proxyTable: { 
+    //   '/api': { 
+    //     target: 'http://132.232.90.132:8081/', //源地址 
+    //     changeOrigin: true, //改变源 
+    //     pathRewrite: { 
+    //       '^/api': 'http://132.232.90.132:8081/customer/api/' //路径重写 
+    //       } 
+    //   } 
+    // }
   },
 
   build: {

@@ -90,7 +90,7 @@
         var vm = this;
         vm.$refs['loginForm'].validate((valid) => {
           if (valid) {
-            vm.$http.get('api/login', {
+            vm.$http.get('http://132.232.90.132:8081/customer/api/login', {
               params: {
                 username: vm.loginForm.username,
                 password: vm.loginForm.password
