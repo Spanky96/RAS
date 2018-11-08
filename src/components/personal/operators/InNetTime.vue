@@ -2,27 +2,17 @@
   <div>
     <el-card style="margin-bottom:25px">
       <div slot="header" class="clearfix">
-        <span>失效身份证一致性验证</span>
+        <span>手机在网时长认证</span>
       </div>
       <el-form :model="inputFrom" :rules="rules" ref="inputFrom" id="inputForm">
         <el-row>
-          <el-col :span="10">
-            <el-form-item label="姓名" label-width="0" prop="name" class="form-item">
-              <el-input v-model="inputFrom.name"></el-input>
+         <el-col :span="10">
+            <el-form-item label="手机号码" label-width="0" prop="mobile" class="form-item">
+              <el-input v-model="inputFrom.mobile"></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="10">
-            <el-form-item label="身份证号码" label-width="0" prop="idCard" class="form-item">
-              <el-input v-model="inputFrom.idCard"></el-input>
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <el-row type="flex" justify="space-between" align="bottom">
-          <el-col :span="10">
-            <el-form-item label="有效期起始日期" label-width="0" prop="beginDate" class="form-item">
-              <el-date-picker type="date" v-model="inputFrom.beginDate"></el-date-picker>
-            </el-form-item>
-          </el-col>
+          </el-row>
+        <el-row type="flex" justify="end">
           <el-col :span="4">
             <el-form-item>
               <el-button type="primary" @click="onSubmit" round size="small">执行查询</el-button>
@@ -41,20 +31,16 @@
       </div>
       <table class="table card-text">
         <tr class="text-left">
-          <td width="20%">匹配结果</td>
+          <td width="20%">查询结果</td>
           <td><el-tag :type="resultsuccess.logo" class="tag">{{resultsuccess.name}}</el-tag></td>
         </tr>
         <tr class="text-left">
-          <td>姓名</td>
-          <td>{{result.name}}</td>
+          <td>手机号码</td>
+          <td>{{result.mobile}}</td>
         </tr>
         <tr class="text-left">
-          <td>身份证号码</td>
-          <td>{{result.idCard}}</td>
-        </tr>
-        <tr class="text-left">
-          <td>有效期起始日期</td>
-          <td>{{result.beginDate}}</td>
+          <td>手机在网时长</td>
+          <td>{{result.inNetTime}}</td>
         </tr>
       </table>
     </el-card>
@@ -63,27 +49,22 @@
 
 <script>
 export default {
-  name: 'PersonalIdentityInvalid',
+  name: 'InNetTime',
   components: {
   },
   data () {
     return {
       inputFrom: {
-        name: '',
-        idCard: '',
-        beginDate: ''
+        mobile: ''
       },
       rules: {
-        name: [{ required: true, message: '请输入姓名', trigger: 'blur' }],
-        idCard: [{ validator: this.$validator.idCardValidator, trigger: 'blur' }],
-        beginDate: [{ required: true, message: '你选择起始日期', trigger: 'blur' }]
+        mobile: [{ validator: this.$validator.mobileValidator, trigger: 'blur' }]
       },
       result: {
         example: true,
-        resultType: 'SAME',
-        name: '赵雷',
-        idCard: '320281199606286774',
-        beginDate: '2011-06-28'
+        resultType: '0000',
+        mobile: '13653576763',
+        inNetTime: ' 0 到 6 个月'
       }
     };
   },
@@ -99,28 +80,34 @@ export default {
             background: 'rgba(0, 0, 0, 0.2)'
           });
           // var userInfo = vm.$db.getObject('user');
-          vm.$http.get('api/rip/invalidIDConsistency', {
+          vm.$http.get('api/rip/inTheNetworkTime', {
             params: {
-              name: vm.inputFrom.name,
-              idCard: vm.inputFrom.idCard,
-              beginDate: vm.inputFrom.beginDate
+              mobile: vm.inputFrom.mobile
             },
             headers: {
               authorization: vm.$db.get('authorization')
             }
             }).then(function (res) {
-            if (res.data.success && res.data.data) {
-                  vm.result = {
+            if (res.data.code == '200' && res.data.data) {
+              if (res.data.data.OUTPUT1 == '(0,6)') {
+                vm.result = {
                     example: false,
-                    resultType: res.data.data.compareStatus,
-                    name: res.data.data.name,
-                    idCard: res.data.data.identityCard,
-                    beginDate: res.data.data.beginDate
+                    resultType: '0000',
+                    mobile: vm.inputFrom.mobile,
+                    inNetTime: ' 0 到 6 个月'
                     };
+              } else if (res.data.data.OUTPUT1 == '(24,+)') {
+                vm.result = {
+                    example: false,
+                    resultType: '0000',
+                    mobile: vm.inputFrom.mobile,
+                    inNetTime: '24 个月以上 '
+                    };
+              }
             } else {
               vm.$message({
                 showClose: true,
-                message: res.data.errorDesc,
+                message: res.data.message,
                 type: 'error',
                 duration: '5000'
               });
@@ -133,13 +120,13 @@ export default {
   },
   computed: {
     resultsuccess: function () {
-      if (this.result.resultType == 'SAME') {
-        return {name: '一致', logo: 'success'};
+      if (this.result.resultType == '0000') {
+        return {name: '成功', logo: 'success'};
       }
-      if (this.result.resultType == 'DIFFERENT') {
-        return {name: '不一致', logo: 'danger'};
+      if (this.result.resultType == '9998') {
+        return {name: '失败', logo: 'danger'};
       }
-      if (this.result.resultType == 'NO_DATA') {
+      if (this.result.resultType == '3') {
        return {name: '无数据', logo: 'info'};
       }
     }

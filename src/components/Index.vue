@@ -49,19 +49,13 @@
   </div>
 </template>
 <script>
-  import header from "./Header.vue";
-  import aside from "./Aside.vue";
-
   export default {
     name: "Index",
-    components: {
-      "v-header": header,
-      "v-aside": aside
-    },
+    components: {},
 
     data () {
-      var userInfo = this.$db.getObject('user');
-      if (!userInfo) {
+      var authorization = this.$db.get('authorization');
+      if (!authorization) {
         this.$router.push({path: '/login'});
       }
       // index 为导航插件的必要项，我们同时也把它当作我们的路由path
@@ -81,31 +75,31 @@
             subs: [
               {name: '身份证二要素', index: '/personal/identity/idCheck', icon: 'shenfenxinxiyanzheng'},
               {name: '失效身份证一致性验证', index: "/personal/identity/invalid", icon: 'Id'},
-              {name: '银行卡三要素', index: "2-1-3", icon: 'xinyongqia'},
-              {name: '银行卡四要素', index: "2-1-4", icon: 'xinyongqia'},
-              {name: '开户行查询', index: "2-1-5", icon: 'xinyongqia1'}
+              {name: '银行卡三要素', index: "/personal/identity/bankV3", icon: 'xinyongqia'},
+              {name: '银行卡四要素', index: "/personal/identity/bankV4", icon: 'xinyongqia'},
+              {name: '开户行查询', index: "/personal/identity/baseBank", icon: 'xinyongqia1'}
             ]},
             {name: '运营商验证',
             icon: 'yunyingshang',
             index: "2-2",
             subs: [
-              {name: '运营商二要素认证', index: "2-2-1", icon: 'yunyingshang-xuanzhong'},
-              {name: '运营商三要素认证', index: "2-2-2", icon: 'yunyingshang-xuanzhong'},
-              {name: '运营商在网时长', index: "2-2-3", icon: 'iconfonticon-jianko'},
-              {name: '运营商状态', index: "2-2-4", icon: 'iconfonticon-baobia'},
-              {name: '运营商消费等级', index: "2-2-5", icon: 'jilu1'}
+              {name: '运营商二要素认证', index: "/personal/operators/operatorV2", icon: 'yunyingshang-xuanzhong'},
+              {name: '运营商三要素认证', index: "/personal/operators/operatorV3", icon: 'yunyingshang-xuanzhong'},
+              {name: '手机在网时长', index: "/personal/operators/inNetTime", icon: 'iconfonticon-jianko'},
+              {name: '手机在网状态', index: "/personal/operators/inNetStatus", icon: 'iconfonticon-baobia'},
+              {name: '手机消费档次', index: "/personal/operators/mobileConsume", icon: 'jilu1'}
             ]},
             {name: '风险提示',
             index: "2-3",
             icon: 'risk',
             subs: [
-              {name: '不良信息排查', index: "2-3-1", icon: 'fengxianfenxi'},
-              {name: '个人负面排查', index: "2-3-2", icon: 'fengxianzhongxin'},
-              {name: '个人黑名单综合', index: "2-3-4", icon: 'chakantiezigengduoheimingdan'},
-              {name: '个人涉诉-A', index: "2-3-4", icon: 'renzhengshenhe'},
-              {name: '多重借贷', index: "2-3-5", icon: 'duotoujiedai--'},
-              {name: '个人信用认证', index: "2-3-6", icon: 'hetongpingshen'},
-              {name: '失信联系人', index: "2-3-7", icon: '2shenfenzhenghaoma'}
+              {name: '不良信息排查', index: "/personal/riskTips/negativeInfo", icon: 'fengxianfenxi'},
+              {name: '个人负面排查', index: "/personal/riskTips/personalNegativeInfo", icon: 'fengxianzhongxin'},
+              {name: '个人黑名单综合', index: "/personal/riskTips/personalRiskInfo", icon: 'chakantiezigengduoheimingdan'},
+              {name: '个人涉诉-A', index: "/personal/riskTips/personalLawsuitA", icon: 'renzhengshenhe'},
+              {name: '多重借贷', index: "/personal/riskTips/multipleLoan", icon: 'duotoujiedai--'},
+              {name: '个人信用认证', index: "/personal/riskTips/individualCredit", icon: 'hetongpingshen'},
+              {name: '失信执行', index: "/2-3-7", icon: '2shenfenzhenghaoma'}
             ]},
             {name: '交易信用信息',
             index: "2-4",
@@ -219,7 +213,7 @@
       },
       handleDropdownMenuCommand (command) {
         if (command === 'logout') {
-          this.$db.remove('user');
+          this.$db.remove('authorization');
           this.$router.push({path: '/login'});
         }
         if (command === 'changePW') {

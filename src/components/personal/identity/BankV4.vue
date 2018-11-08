@@ -2,7 +2,7 @@
   <div>
     <el-card style="margin-bottom:25px">
       <div slot="header" class="clearfix">
-        <span>身份证一致性验证</span>
+        <span>银行卡四要素</span>
       </div>
       <el-form :model="inputFrom" :rules="rules" ref="inputFrom" id="inputForm">
         <el-row>
@@ -14,6 +14,16 @@
           <el-col :span="10">
             <el-form-item label="身份证号码" label-width="0" prop="cardNo" class="form-item">
               <el-input v-model="inputFrom.cardNo"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="10">
+            <el-form-item label="银行卡号" label-width="0" prop="bankCardNo" class="form-item">
+              <el-input v-model="inputFrom.bankCardNo"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="10">
+            <el-form-item label="手机号码" label-width="0" prop="mobile" class="form-item">
+              <el-input v-model="inputFrom.mobile"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
@@ -31,7 +41,7 @@
       <div slot="header" class="clearfix">
         <el-row type="flex" justify="space-between">
           <el-col :span="22"><span>{{result.example ? '查询样例': '查询结果'}}</span></el-col>
-          <el-col :span="2" class="no-print"><el-button type="warning" icon="el-icon-printer" plain class="ext-button" @click="$emit('print', {dom:'resultTable', title: '身份证一致性验证'})">打印</el-button></el-col>
+          <el-col :span="2" class="no-print"><el-button type="warning" icon="el-icon-printer" plain class="ext-button" @click="$emit('print', {dom:'resultTable', title: '银行卡四要素'})">打印</el-button></el-col>
         </el-row>
       </div>
       <table class="table card-text">
@@ -47,6 +57,14 @@
           <td>身份证号码</td>
           <td>{{result.idNumber}}</td>
         </tr>
+        <tr class="text-left">
+          <td>银行卡号</td>
+          <td>{{result.bankCardNo}}</td>
+        </tr>
+        <tr class="text-left">
+          <td>手机号码</td>
+          <td>{{result.mobile}}</td>
+        </tr>
       </table>
     </el-card>
   </div>
@@ -54,24 +72,30 @@
 
 <script>
 export default {
-  name: 'PersonalIdentityIdCheck',
+  name: 'BankV4',
   components: {
   },
   data () {
     return {
       inputFrom: {
         name: '',
-        cardNo: ''
+        cardNo: '',
+        bankCardNo: '',
+        mobile: ''
       },
       rules: {
         name: [{ required: true, message: '请输入姓名', trigger: 'blur' }],
-        cardNo: [{ validator: this.$validator.idCardValidator, trigger: 'blur' }]
+        cardNo: [{ validator: this.$validator.idCardValidator, trigger: 'blur' }],
+        bankCardNo: [{ validator: this.$validator.bankCardValidator, trigger: 'blur' }],
+        mobile: [{ validator: this.$validator.mobileValidator, trigger: 'blur' }]
       },
       result: {
         example: true,
         success: true,
         name: '赵雷',
-        idNumber: '320281199606286770'
+        idNumber: '320281199606286770',
+        bankCardNo: '6228481111221432430',
+        mobile: '13653576763'
       }
     };
   },
@@ -86,10 +110,12 @@ export default {
             spinner: 'el-icon-loading',
             background: 'rgba(0, 0, 0, 0.2)'
           });
-          vm.$http.get('api/rip/idCardElements', {
+          vm.$http.get('api/rip/bankCardFourElements', {
             params: {
               name: vm.inputFrom.name,
-              idNumber: vm.inputFrom.cardNo
+              idNumber: vm.inputFrom.cardNo,
+              bankCard: vm.inputFrom.bankCardNo,
+              mobile: vm.inputFrom.mobile
             },
             headers: {
               authorization: vm.$db.get('authorization')
@@ -101,7 +127,9 @@ export default {
                     example: false,
                     success: true,
                     name: vm.inputFrom.name,
-                    idNumber: vm.inputFrom.cardNo
+                    idNumber: vm.inputFrom.cardNo,
+                    bankCardNo: vm.inputFrom.bankCardNo,
+                    mobile: vm.inputFrom.mobile
                   };
                 }
                 if (res.data.data.key != "0000") {
@@ -109,7 +137,9 @@ export default {
                     example: false,
                     success: false,
                     name: vm.inputFrom.name,
-                    idNumber: vm.inputFrom.cardNo
+                    idNumber: vm.inputFrom.cardNo,
+                    bankCardNo: vm.inputFrom.bankCardNo,
+                    mobile: vm.inputFrom.mobile
                   };
                 }
               }
