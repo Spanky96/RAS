@@ -36,7 +36,7 @@
       <div slot="header" class="clearfix">
         <el-row type="flex" justify="space-between">
           <el-col :span="22"><span>{{result.example ? '查询样例': '查询结果'}}</span></el-col>
-          <el-col :span="2" class="no-print"><el-button type="warning" icon="el-icon-printer" plain class="ext-button" @click="$emit('print', {title: '失效身份证一致性验证'})">打印</el-button></el-col>
+          <el-col :span="2" class="no-print"><el-button type="warning" icon="el-icon-printer" plain class="ext-button" @click="$emit('print', {title: '运营商三要素认证'})">打印</el-button></el-col>
         </el-row>
       </div>
       <table class="table card-text">
@@ -46,15 +46,15 @@
         </tr>
         <tr class="text-left">
           <td>姓名</td>
-          <td>{{result.name}}</td>
+          <td>{{result.name | handleName}}</td>
         </tr>
         <tr class="text-left">
           <td>手机号码</td>
-          <td>{{result.mobile}}</td>
+          <td>{{result.mobile | handleMobile}}</td>
         </tr>
         <tr class="text-left">
           <td>身份证号码</td>
-          <td>{{result.idNumber}}</td>
+          <td>{{result.idNumber | handleIdCard}}</td>
         </tr>
         <tr class="text-left">
           <td>手机运营商</td>

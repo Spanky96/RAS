@@ -55,7 +55,7 @@
       <div slot="header" class="clearfix">
         <el-row type="flex" justify="space-between">
           <el-col :span="22"><span>{{result.example ? '查询样例': '查询结果'}}</span></el-col>
-          <el-col :span="2" class="no-print"><el-button type="warning" icon="el-icon-printer" plain class="ext-button" @click="$emit('print', {title: '失效身份证一致性验证'})">打印</el-button></el-col>
+          <el-col :span="2" class="no-print"><el-button type="warning" icon="el-icon-printer" plain class="ext-button" @click="$emit('print', {title: '不良信息排查'})">打印</el-button></el-col>
         </el-row>
       </div>
       <table class="table card-text">
@@ -65,55 +65,43 @@
         </tr>
         <tr class="text-left">
           <td>姓名</td>
-          <td>{{result.name}}</td>
-        </tr>
-        <tr class="text-left">
+          <td>{{result.name | handleName}}</td>
           <td>身份证号码</td>
-          <td>{{result.idCard}}</td>
+          <td>{{result.idCard | handleIdCard}}</td>
         </tr>
         <tr class="text-left">
-          <td>是否在逃</td>
+          <td>是否在逃(用户选择)</td>
           <td>{{result.escape | isOrNoFmt}}</td>
+          <td>比对结果</td>
+          <td>{{result.escapeCompared}}</td>
         </tr>
         <tr class="text-left">
-          <td>是否有前科</td>
+          <td>是否有前科(用户选择)</td>
           <td>{{result.crime | isOrNoFmt}}</td>
+          <td>比对结果</td>
+          <td>{{result.crimeCompared}}</td>
         </tr>
         <tr class="text-left">
-          <td>是否吸毒</td>
+          <td>是否吸毒(用户选择)</td>
           <td>{{result.drug | isOrNoFmt}}</td>
+          <td>比对结果</td>
+          <td>{{result.drugCompared}}</td>
         </tr>
         <tr class="text-left">
-          <td>是否涉毒</td>
+          <td>是否涉毒(用户选择)</td>
           <td>{{result.drugRelated | isOrNoFmt}}</td>
-        </tr>
-        <tr class="text-right">
-          <td>在逃比对结果</td>
-          <td>{{result.escapeCompared | isConsistentFmt}}</td>
-        </tr>
-        <tr class="text-left">
-          <td>前科比对结果</td>
-          <td>{{result.crimeCompared | isConsistentFmt}}</td>
-        </tr>
-        <tr class="text-left">
-          <td>吸毒比对结果</td>
-          <td>{{result.drugCompared | isConsistentFmt}}</td>
-        </tr>
-        <tr class="text-left">
-          <td>涉毒比对结果</td>
-          <td>{{result.drugRelatedCompared | isConsistentFmt}}</td>
+          <td>比对结果</td>
+          <td>{{result.drugRelatedCompared}}</td>
         </tr>
         <tr class="text-left">
           <td>前科事件数量</td>
           <td>{{result.checkCount}}</td>
         </tr>
         <tr class="text-left">
-          <td>案发时间</td>
-          <td>{{result.caseTime}}</td>
-        </tr>
-        <tr class="text-left">
           <td>事件类别</td>
           <td>{{result.caseType}}</td>
+          <td>案发时间</td>
+          <td> <span v-for="(c, index) in result.caseTime" :key="index">{{c | handleCaseTime}},</span></td>
         </tr>
         <tr class="text-left">
           <td>查询数据状态</td>
@@ -152,16 +140,16 @@ export default {
         resultType: '0000',
         name: '吴磊',
         idCard: '320281199606286770',
-        escape: true,
-        crime: true,
-        drug: false,
-        drugRelated: false,
-        escapeCompared: true,
-        crimeCompared: true,
-        drugCompared: false,
-        drugRelatedCompared: false,
+        escape: 'true',
+        crime: 'true',
+        drug: 'false',
+        drugRelated: 'false',
+        escapeCompared: '一致',
+        crimeCompared: '不一致',
+        drugCompared: '一致',
+        drugRelatedCompared: '不一致',
         checkCount: '2',
-        caseTime: '[15,20）',
+        caseTime: ["[5,10)", "[2,8]"],
         caseType: '侵犯人身权利案',
         status: '数据存在'
       }
@@ -178,35 +166,52 @@ export default {
             spinner: 'el-icon-loading',
             background: 'rgba(0, 0, 0, 0.2)'
           });
-          vm.$http.get('api/rip/mobileConsumptionLevel', {
+          vm.$http.get('api/rip/negativeInformationVerify', {
             params: vm.inputFrom,
             headers: {
               authorization: vm.$db.get('authorization')
             }
             }).then(function (res) {
+              debugger;
             if (res.data.success && res.data.data) {
               if (res.data.data.status == 'EXIST') {
+                // 你的复制语句抛异常了 好像 不然debug后后的位置在
                 vm.result = {
                   example: false,
                   resultType: '0000',
-                  mobile: vm.inputFrom.mobile,
-                  province: res.data.data.province,
-                  city: res.data.data.city,
-                  operator: res.data.data.operator,
-                  gradeCode: res.data.data.gradeCode,
-                  gradeDesc: res.data.data.gradeDesc,
+                  name: vm.inputFrom.name,
+                  idCard: vm.inputFrom.idCard,
+                  escape: res.data.data.escape,
+                  crime: res.data.data.crime,
+                  drug: res.data.data.drug,
+                  drugRelated: res.data.data.drugRelated,
+                  escapeCompared: res.data.data.escapeCompared,
+                  crimeCompared: res.data.data.crimeCompared,
+                  drugCompared: res.data.data.drugCompared,
+                  drugRelatedCompared: res.data.data.drugRelatedCompared,
+                  checkCount: res.data.data.checkCount,
+                  caseTime: res.data.data.caseTime,
+                  caseType: res.data.data.caseType,
                   status: '数据存在'
                 };
+                // 这个位置
               } else if (res.data.data.status == 'NO_DATA') {
                 vm.result = {
                   example: false,
                   resultType: '0000',
-                  mobile: vm.inputFrom.mobile,
-                  province: res.data.data.province,
-                  city: res.data.data.city,
-                  operator: res.data.data.operator,
-                  gradeCode: res.data.data.gradeCode,
-                  gradeDesc: res.data.data.gradeDesc,
+                  name: vm.inputFrom.name,
+                  idCard: vm.inputFrom.idCard,
+                  escape: res.data.data.escape,
+                  crime: res.data.data.crime,
+                  drug: res.data.data.drug,
+                  drugRelated: res.data.data.drugRelated,
+                  escapeCompared: res.data.data.escapeCompared,
+                  crimeCompared: res.data.data.crimeCompared,
+                  drugCompared: res.data.data.drugCompared,
+                  drugRelatedCompared: res.data.data.drugRelatedCompared,
+                  checkCount: res.data.data.checkCount,
+                  caseTime: res.data.data.caseTime,
+                  caseType: res.data.data.caseType,
                   status: '无数据'
                 };
               }

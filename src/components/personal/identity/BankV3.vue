@@ -46,15 +46,15 @@
         </tr>
         <tr class="text-left">
           <td>姓名</td>
-          <td>{{result.name}}</td>
+          <td>{{result.name | handleName}}</td>
         </tr>
         <tr class="text-left">
           <td>身份证号码</td>
-          <td>{{result.idNumber}}</td>
+          <td>{{result.idNumber | handleIdCard}}</td>
         </tr>
         <tr class="text-left">
           <td>银行卡号</td>
-          <td>{{result.bankCardNo}}</td>
+          <td>{{result.bankCardNo | handleBankCardNo}}</td>
         </tr>
       </table>
     </el-card>

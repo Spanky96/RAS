@@ -46,11 +46,11 @@
         </tr>
         <tr class="text-left">
           <td>姓名</td>
-          <td>{{result.name}}</td>
+          <td>{{result.name | handleName}}</td>
         </tr>
         <tr class="text-left">
           <td>身份证号码</td>
-          <td>{{result.idCard}}</td>
+          <td>{{result.idCard | handleIdCard}}</td>
         </tr>
         <tr class="text-left">
           <td>有效期起始日期</td>

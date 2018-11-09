@@ -36,7 +36,7 @@
         </tr>
         <tr class="text-left">
           <td>银行卡号</td>
-          <td>{{result.bankCardNo}}</td>
+          <td>{{result.bankCardNo | handleBankCardNo}}</td>
         </tr>
         <tr class="text-left">
           <td>开户银行</td>

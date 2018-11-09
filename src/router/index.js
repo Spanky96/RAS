@@ -79,7 +79,7 @@ export default new Router({
         {
           path: 'personal/riskTips/personalNegativeInfo',
           name: 'PersonalNegativeInfo',
-          component: resolve => require(['@/components/personal/riskTips/NegativeInfo'], resolve)
+          component: resolve => require(['@/components/personal/riskTips/PersonalNegativeInfo'], resolve)
         },
         {
           path: 'personal/riskTips/personalRiskInfo',
