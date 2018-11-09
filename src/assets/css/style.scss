@@ -34,11 +34,13 @@
   background:hsla(0,0%,72%,.67);
   border-radius:10px;
 }
-.mainbody {
+.printbody {
   .print-title {
     margin-bottom: 20px;
     text-align: center;
   }
+}
+.mainbody {
   .el-card__header {
     display: block;
     color: #858585;
@@ -74,7 +76,6 @@
     .table {
       font-size: 14px;
       width: 100%;
-      height: 100%;
       border-collapse: collapse;
       .text-left {
         text-align: left!important;
