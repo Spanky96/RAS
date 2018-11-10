@@ -105,7 +105,6 @@
             index: "2-4",
             icon: 'jiaoyi',
             subs: [
-              {name: '芝麻分认证', index: "2-4-1", icon: 'logo'},
               {name: '消费等级', index: "2-4-2", icon: 'zongheyewutongji'},
               {name: '资产令牌', index: "2-4-3", icon: 'chuzheng'},
               {name: '航旅信息', index: "2-4-4", icon: 'lvyou'},
@@ -118,6 +117,8 @@
             subs: [
               {name: '运营商信用报告', index: "2-5-1", icon: 'yunyingshang'},
               {name: '运营商报告', index: "2-5-2", icon: 'yunyingshang'},
+              {name: '芝麻分认证', index: "2-4-1", icon: 'logo'},
+              {name: '支付宝报告', index: "2-4-1", icon: 'zhifubao'},
               {name: '淘宝报告', index: "2-5-3", icon: 'unie651'},
               {name: '京东报告', index: "2-5-4", icon: 'jingdongbaitiao'},
               {name: '社保', index: "2-5-5", icon: 'renlishebao'},

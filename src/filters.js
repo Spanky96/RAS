@@ -24,7 +24,6 @@ function isOrNoFmt (val) {
   }
 }
 function handleCaseTime (val) {
-  debugger;
   if (val) {
     var arr = val.split(/[[\](),]/);
     return '案发距今' + arr[1] + '-' + arr[2] + ' 年（含' + arr[1] + '不含' + arr[2] + '）';
@@ -34,11 +33,13 @@ function isConsistentFmt (val) {
   return val ? '一致' : '不一致';
 }
 const RESULT_LOGO = {
+  '000000': 'success',
   '0000': 'success',
   '9998': 'danger',
   '3': 'info'
 };
 const RESULT_SUCCESS = {
+  '000000': '成功',
   '0000': '成功',
   '9998': '失败',
   '3': '无数据'

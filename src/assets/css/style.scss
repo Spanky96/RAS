@@ -40,7 +40,7 @@
     text-align: center;
   }
 }
-.mainbody {
+.mainbody,.printbody {
   .el-card__header {
     display: block;
     color: #858585;
@@ -64,6 +64,17 @@
     .form-item {
       padding: 0 20px;
     }
+    .el-checkbox-group {
+      .el-checkbox {
+        margin-right: 30px;
+        &+.el-checkbox {
+          margin-left: 0;
+        }
+        &.select-all .el-checkbox__label{
+          font-weight: bold;
+        }
+      }
+    }
   }
   #resultTable {
     .el-card__body {
@@ -84,6 +95,12 @@
         th, td {
           padding: 8px 6px;
           border: 1px solid hsla(0,0%,72%,.17);
+        }
+      }
+      .resultRows {
+        border: 1px solid hsla(0,0%,72%,.17);
+        .rows {
+          line-height: 30px;
         }
       }
     }

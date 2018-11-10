@@ -29,6 +29,7 @@ module.exports = {
     'semi': ['error', 'always'],
     'indent': 0,
     'quotes': [0, "single"],
-    'eqeqeq': 0
+    'eqeqeq': 0,
+    'no-trailing-spaces': 0
   }
 }
