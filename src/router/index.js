@@ -24,7 +24,7 @@ export default new Router({
         {
           path: 'personal/identity/invalid',
           name: 'PersonalIdentityInvalid',
-          component: resolve => require(['@/components/personal/identity/invalid'], resolve)
+          component: resolve => require(['@/components/personal/identity/Invalid'], resolve)
         },
         {
           path: '/face-test',
