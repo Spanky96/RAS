@@ -121,5 +121,14 @@ export default {
         } else {
             callback(new Error('请输入正确的手机号码'));
         }
+    },
+    cellPhonePassword: (rule, value, callback) => {
+        if (value == '') {
+            callback(new Error('请输入密码'));
+        } else if (/^\d{6}$/.test(value)) {
+            callback();
+        } else {
+            callback(new Error('请输入正确的密码'));
+        }
     }
 };
