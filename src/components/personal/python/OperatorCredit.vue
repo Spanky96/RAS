@@ -557,14 +557,14 @@ export default {
             vm.result = res.data;
             vm.example = false;
           });
-        } else if (data.code) {
+        } else if (!data.code) {
           console.log(new Date().getTime() + '___轮询___code：' + data.code);
           // 两秒后再次请求api
           setTimeout(vm.startPollingSearch(), 2000);
         } else {
           vm.$message({
             showClose: true,
-            message: '验证不通过，结束轮询',
+            message: data.msg || '验证不通过，结束轮询',
             type: 'error',
             duration: '5000'
           });
