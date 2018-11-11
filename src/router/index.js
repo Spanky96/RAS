@@ -100,6 +100,21 @@ export default new Router({
           path: 'personal/riskTips/individualCredit',
           name: 'IndividualCredit',
           component: resolve => require(['@/components/personal/riskTips/IndividualCredit'], resolve)
+        },
+        {
+          path: 'carInfo/carInfoSon/VehicleLicenseInfo',
+          name: 'VehicleLicenseInfo',
+          component: resolve => require(['@/components/carInfo/carInfoSon/VehicleLicenseInfo'], resolve)
+        },
+        {
+          path: 'carInfo/carInfoSon/VehicleDetails',
+          name: 'VehicleDetails',
+          component: resolve => require(['@/components/carInfo/carInfoSon/VehicleDetails'], resolve)
+        },
+        {
+          path: 'carInfo/carInfoSon/LicenseDeductMarks',
+          name: 'LicenseDeductMarks',
+          component: resolve => require(['@/components/carInfo/carInfoSon/LicenseDeductMarks'], resolve)
         }
       ]
     },

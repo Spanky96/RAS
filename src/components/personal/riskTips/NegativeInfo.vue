@@ -18,7 +18,7 @@
           </el-col>
           <el-col :span="10">
             <el-form-item label="是否在逃" label-width="0" prop="escape" class="form-item">
-              <el-radio v-model="inputFrom.escape" label="true">是</el-radio>
+              <el-radio v-model="inputFrom.escape" checked = "checked" label="true">是</el-radio>
               <el-radio v-model="inputFrom.escape" label="false">否</el-radio>
             </el-form-item>
           </el-col>
@@ -73,25 +73,25 @@
           <td>是否在逃(用户选择)</td>
           <td>{{result.escape | isOrNoFmt}}</td>
           <td>比对结果</td>
-          <td>{{result.escapeCompared}}</td>
+          <td><el-tag :type="result.escapeCompared | fuckyizhi">{{result.escapeCompared}}</el-tag></td>
         </tr>
         <tr class="text-left">
           <td>是否有前科(用户选择)</td>
           <td>{{result.crime | isOrNoFmt}}</td>
           <td>比对结果</td>
-          <td>{{result.crimeCompared}}</td>
+          <td><el-tag :type="result.crimeCompared | fuckyizhi">{{result.crimeCompared}}</el-tag></td>
         </tr>
         <tr class="text-left">
           <td>是否吸毒(用户选择)</td>
           <td>{{result.drug | isOrNoFmt}}</td>
           <td>比对结果</td>
-          <td>{{result.drugCompared}}</td>
+          <td><el-tag :type="result.drugCompared | fuckyizhi">{{result.drugCompared}}</el-tag></td>
         </tr>
         <tr class="text-left">
           <td>是否涉毒(用户选择)</td>
           <td>{{result.drugRelated | isOrNoFmt}}</td>
           <td>比对结果</td>
-          <td>{{result.drugRelatedCompared}}</td>
+          <td><el-tag :type="result.drugRelatedCompared | fuckyizhi">{{result.drugRelatedCompared}}</el-tag></td>
         </tr>
         <tr class="text-left">
           <td>前科事件数量</td>
@@ -122,10 +122,10 @@ export default {
       inputFrom: {
         name: '',
         idCard: '',
-        escape: '',
-        crime: '',
-        drug: '',
-        drugRelated: ''
+        escape: 'true',
+        crime: 'true',
+        drug: 'true',
+        drugRelated: 'true'
       },
       rules: {
         name: [{ required: true, message: '请输入姓名', trigger: 'blur' }],
@@ -175,7 +175,6 @@ export default {
               debugger;
             if (res.data.success && res.data.data) {
               if (res.data.data.status == 'EXIST') {
-                // 你的复制语句抛异常了 好像 不然debug后后的位置在
                 vm.result = {
                   example: false,
                   resultType: '0000',
@@ -194,7 +193,6 @@ export default {
                   caseType: res.data.data.caseType,
                   status: '数据存在'
                 };
-                // 这个位置
               } else if (res.data.data.status == 'NO_DATA') {
                 vm.result = {
                   example: false,
