@@ -159,9 +159,9 @@
             icon: 'cheliangguanli',
             index: "4-1",
             subs: [
-              {name: '行驶证信息查询', index: "4-1", icon: 'buhuanhangshizheng'},
-              {name: '车辆详情查询（车牌）', index: "4-2", icon: 'chepai'},
-              {name: '驾驶证扣分查询', index: "4-3", icon: 'chaxunjiashizhengxinxi'},
+              {name: '行驶证信息查询', index: "/carInfo/carInfoSon/VehicleLicenseInfo", icon: 'buhuanhangshizheng'},
+              {name: '车辆详情核验', index: "/carInfo/carInfoSon/VehicleDetails", icon: 'chepai'},
+              {name: '驾驶证扣分查询', index: "/carInfo/carInfoSon/LicenseDeductMarks", icon: 'chaxunjiashizhengxinxi'},
               {name: '出险记录', index: "4-4", icon: 'cheliangpengzhuang'},
               {name: '违章查询', index: "4-5", icon: 'weizhang'}
             ]}
