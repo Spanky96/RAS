@@ -89,6 +89,15 @@ export default {
     idCardValidator: (rule, value, callback) => {
         if (value == '') {
             callback(new Error('请输入身份证号'));
+        } else if (/^[1-9]\d{5}(18|19|([23]\d))\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/.test(value)) {
+            callback();
+        } else {
+            callback(new Error('请输入合法的身份证号'));
+        }
+    },
+    idCardValidator2: (rule, value, callback) => {
+        if (value == '') {
+            callback(new Error('请输入身份证号'));
         } else if (identityCodeValid(value)) {
             callback();
         } else {
@@ -111,6 +120,15 @@ export default {
             callback();
         } else {
             callback(new Error('请输入正确的手机号码'));
+        }
+    },
+    cellPhonePassword: (rule, value, callback) => {
+        if (value == '') {
+            callback(new Error('请输入密码'));
+        } else if (/^\d{6}$/.test(value)) {
+            callback();
+        } else {
+            callback(new Error('请输入正确的密码'));
         }
     }
 };

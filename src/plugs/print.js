@@ -84,7 +84,7 @@ const Print =function(dom, title, options) {
       }
       outerHTML += this.dom.outerHTML;
       outerHTML += '</div>';
-      console.log(outerHTML);
+      // console.log(outerHTML);
       return outerHTML;
     },
   

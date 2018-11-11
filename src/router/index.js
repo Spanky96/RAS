@@ -24,7 +24,7 @@ export default new Router({
         {
           path: 'personal/identity/invalid',
           name: 'PersonalIdentityInvalid',
-          component: resolve => require(['@/components/personal/identity/invalid'], resolve)
+          component: resolve => require(['@/components/personal/identity/Invalid'], resolve)
         },
         {
           path: '/face-test',
@@ -100,6 +100,46 @@ export default new Router({
           path: 'personal/riskTips/individualCredit',
           name: 'IndividualCredit',
           component: resolve => require(['@/components/personal/riskTips/IndividualCredit'], resolve)
+        },
+        {
+          path: 'personal/python/accumulation',
+          name: 'IndividualCredit',
+          component: resolve => require(['@/components/personal/python/Accumulation'], resolve)
+        },
+        {
+          path: 'personal/python/alipay',
+          name: 'IndividualCredit',
+          component: resolve => require(['@/components/personal/python/AlipayReport'], resolve)
+        },
+        {
+          path: 'personal/python/alitao',
+          name: 'IndividualCredit',
+          component: resolve => require(['@/components/personal/python/AlitaoReport'], resolve)
+        },
+        {
+          path: 'personal/python/jd',
+          name: 'IndividualCredit',
+          component: resolve => require(['@/components/personal/python/JDReport'], resolve)
+        },
+        {
+          path: 'personal/python/operatorCredit',
+          name: 'IndividualCredit',
+          component: resolve => require(['@/components/personal/python/OperatorCredit'], resolve)
+        },
+        {
+          path: 'personal/python/operatorReport',
+          name: 'IndividualCredit',
+          component: resolve => require(['@/components/personal/python/OperatorReport'], resolve)
+        },
+        {
+          path: 'personal/python/socialSecurity',
+          name: 'IndividualCredit',
+          component: resolve => require(['@/components/personal/python/SocialSecurity'], resolve)
+        },
+        {
+          path: 'personal/python/zhima',
+          name: 'IndividualCredit',
+          component: resolve => require(['@/components/personal/python/Zhima'], resolve)
         },
         {
           path: 'carInfo/carInfoSon/VehicleLicenseInfo',

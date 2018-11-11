@@ -105,7 +105,6 @@
             index: "2-4",
             icon: 'jiaoyi',
             subs: [
-              {name: '芝麻分认证', index: "2-4-1", icon: 'logo'},
               {name: '消费等级', index: "2-4-2", icon: 'zongheyewutongji'},
               {name: '资产令牌', index: "2-4-3", icon: 'chuzheng'},
               {name: '航旅信息', index: "2-4-4", icon: 'lvyou'},
@@ -116,12 +115,14 @@
             icon: 'bug',
             index: "2-5",
             subs: [
-              {name: '运营商信用报告', index: "2-5-1", icon: 'yunyingshang'},
-              {name: '运营商报告', index: "2-5-2", icon: 'yunyingshang'},
-              {name: '淘宝报告', index: "2-5-3", icon: 'unie651'},
-              {name: '京东报告', index: "2-5-4", icon: 'jingdongbaitiao'},
-              {name: '社保', index: "2-5-5", icon: 'renlishebao'},
-              {name: '公积金', index: "2-5-6", icon: 'dkw_gongjijin'}
+              {name: '运营商信用报告', index: "/personal/python/operatorCredit", icon: 'yunyingshang'},
+              {name: '运营商报告', index: "/personal/python/operatorReport", icon: 'yunyingshang'},
+              {name: '芝麻分认证', index: "/personal/python/zhima", icon: 'logo'},
+              {name: '支付宝报告', index: "/personal/python/alipay", icon: 'zhifubao'},
+              {name: '淘宝报告', index: "/personal/python/alitao", icon: 'unie651'},
+              {name: '京东报告', index: "/personal/python/jd", icon: 'jingdongbaitiao'},
+              {name: '社保', index: "/personal/python/socialSecurity", icon: 'renlishebao'},
+              {name: '公积金', index: "/personal/python/accumulation", icon: 'dkw_gongjijin'}
             ]}
           ]
         },
