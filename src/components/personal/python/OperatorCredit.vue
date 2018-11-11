@@ -449,6 +449,11 @@ export default {
                     vm.token = res.data.token;
                     console.log('token: ' + vm.token + '; ripId: ' + vm.ripId);
                     resolve();
+                  } else if (res.data.code == '0000') {
+                    // 已经有数据
+                    vm.$alert('您之前成功获取授权，直接返回信用报告。', '提示框', { confirmButtonText: '确定' });
+                    vm.result = res.data;
+                    vm.example = false;
                   } else {
                     vm.$message({
                       showClose: true,
