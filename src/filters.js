@@ -128,12 +128,14 @@ function handleFuelTypee (val) {
   }
 }
 const RESULT_LOGO = {
+  '0': 'success',
   '000000': 'success',
   '0000': 'success',
   '9998': 'danger',
   '3': 'info'
 };
 const RESULT_SUCCESS = {
+  '0': '成功',
   '000000': '成功',
   '0000': '成功',
   '9998': '失败',

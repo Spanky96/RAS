@@ -14,7 +14,7 @@
         </el-row>
         <el-row>
           <el-col :span="10">
-            <el-form-item label="所属机构（灰色为不可用）" label-width="0" prop="org" class="form-item">
+            <el-form-item label="查询机构（灰色为不可用）" label-width="0" prop="org" class="form-item">
               <el-select v-model="orgArea" placeholder="所属省份" @change="inputFrom.org=undefined">
                 <el-option v-for="(f, index) in socialsecurityList" :key="index" :label="f.name" :value="index"></el-option>
               </el-select>
@@ -36,7 +36,7 @@
         </el-row>
       </el-form>
     </el-card>
-
+    {{openId}}{{ripId}}
     <el-card id="resultTable">
       <div slot="header" class="clearfix">
         <el-row type="flex" justify="space-between">
@@ -46,8 +46,91 @@
       </div>
       <table class="table card-text">
         <tr class="text-left">
-          <td width="20%">匹配结果{{openId}}</td>
-          <td><el-tag type="success" class="tag">成功</el-tag></td>
+          <td width="20%">查询结果</td>
+          <td width="30%"><el-tag :type="result.return_code | resultLogoFmt" class="tag">{{result.return_code | resultSuccessFmt}}</el-tag></td>
+          <td width="20%">报告日期</td>
+          <td width="30%">{{result.data.report_time}}</td>
+        </tr>
+        <tr class="text-title">
+          <td colspan="4">基本信息</td>
+        </tr>
+        <tr class="inner-table">
+          <td colspan="4" style="padding: 0;">
+            <table class="table" v-html="$FU.getHtmlByKvsFromObj(basicInfoKvs, result.data.report[0].data)">
+            </table>
+          </td>
+        </tr>
+        <tr class="text-title">
+          <td colspan="4">基本医疗保险流水</td>
+        </tr>
+        <tr class="inner-table">
+          <td colspan="4" style="padding: 0;"><table v-html="$FU.arrayInfo2HtmlV2(result.data.report[0].data.medicareFlow, medicareFlowKvs)" class="table"></table></td>
+        </tr>
+        <tr class="text-title">
+          <td colspan="4">基本养老保险流水</td>
+        </tr>
+        <tr class="inner-table">
+          <td colspan="4" style="padding: 0;"><table v-html="$FU.arrayInfo2HtmlV2(result.data.report[0].data.pensionFlow, pensionFlowKvs)" class="table"></table></td>
+        </tr>
+        <tr class="text-title">
+          <td colspan="4">基本失业保险流水</td>
+        </tr>
+        <tr class="inner-table">
+          <td colspan="4" style="padding: 0;"><table v-html="$FU.arrayInfo2HtmlV2(result.data.report[0].data.unemploymentFlow, unemploymentFlowKvs)" class="table"></table></td>
+        </tr>
+        <tr class="text-title">
+          <td colspan="4">基本工伤保险流水</td>
+        </tr>
+        <tr class="inner-table">
+          <td colspan="4" style="padding: 0;"><table v-html="$FU.arrayInfo2HtmlV2(result.data.report[0].data.injuryFlow, injuryFlowKvs)" class="table"></table></td>
+        </tr>
+        <tr class="text-title">
+          <td colspan="4">基本生育保险流水</td>
+        </tr>
+        <tr class="inner-table">
+          <td colspan="4" style="padding: 0;"><table v-html="$FU.arrayInfo2HtmlV2(result.data.report[0].data.maternityFlow, maternityFlowKvs)" class="table"></table></td>
+        </tr>
+        <tr class="text-title">
+          <td colspan="4">基本医疗保险摘要</td>
+        </tr>
+        <tr class="inner-table">
+          <td colspan="4" style="padding: 0;"><table v-html="$FU.objectInfo2Html(result.data.report[0].data.medicare_summary, medicare_summaryKvs)" class="table"></table></td>
+        </tr>
+        <tr class="text-title">
+          <td colspan="4">基本养老保险摘要</td>
+        </tr>
+        <tr class="inner-table">
+          <td colspan="4" style="padding: 0;"><table v-html="$FU.objectInfo2Html(result.data.report[0].data.pension_summary, pension_summaryKvs)" class="table"></table></td>
+        </tr>
+        <tr class="text-title">
+          <td colspan="4">基本失业保险摘要</td>
+        </tr>
+        <tr class="inner-table">
+          <td colspan="4" style="padding: 0;"><table v-html="$FU.objectInfo2Html(result.data.report[0].data.unemployment_summary, unemployment_summaryKvs)" class="table"></table></td>
+        </tr>
+        <tr class="text-title">
+          <td colspan="4">基本工伤保险摘要</td>
+        </tr>
+        <tr class="inner-table">
+          <td colspan="4" style="padding: 0;"><table v-html="$FU.objectInfo2Html(result.data.report[0].data.injury_summary, injury_summaryKvs)" class="table"></table></td>
+        </tr>
+        <tr class="text-title">
+          <td colspan="4">基本生育保险摘要</td>
+        </tr>
+        <tr class="inner-table">
+          <td colspan="4" style="padding: 0;"><table v-html="$FU.objectInfo2Html(result.data.report[0].data.maternity_summary, maternity_summaryKvs)" class="table"></table></td>
+        </tr>
+        <tr class="text-title">
+          <td colspan="4">医疗消费记录</td>
+        </tr>
+        <tr class="inner-table">
+          <td colspan="4" style="padding: 0;"><table v-html="$FU.arrayInfo2HtmlV2(result.data.report[0].data.consumptions, consumptionsKvs)" class="table"></table></td>
+        </tr>
+        <tr class="text-title">
+          <td colspan="4">就业历史</td>
+        </tr>
+        <tr class="inner-table">
+          <td colspan="4" style="padding: 0;"><table v-html="$FU.arrayInfo2HtmlV2(result.data.report[0].data.companys, companysKvs)" class="table"></table></td>
         </tr>
       </table>
     </el-card>
@@ -62,6 +145,176 @@ export default {
     SsLogin
   },
   data () {
+    var vm = this;
+    var socialsecurityList = [];
+    var ripId = '';
+    this.getSSList().then(function (data) {
+      vm.socialsecurityList = data.data;
+      vm.ripId = data.rip_id;
+    });
+    const basicInfoKvs = {
+      customer: '个人编号',
+      name: '姓名',
+      idcard_type: '证件类型',
+      idcard: '证件号码',
+      gender: '性别',
+      birth: '生日',
+      nation: '民族',
+      account_property: '户口性质',
+      insured_begin_date: '开始参保时间',
+      insured_status: '参保状态',
+      end_date: '终止参保时间',
+      education: '学历',
+      company: '最近参保单位',
+      social_security_name: '最近社保机构名称',
+      address: '通讯地址',
+      phone: '联系电话',
+      medicare_balance: '医疗账户余额(单位：分)',
+      payment_months: '累计缴纳月数',
+      pension_balance: '养老账户余额(单位：分)',
+      period: '最近缴纳时间',
+      continuous_payment_max_months: '历史连续缴纳最大月数',
+      max_base: '历史最大缴纳基数（单位：分）',
+      average_base: '平均缴纳基数（单位：分）',
+      current_base: '最近缴纳基数（单位：分）',
+      current_payment_months: '最近单位缴纳月数',
+      medicare_consumption_total_amount: '医保累计消费金额',
+      yj_month_income: '预计月收入(单位：分)'
+    };
+    const medicareFlowKvs = {
+      'origin_name': '险种名称',
+      'period': '缴纳月份',
+      'payment_base': '缴费基数(单位：分)',
+      'company_amount': '单位缴费金额(单位：分)',
+      'person_amount': '个人缴费金额(单位：分)',
+      'company': '缴费单位名称'
+    };
+    const pensionFlowKvs = {
+      'origin_name': '险种名称',
+      'period': '缴纳月份',
+      'payment_base': '缴费基数',
+      'company_amount': '单位缴费金额',
+      'person_amount': '个人缴费金额',
+      'company': '缴费单位名称'
+    };
+    const unemploymentFlowKvs = {
+      'origin_name': '险种名称',
+      'period': '缴纳月份',
+      'payment_base': '缴费基数',
+      'company_amount': '单位缴费金额',
+      'person_amount': '个人缴费金额',
+      'company': '缴费单位名称'
+    };
+    const injuryFlowKvs = {
+      'origin_name': '险种名称',
+      'period': '缴纳月份',
+      'payment_base': '缴费基数',
+      'company_amount': '单位缴费金额',
+      'person_amount': '个人缴费金额'
+    };
+    const maternityFlowKvs = {
+      'origin_name': '险种名称',
+      'period': '缴纳月份',
+      'payment_base': '缴费基数',
+      'company_amount': '单位缴费金额',
+      'person_amount': '个人缴费金额'
+    };
+    // eslint-disable-next-line
+    const medicare_summaryKvs = {
+      'origin_name': '险种名称',
+      'first_insured_date': '首次参保时间',
+      'company': '缴存单位名称',
+      'total_amount': '累计缴纳金额',
+      'total_month': '累计缴纳月份',
+      'latest_continuous_payment_months': '最近连续缴纳月数',
+      'last_year_stop_payment_months': '最近1年停缴的月数',
+      'last_year_stop_payment_times': '最近1年停缴的次数',
+      'total_stop_payment_months': '历史停缴月数',
+      'total_stop_payment_times': '历史停缴次数',
+      'last_half_year_company_num': '近6月社保社保缴纳不同单位数',
+      'last_year_company_num': '近12月社保社保缴纳不同单位数',
+      'last_two_year_compnay_num': '近24月社保社保缴纳不同单位数'
+    };
+    // eslint-disable-next-line
+    const pension_summaryKvs = {
+      'origin_name': '险种名称',
+      'first_insured_date': '首次参保时间',
+      'company': '缴存单位名称',
+      'total_amount': '累计缴纳金额（单位：分）',
+      'total_month': '累计缴纳月份',
+      'latest_continuous_payment_months': '最近连续缴纳月数',
+      'last_year_stop_payment_months': '最近1年停缴的月数',
+      'last_year_stop_payment_times': '最近1年停缴的次数',
+      'total_stop_payment_months': '历史停缴月数',
+      'total_stop_payment_times': '历史停缴次数',
+      'last_half_year_company_num': '近6月社保社保缴纳不同单位数',
+      'last_year_company_num': '近12月社保社保缴纳不同单位数',
+      'last_two_year_compnay_num': '近24月社保社保缴纳不同单位数'
+    };
+    // eslint-disable-next-line
+    const unemployment_summaryKvs = {
+      'origin_name': '险种名称',
+      'first_insured_date': '首次参保时间',
+      'company': '缴存单位名称',
+      'total_amount': '累计缴纳金额',
+      'total_month': '累计缴纳月份',
+      'latest_continuous_payment_months': '最近连续缴纳月数',
+      'last_year_stop_payment_months': '最近1年停缴的月数',
+      'last_year_stop_payment_times': '最近1年停缴的次数',
+      'total_stop_payment_months': '历史停缴月数',
+      'total_stop_payment_times': '历史停缴次数',
+      'last_half_year_company_num': '近6月社保社保缴纳不同单位数',
+      'last_year_company_num': '近12月社保社保缴纳不同单位数',
+      'last_two_year_compnay_num': '近24月社保社保缴纳不同单位数'
+    };
+    // eslint-disable-next-line
+    const injury_summaryKvs = {
+      'origin_name': '险种名称',
+      'first_insured_date': '首次参保时间',
+      'company': '缴存单位名称',
+      'total_amount': '累计缴纳金额',
+      'total_month': '累计缴纳月份',
+      'latest_continuous_payment_months': '最近连续缴纳月数',
+      'last_year_stop_payment_months': '最近1年停缴的月数',
+      'last_year_stop_payment_times': '最近1年停缴的次数',
+      'total_stop_payment_months': '历史停缴月数',
+      'total_stop_payment_times': '历史停缴次数',
+      'last_half_year_company_num': '近6月社保社保缴纳不同单位数',
+      'last_year_company_num': '近12月社保社保缴纳不同单位数',
+      'last_two_year_compnay_num': '近24月社保社保缴纳不同单位数'
+    };
+    // eslint-disable-next-line
+    const maternity_summaryKvs = {
+      'origin_name': '险种名称',
+      'first_insured_date': '首次参保时间',
+      'company': '缴存单位名称',
+      'total_amount': '累计缴纳金额',
+      'total_month': '累计缴纳月份',
+      'latest_continuous_payment_months': '最近连续缴纳月数',
+      'last_year_stop_payment_months': '最近1年停缴的月数',
+      'last_year_stop_payment_times': '最近1年停缴的次数',
+      'total_stop_payment_months': '历史停缴月数',
+      'total_stop_payment_times': '历史停缴次数',
+      'last_half_year_company_num': '近6月社保社保缴纳不同单位数',
+      'last_year_company_num': '近12月社保社保缴纳不同单位数',
+      'last_two_year_compnay_num': '近24月社保社保缴纳不同单位数'
+    };
+    const consumptionsKvs = {
+      'consumptions': '医疗消费记录',
+      'trade_time': '结算时间',
+      'trade_amount': '结算金额（单位：分）',
+      'trade_type': '医疗类别',
+      'trade_place': '医疗结构名称'
+    };
+    const companysKvs = {
+      'name': '缴费单位',
+      'term': '缴费期数',
+      'amount': '缴费总金额（单位：分）',
+      'last_term': '连续缴费期数',
+      'end_date': '结束时间',
+      'begin_date': '开始时间',
+      'type': '单位性质'
+    };
     return {
       inputFrom: {
         partnerUserId: '',
@@ -72,11 +325,202 @@ export default {
         org: [{ required: true, message: '请选择' }]
       },
       result: {
-        example: true
+        example: true,
+        "data": {
+          "report_time": "2018-07-17 20:46:28",
+          "reportHTML": "",
+          "report": [{
+            "data": {
+              "end_date": "",
+              "education": "",
+              "account_property": "",
+              "gender": "",
+              "nation": "",
+              "max_base": 377280,
+              "medicare_consumption_total_amount": 0,
+              "social_security_name": "",
+              "average_base": 255276,
+              "current_base": 377280,
+              "pension_balance": 0,
+              "insured_status": "",
+              "company": "华夏银行",
+              "current_payment_months": 0,
+              "payment_months": 84,
+              "period": "2018-07",
+              "address": "",
+              "insured_begin_date": "",
+              "birth": "",
+              "idcard_type": "身份证",
+              "yj_month_income": 377280,
+              "continuous_payment_max_months": 21,
+              "phone": "",
+              "idcard": "110000160001011111",
+              "medicare_balance": 541739,
+              "name": "华夏仁",
+              "customer": "",
+              "maternityFlow": [{
+                "company_amount": 0,
+                "payment_base": 377280,
+                "period": "2018-07",
+                "person_amount": 0,
+                "company": "",
+                "origin_name": "生育保险 "
+              }],
+              "maternity_summary": {
+                "latest_continuous_payment_months": 17,
+                "last_year_stop_payment_months": 0,
+                "last_two_year_company_num": 0,
+                "last_year_stop_payment_times": 0,
+                "total_stop_payment_months": 21,
+                "first_insured_date": "2009-11",
+                "total_amount": 124822,
+                "last_half_year_company_num": 0,
+                "company": "",
+                "last_year_company_num": 0,
+                "total_month": 84,
+                "origin_name": "生育保险 ",
+                "total_stop_payment_times": 6
+              },
+              "pensionFlow": [{
+                "company_amount": 0,
+                "payment_base": 170000,
+                "period": "2018-07",
+                "person_amount": 13600,
+                "company": "",
+                "origin_name": "养老保险 "
+              }],
+              "pension_summary": {
+                "latest_continuous_payment_months": 17,
+                "last_year_stop_payment_months": 0,
+                "last_two_year_company_num": 0,
+                "last_year_stop_payment_times": 0,
+                "total_stop_payment_months": 21,
+                "first_insured_date": "2009-11",
+                "total_amount": 2089380,
+                "last_half_year_company_num": 0,
+                "company": "",
+                "last_year_company_num": 0,
+                "total_month": 84,
+                "origin_name": "养老保险 ",
+                "total_stop_payment_times": 6
+              },
+              "injuryFlow": [{
+                "company_amount": 0,
+                "payment_base": 170000,
+                "period": "2018-07",
+                "person_amount": 0,
+                "company": "",
+                "origin_name": "工伤保险 "
+              }],
+              "medicareFlow": [{
+                "company_amount": 0,
+                "payment_base": 377280,
+                "period": "2018-07",
+                "person_amount": 13582,
+                "company": "",
+                "origin_name": "医疗保险 "
+              }],
+              "unemploymentFlow": [{
+                "company_amount": 0,
+                "payment_base": 170000,
+                "period": "2018-07",
+                "person_amount": 0,
+                "company": "",
+                "origin_name": "失业保险 "
+              }],
+              "unemployment_summary": {
+                "latest_continuous_payment_months": 17,
+                "last_year_stop_payment_months": 0,
+                "last_two_year_company_num": 0,
+                "last_year_stop_payment_times": 0,
+                "total_stop_payment_months": 21,
+                "first_insured_date": "2009-11",
+                "total_amount": 145870,
+                "last_half_year_company_num": 0,
+                "company": "",
+                "last_year_company_num": 0,
+                "total_month": 84,
+                "origin_name": "失业保险 ",
+                "total_stop_payment_times": 6
+              },
+              "medicare_summary": {
+                "latest_continuous_payment_months": 17,
+                "last_year_stop_payment_months": 0,
+                "last_two_year_company_num": 0,
+                "last_year_stop_payment_times": 0,
+                "total_stop_payment_months": 21,
+                "first_insured_date": "2009-11",
+                "total_amount": 1176935,
+                "last_half_year_company_num": 0,
+                "company": "",
+                "last_year_company_num": 0,
+                "total_month": 84,
+                "origin_name": "医疗保险 ",
+                "total_stop_payment_times": 6
+              },
+              "injury_summary": {
+                "latest_continuous_payment_months": 17,
+                "last_year_stop_payment_months": 0,
+                "last_two_year_company_num": 0,
+                "last_year_stop_payment_times": 0,
+                "total_stop_payment_months": 21,
+                "first_insured_date": "2009-11",
+                "total_amount": 59797,
+                "last_half_year_company_num": 0,
+                "company": "",
+                "last_year_company_num": 0,
+                "total_month": 84,
+                "origin_name": "工伤保险 ",
+                "total_stop_payment_times": 6
+              },
+              "consumptions": [{
+                "trade_time": "2015-01-21",
+                "trade_amount": 2507,
+                "trade_type": "",
+                "trade_place": "华夏银行"
+              }],
+              "companys": [{
+                  "end_date": "2018-06",
+                  "amount": "494096",
+                  "last_term": "11",
+                  "begin_date": "2017-07",
+                  "name": "华夏银行",
+                  "term": "12",
+                  "type": ""
+                },
+                {
+                  "end_date": "2017-06",
+                  "amount": "682688",
+                  "last_term": "7",
+                  "begin_date": "2016-01",
+                  "name": "",
+                  "term": "18",
+                  "type": ""
+                }
+              ]
+            },
+            "type": "社保"
+          }]
+        },
+        "return_code": "0"
       },
-      socialsecurityList: [],
+      socialsecurityList,
       orgArea: undefined,
-      openId: ''
+      openId: '',
+      ripId,
+      basicInfoKvs,
+      medicareFlowKvs,
+      pensionFlowKvs,
+      unemploymentFlowKvs,
+      injuryFlowKvs,
+      maternityFlowKvs,
+      medicare_summaryKvs,
+      pension_summaryKvs,
+      unemployment_summaryKvs,
+      injury_summaryKvs,
+      maternity_summaryKvs,
+      consumptionsKvs,
+      companysKvs
     };
   },
   methods: {
@@ -99,31 +543,57 @@ export default {
     inputOrgInfo: function () {
       var vm = this;
       vm.getOrgInfo().then(function (data) {
-        const h = vm.$createElement;
-        vm.$msgbox({
+        var formElement = vm.$createElement(SsLogin, { props: { json: data } });
+        var promise = vm.$msgbox({
           title: '社保信息采集',
-          message: h(SsLogin, { props: { json: data } }),
+          message: formElement,
           showCancelButton: false,
           confirmButtonText: '提交',
-          showClose: false,
           beforeClose: (action, instance, done) => {
             if (action === 'confirm') {
-              instance.confirmButtonLoading = true;
-              instance.confirmButtonText = '执行中...';
-              setTimeout(() => {
-                done();
-                setTimeout(() => {
-                  instance.confirmButtonLoading = false;
-                }, 300);
-              }, 3000);
+              var errorField = vm.innerFormValidate(formElement.child.form, data.data.tabs[0].entrys[0].parameters);
+              if (errorField.length) {
+                // eslint-disable-next-line
+                alert(errorField.join(',') + '输入不合法，请重试。', '提示框');
+              } else {
+                instance.confirmButtonLoading = true;
+                instance.confirmButtonText = '执行中...';
+                // 提交
+                var jsonData = {
+                  rip_id: vm.ripId,
+                  open_id: vm.openId,
+                  organization_id: data.data.org_id,
+                  entry_id: data.data.tabs[0].entrys[0].entryId,
+                  version: '102'
+                };
+                var strDate = JSON.stringify(Object.assign(jsonData, formElement.child.form));
+                console.log(strDate);
+                vm.$http.get('api/rip/jsontask', {
+                  params: {
+                    jsonData: strDate
+                  },
+                  headers: {
+                    authorization: vm.$db.get('authorization')
+                  }}).then(function (res) {
+                    console.log(res.data);
+                });
+              }
             } else {
               done();
             }
-          }
-        }).then(action => {
+          },
+          showClose: true
+        });
+        promise.then(action => {
           vm.$message({
             type: 'info',
             message: 'action: ' + action
+          });
+        });
+        promise.catch(() => {
+          vm.$message({
+            type: 'info',
+            message: '您取消了查询'
           });
         });
       });
@@ -144,7 +614,29 @@ export default {
         });
       });
       return p;
-    }, 
+    },
+    getSSList: function () {
+      var vm = this;
+      var p = new Promise(function (resolve, reject) {
+        vm.$http.get('api/rip/socialsecurityList', {
+          headers: {
+            authorization: vm.$db.get('authorization')
+          }
+          }).then(function (res) {
+            resolve(res.data);
+        });
+      });
+      return p;
+    },
+    innerFormValidate: function (form, parameters) {
+      var errorField = [];
+      parameters.forEach(p => {
+        if (!new RegExp(p.reg).test(form[p.name] || '')) {
+          errorField.push(p.label);
+        }
+      });
+      return errorField;
+    },
     onSubmit: function () {
       var vm = this;
       vm.$refs['inputFrom'].validate((valid) => {
@@ -153,20 +645,6 @@ export default {
             vm.openId = data.open_id;
           });
         }
-      });
-    }
-  },
-  mounted: function () {
-    var vm = this;
-    vm.socialsecurityList = vm.$db.getObject('socialsecurityList');
-    if (!vm.socialsecurityList) {
-      vm.$http.get('api/rip/socialsecurityList', {
-        headers: {
-          authorization: vm.$db.get('authorization')
-        }
-        }).then(function (res) {
-        vm.socialsecurityList = res.data.data;
-        vm.$db.set('socialsecurityList', vm.socialsecurityList);
       });
     }
   }

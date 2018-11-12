@@ -60,43 +60,43 @@
           <td colspan="2">基本信息</td>
         </tr>
         <tr class="inner-table">
-          <td colspan="2" style="padding: 0;"><table class="table" v-html="objectInfo2Html(result.data.basicInfo, basicInfoKvs)"></table></td>
+          <td colspan="2" style="padding: 0;"><table class="table" v-html="$FU.objectInfo2Html(result.data.basicInfo, basicInfoKvs)"></table></td>
         </tr>
         <tr class="text-title">
           <td colspan="2">前十通话记录次数</td>
         </tr>
         <tr class="inner-table">
-          <td colspan="2" style="padding: 0;"><table class="table" v-html="arrayInfo2Html(result.data.stati, statiKvs)"></table></td>
+          <td colspan="2" style="padding: 0;"><table class="table" v-html="$FU.arrayInfo2Html(result.data.stati, statiKvs)"></table></td>
         </tr>
         <tr class="text-title">
           <td colspan="2">近6个月通话记录详单</td>
         </tr>
         <tr class="inner-table">
-          <td colspan="2" style="padding: 0;"><table class="table" v-html="arrayInfo2HtmlV2(result.data.callRecordInfo, callRecordInfoKvs)"></table></td>
+          <td colspan="2" style="padding: 0;"><table class="table" v-html="$FU.arrayInfo2HtmlV2(result.data.callRecordInfo, callRecordInfoKvs)"></table></td>
         </tr>
         <tr class="text-title">
           <td colspan="2">近6个月账单信息</td>
         </tr>
         <tr class="inner-table">
-          <td colspan="2" style="padding: 0;"><table class="table" v-html="arrayInfo2HtmlV2(result.data.bill, billKvs)"></table></td>
+          <td colspan="2" style="padding: 0;"><table class="table" v-html="$FU.arrayInfo2HtmlV2(result.data.bill, billKvs)"></table></td>
         </tr>
         <tr class="text-title">
           <td colspan="2">近6个月短信信息</td>
         </tr>
         <tr class="inner-table">
-          <td colspan="2" style="padding: 0;"><table class="table" v-html="arrayInfo2HtmlV2(result.data.smsInfo, smsInfoKvs)"></table></td>
+          <td colspan="2" style="padding: 0;"><table class="table" v-html="$FU.arrayInfo2HtmlV2(result.data.smsInfo, smsInfoKvs)"></table></td>
         </tr>
         <tr class="text-title">
           <td colspan="2">近6个月上网信息</td>
         </tr>
         <tr class="inner-table">
-          <td colspan="2" style="padding: 0;"><table class="table" v-html="arrayInfo2HtmlV2(result.data.netInfo, netInfoKvs)"></table></td>
+          <td colspan="2" style="padding: 0;"><table class="table" v-html="$FU.arrayInfo2HtmlV2(result.data.netInfo, netInfoKvs)"></table></td>
         </tr>
         <tr class="text-title">
           <td colspan="2">近6个月办理业务信息</td>
         </tr>
         <tr class="inner-table">
-          <td colspan="2" style="padding: 0;"><table class="table" v-html="arrayInfo2HtmlV2(result.data.businessInfo, businessInfoKvs)"></table></td>
+          <td colspan="2" style="padding: 0;"><table class="table" v-html="$FU.arrayInfo2HtmlV2(result.data.businessInfo, businessInfoKvs)"></table></td>
         </tr>
       </table>
     </el-card>
@@ -106,8 +106,6 @@
 <script>
 export default {
   name: 'OperatorCredit',
-  components: {
-  },
   data () {
     const basicInfoKvs = {
       mobileNo: '本机号码',
@@ -570,59 +568,6 @@ export default {
           });
         }
       });
-    },
-    // 下面是 结果转表单
-    objectInfo2Html: function (basicInfo, kvs) {
-      var html = "";
-      let index = 0;
-      var keys = Object.keys(basicInfo);
-      for (let i in basicInfo) {
-        if (index % 2) {
-          html += `
-                <td width="20%">${kvs[i]}</td>
-                <td width="30%">${basicInfo[i]}</td>
-                </tr>
-              `;
-        } else {
-          html += `
-            <tr class="text-left">
-              <td width="20%">${kvs[i]}</td>
-              <td width="30%">${basicInfo[i]}</td>
-          `;
-          if (index == keys.length - 1) {
-            html += '<td></td><td></td></tr>';
-          }
-        }
-        index++;
-      }
-      return html;
-    },
-    arrayInfo2Html: function (arrayInfo, kvs) {
-      var html = "";
-      arrayInfo.forEach(element => {
-        html += this.objectInfo2Html(element, kvs);
-      });
-      return html;
-    },
-    kvsToTableHead: function (kvs) {
-      var html = "<tr>";
-      for (let k in kvs) {
-        html += `<th>${kvs[k]}</th>`;
-      }
-      html += '</tr>';
-      return html;
-    },
-    arrayInfo2HtmlV2: function (arrayInfo, kvs) {
-      var html = "";
-      html += this.kvsToTableHead(kvs);
-      arrayInfo.forEach(element => {
-        html += '<tr>';
-        for (let k in kvs) {
-          html += `<td>${element[k] == undefined ? '' : element[k]}</td>`;
-        }
-        html += '</tr>';
-      });
-      return html;
     }
   }
 };

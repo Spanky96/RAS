@@ -14,15 +14,18 @@ import router from './router';
 import axios from 'axios';
 import Vum from './vum.js';
 import Print from '@/plugs/print';
+import formUtil from '@/components/utils/formUtil.js';
 import validator from './validator';
 import filters from './filters';
 
 Vue.use(ElementUI);
 Vue.use(Print);
+
 Vue.prototype.$http = axios;
 Vue.config.productionTip = false;
 Vue.prototype.$db = db;
 Vue.prototype.$validator = validator;
+Vue.prototype.$FU = formUtil;
 axios.defaults.withCredentials = true;
 Vue.use(Vum);
 
