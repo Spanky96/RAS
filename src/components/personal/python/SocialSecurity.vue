@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-card style="margin-bottom:25px">
+    <el-card style="margin-bottom:25px" v-loading="loading">
       <div slot="header" class="clearfix">
         <span>社保</span>
       </div>
@@ -30,13 +30,11 @@
           <el-col :span="4">
             <el-form-item>
               <el-button type="primary" @click="onSubmit" round size="small">执行查询</el-button>
-              <el-button type="primary" @click="inputOrgInfo" round size="small">获取机构信息</el-button>
             </el-form-item>
           </el-col>
         </el-row>
       </el-form>
     </el-card>
-    {{openId}}{{ripId}}
     <el-card id="resultTable">
       <div slot="header" class="clearfix">
         <el-row type="flex" justify="space-between">
@@ -50,6 +48,9 @@
           <td width="30%"><el-tag :type="result.return_code | resultLogoFmt" class="tag">{{result.return_code | resultSuccessFmt}}</el-tag></td>
           <td width="20%">报告日期</td>
           <td width="30%">{{result.data.report_time}}</td>
+        </tr>
+        <tr v-show="result.data.reportHTML">
+          <td colspan="4"><a id="download"><el-button type="primary" size="small" round>下载报告</el-button></a></td>
         </tr>
         <tr class="text-title">
           <td colspan="4">基本信息</td>
@@ -139,6 +140,7 @@
 
 <script>
 import SsLogin from './SsLogin';
+import SsValidate from './SsValidate';
 export default {
   name: 'SocialSecurity',
   components: {
@@ -233,7 +235,7 @@ export default {
       'total_stop_payment_times': '历史停缴次数',
       'last_half_year_company_num': '近6月社保社保缴纳不同单位数',
       'last_year_company_num': '近12月社保社保缴纳不同单位数',
-      'last_two_year_compnay_num': '近24月社保社保缴纳不同单位数'
+      'last_two_year_company_num': '近24月社保社保缴纳不同单位数'
     };
     // eslint-disable-next-line
     const pension_summaryKvs = {
@@ -249,7 +251,7 @@ export default {
       'total_stop_payment_times': '历史停缴次数',
       'last_half_year_company_num': '近6月社保社保缴纳不同单位数',
       'last_year_company_num': '近12月社保社保缴纳不同单位数',
-      'last_two_year_compnay_num': '近24月社保社保缴纳不同单位数'
+      'last_two_year_company_num': '近24月社保社保缴纳不同单位数'
     };
     // eslint-disable-next-line
     const unemployment_summaryKvs = {
@@ -265,7 +267,7 @@ export default {
       'total_stop_payment_times': '历史停缴次数',
       'last_half_year_company_num': '近6月社保社保缴纳不同单位数',
       'last_year_company_num': '近12月社保社保缴纳不同单位数',
-      'last_two_year_compnay_num': '近24月社保社保缴纳不同单位数'
+      'last_two_year_company_num': '近24月社保社保缴纳不同单位数'
     };
     // eslint-disable-next-line
     const injury_summaryKvs = {
@@ -281,7 +283,7 @@ export default {
       'total_stop_payment_times': '历史停缴次数',
       'last_half_year_company_num': '近6月社保社保缴纳不同单位数',
       'last_year_company_num': '近12月社保社保缴纳不同单位数',
-      'last_two_year_compnay_num': '近24月社保社保缴纳不同单位数'
+      'last_two_year_company_num': '近24月社保社保缴纳不同单位数'
     };
     // eslint-disable-next-line
     const maternity_summaryKvs = {
@@ -297,10 +299,9 @@ export default {
       'total_stop_payment_times': '历史停缴次数',
       'last_half_year_company_num': '近6月社保社保缴纳不同单位数',
       'last_year_company_num': '近12月社保社保缴纳不同单位数',
-      'last_two_year_compnay_num': '近24月社保社保缴纳不同单位数'
+      'last_two_year_company_num': '近24月社保社保缴纳不同单位数'
     };
     const consumptionsKvs = {
-      'consumptions': '医疗消费记录',
       'trade_time': '结算时间',
       'trade_amount': '结算金额（单位：分）',
       'trade_type': '医疗类别',
@@ -504,10 +505,12 @@ export default {
         },
         "return_code": "0"
       },
+      loading: false,
       socialsecurityList,
       orgArea: undefined,
       openId: '',
       ripId,
+      taskId: '',
       basicInfoKvs,
       medicareFlowKvs,
       pensionFlowKvs,
@@ -520,7 +523,8 @@ export default {
       injury_summaryKvs,
       maternity_summaryKvs,
       consumptionsKvs,
-      companysKvs
+      companysKvs,
+      tryAgain: 8 // 报报告找不到错误，但是重试可以解决设置8次重访问
     };
   },
   methods: {
@@ -548,6 +552,8 @@ export default {
           title: '社保信息采集',
           message: formElement,
           showCancelButton: false,
+          closeOnClickModal: false,
+          closeOnPressEscape: false,
           confirmButtonText: '提交',
           beforeClose: (action, instance, done) => {
             if (action === 'confirm') {
@@ -567,7 +573,6 @@ export default {
                   version: '102'
                 };
                 var strDate = JSON.stringify(Object.assign(jsonData, formElement.child.form));
-                console.log(strDate);
                 vm.$http.get('api/rip/jsontask', {
                   params: {
                     jsonData: strDate
@@ -575,27 +580,175 @@ export default {
                   headers: {
                     authorization: vm.$db.get('authorization')
                   }}).then(function (res) {
-                    console.log(res.data);
+                    if (res.data && res.data.return_code == '0') {
+                      // 请求成功
+                      vm.taskId = res.data.task_info.task_id;
+                      if (res.data.task_info.task_wait) {
+                        // 需要验证码 TODO
+                        vm.doValidate(vm.taskId = res.data.task_info.task_wait);
+                      } else {
+                        vm.loading = true;
+                        vm.startPollingSearch();
+                      }
+                    }
+                    instance.confirmButtonLoading = false;
+                    done();
                 });
               }
             } else {
               done();
             }
           },
-          showClose: true
-        });
-        promise.then(action => {
-          vm.$message({
-            type: 'info',
-            message: 'action: ' + action
-          });
+          showClose: false
         });
         promise.catch(() => {
           vm.$message({
             type: 'info',
-            message: '您取消了查询'
+            message: '查询被取消'
           });
         });
+      });
+    },
+    doValidate: function (wait) {
+      var vm = this;
+      var formElement = vm.$createElement(SsValidate, { props: { json: wait } });
+      var promise = vm.$msgbox({
+        title: wait.message,
+        message: formElement,
+        showCancelButton: false,
+        closeOnClickModal: false,
+        closeOnPressEscape: false,
+        confirmButtonText: '提交',
+        beforeClose: (action, instance, done) => {
+          if (action === 'confirm') {
+            var formData = {};
+            for (let k of formElement.child.type.keys) {
+              if (formElement.child.form[k] == '') {
+                alert('请填写验证信息。');
+                return;
+              } else {
+                formData[k] = formElement.child.form[k];
+              }
+            }
+            vm.responseLogin(formData);
+            done();
+          } else {
+            done();
+          }
+        },
+        showClose: false
+      });
+      promise.catch(() => {
+        vm.$message({
+          type: 'info',
+          message: '查询被取消'
+        });
+      });
+    },
+    getTaskStatus: function () {
+      var vm = this;
+      var p = new Promise(function (resolve, reject) {
+        vm.$http.get('api/rip/status', {
+          params: {
+            task_id: vm.taskId
+          },
+          headers: {
+            authorization: vm.$db.get('authorization')
+          }}).then(function (res) {
+            resolve(res.data);
+          });
+        });
+      return p;
+    },
+    responseLogin: function (formData) {
+      var vm = this;
+      var p = new Promise(function (resolve, reject) {
+        vm.$http.get('api/rip/verification', {
+          params: {
+            jsonData: JSON.stringify(Object.assign(formData, {task_id: vm.taskId}))
+          },
+          headers: {
+            authorization: vm.$db.get('authorization')
+        }}).then(function (res) {
+          resolve(res.data);
+        });
+      });
+      p.then(function (data) {
+        if (data && data.return_code == '0') {
+          // 请求成功
+          vm.taskId = data.task_info.task_id;
+          if (data.task_info.task_wait) {
+            // 需要验证码 TODO
+            vm.doValidate(vm.taskId = data.task_info.task_wait);
+          } else {
+            vm.loading = true;
+            vm.startPollingSearch();
+          }
+        }
+      });
+    },
+    startPollingSearch: function () {
+      var vm = this;
+      var pStatus = vm.getTaskStatus();
+      pStatus.then(function (data) {
+        if (data.return_code && data.return_code == '0') {
+          var status = data.task_info.status;
+          if (status == 'COMPLETE') {
+            // 报告生成
+            vm.$http.get('api/rip/report', {
+              params: {
+                task_id: vm.taskId,
+                open_id: vm.openId,
+                version: '102'
+              },
+              headers: {
+                authorization: vm.$db.get('authorization')
+              }
+              }).then(function (res) {
+                if (res.data.return_code == '0') {
+                  vm.result = res.data;
+                  vm.result.example = false;
+                  vm.loading = false;
+                  vm.initDownloadLink(res.data.data.reportHTML);
+                  vm.tryAgain = 8;
+                  vm.loading = false;
+                } else {
+                  vm.tryAgain--;
+                  if (vm.tryAgain == 0) {
+                    vm.$message({
+                      showClose: true,
+                      message: res.data.return_message,
+                      type: 'error',
+                      duration: '5000'
+                    });
+                    vm.loading = false;
+                  } else {
+                    vm.startPollingSearch();
+                  }
+                }
+            });
+          } else if (['INVALID', 'FAILURE', 'PROCESS'].includes(status)) {
+            vm.$message({
+              showClose: true,
+              message: data.task_info.error_message,
+              type: 'error',
+              duration: '5000'
+            });
+            vm.loading = false;
+          } else {
+            console.log(new Date().getTime() + '___轮询___Status：' + status);
+            // 两秒后再次请求api
+            setTimeout(vm.startPollingSearch(), 4000);
+          }
+        } else {
+          vm.$message({
+            showClose: true,
+            message: '很抱歉，无法获取报告，错误代码：' + data.return_code,
+            type: 'error',
+            duration: '5000'
+          });
+          vm.loading = false;
+        }
       });
     },
     getOpenId: function () {
@@ -637,6 +790,20 @@ export default {
       });
       return errorField;
     },
+    initDownloadLink (reportHTML) {
+      if (!this.result.data.reportHTML) {
+        return;
+      }
+      let Base64 = require('js-base64').Base64;
+      var html = Base64.decode(reportHTML);
+      var aLink = document.getElementById('download');
+      var blob = new Blob([html]);
+      var evt = document.createEvent("HTMLEvents");
+      evt.initEvent("click", false, false);
+      aLink.download = '1.html';
+      aLink.href = URL.createObjectURL(blob);
+      aLink.dispatchEvent(evt);
+    },
     onSubmit: function () {
       var vm = this;
       vm.$refs['inputFrom'].validate((valid) => {
@@ -644,6 +811,7 @@ export default {
           vm.getOpenId().then(function (data) {
             vm.openId = data.open_id;
           });
+          vm.inputOrgInfo();
         }
       });
     }

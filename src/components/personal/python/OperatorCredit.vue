@@ -558,7 +558,7 @@ export default {
         } else if (!data.code) {
           console.log(new Date().getTime() + '___轮询___code：' + data.code);
           // 两秒后再次请求api
-          setTimeout(vm.startPollingSearch(), 2000);
+          setTimeout(vm.startPollingSearch(), 5000);
         } else {
           vm.$message({
             showClose: true,

@@ -4,7 +4,7 @@ export default {
     var html = "";
     let index = 0;
     var keys = Object.keys(basicInfo);
-    for (let i in basicInfo) {
+    for (let i in kvs) {
       if (index % 2) {
         html += `
               <td width="20%">${kvs[i]}</td>
@@ -78,5 +78,4 @@ export default {
     }
     return html;
   }
-  
 };
