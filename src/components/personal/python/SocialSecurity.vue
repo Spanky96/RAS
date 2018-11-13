@@ -53,7 +53,7 @@
           <td colspan="4"><a id="download"><el-button type="primary" size="small" round>下载报告</el-button></a></td>
         </tr>
         <tr class="text-title">
-          <td colspan="4">基本信息</td>
+          <td colspan="4">个人信息</td>
         </tr>
         <tr class="inner-table">
           <td colspan="4" style="padding: 0;">
@@ -143,14 +143,11 @@ import SsLogin from './SsLogin';
 import SsValidate from './SsValidate';
 export default {
   name: 'SocialSecurity',
-  components: {
-    SsLogin
-  },
   data () {
     var vm = this;
     var socialsecurityList = [];
     var ripId = '';
-    this.getSSList().then(function (data) {
+    vm.getSSList().then(function (data) {
       vm.socialsecurityList = data.data;
       vm.ripId = data.rip_id;
     });
@@ -590,6 +587,8 @@ export default {
                         vm.loading = true;
                         vm.startPollingSearch();
                       }
+                    } else {
+                      res.data && alert(res.data.return_message);
                     }
                     instance.confirmButtonLoading = false;
                     done();
