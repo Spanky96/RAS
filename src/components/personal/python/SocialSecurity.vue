@@ -736,8 +736,8 @@ export default {
             vm.loading = false;
           } else {
             console.log(new Date().getTime() + '___轮询___Status：' + status);
-            // 两秒后再次请求api
-            setTimeout(vm.startPollingSearch(), 4000);
+            // 3秒后再次请求api
+            setTimeout(vm.startPollingSearch, 3000);
           }
         } else {
           vm.$message({

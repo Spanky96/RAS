@@ -6,26 +6,30 @@
       </div>
       <el-form :model="inputFrom" :rules="rules" ref="inputFrom" id="inputForm">
         <el-row>
-          <el-col :span="10">
-            <el-form-item label="姓名" label-width="0" prop="name" class="form-item">
-              <el-input v-model="inputFrom.name"></el-input>
-            </el-form-item>
-          </el-col>
-          <el-col :span="10">
-            <el-form-item label="身份证号码" label-width="0" prop="idCard" class="form-item">
-              <el-input v-model="inputFrom.idCard"></el-input>
-            </el-form-item>
-          </el-col>
+          <el-row>
+            <el-col :span="8">
+              <el-form-item label="姓名" label-width="0" prop="name" class="form-item">
+                <el-input v-model="inputFrom.name"></el-input>
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
+              <el-form-item label="身份证号码" label-width="0" prop="idCard" class="form-item">
+                <el-input v-model="inputFrom.idCard"></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row>
+            <el-col :span="8">
+              <el-form-item label="手机号" label-width="0" prop="mobile" class="form-item">
+                <el-input v-model="inputFrom.mobile"></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
         </el-row>
-        <el-row type="flex" justify="space-between" align="bottom">
-          <el-col :span="10">
-            <el-form-item label="有效期起始日期" label-width="0" prop="beginDate" class="form-item">
-              <el-date-picker type="date" v-model="inputFrom.beginDate"></el-date-picker>
-            </el-form-item>
-          </el-col>
+        <el-row type="flex" justify="end" align="bottom">
           <el-col :span="4">
             <el-form-item>
-              <el-button type="primary" @click="onSubmit" round size="small">执行查询</el-button>
+              <el-button type="primary" @click="onSubmit" round size="small" :loading="loading">{{btnText}}</el-button>
             </el-form-item>
           </el-col>
         </el-row>
@@ -41,20 +45,20 @@
       </div>
       <table class="table card-text">
         <tr class="text-left">
-          <td width="20%">匹配结果</td>
-          <td><el-tag :type="resultSuccess.logo" class="tag">{{resultSuccess.name}}</el-tag></td>
+          <td width="20%">查询结果</td>
+          <td><el-tag :type="result.return_code | resultLogoFmt" class="tag">{{result.return_code | resultSuccessFmt}}</el-tag></td>
         </tr>
         <tr class="text-left">
-          <td>姓名</td>
+          <td width="20%">姓名</td>
           <td>{{result.name | handleName}}</td>
         </tr>
         <tr class="text-left">
-          <td>身份证号码</td>
+          <td width="20%">身份证</td>
           <td>{{result.idCard | handleIdCard}}</td>
         </tr>
         <tr class="text-left">
-          <td>有效期起始日期</td>
-          <td>{{result.beginDate}}</td>
+          <td width="20%">芝麻信用分</td>
+          <td>{{result.data.sesameScore}} {{result.data.sesameScore | sesameLevel}}</td>
         </tr>
       </table>
     </el-card>
@@ -63,9 +67,7 @@
 
 <script>
 export default {
-  name: 'PersonalIdentityInvalid',
-  components: {
-  },
+  name: 'Zhima',
   data () {
     return {
       inputFrom: {
@@ -76,15 +78,23 @@ export default {
       rules: {
         name: [{ required: true, message: '请输入姓名', trigger: 'blur' }],
         idCard: [{ validator: this.$validator.idCardValidator, trigger: 'blur' }],
-        beginDate: [{ required: true, message: '你选择起始日期', trigger: 'blur' }]
+        mobile: [{ validator: this.$validator.mobileValidator, trigger: 'blur' }]
       },
       result: {
+        name: '朱晓辉',
+        idCard: '340154199512115445',
         example: true,
-        resultType: 'SAME',
-        name: '赵雷',
-        idCard: '320281199606286774',
-        beginDate: '2011-06-28'
-      }
+        "data": {
+          "orderNumber": "069",
+          "sesameScore": 560,
+          "time": 1537328342126
+        },
+        "return_code": "0"
+      },
+      orderNumber: '',
+      loading: false,
+      btnText: "执行查询",
+      tryAgain: 0
     };
   },
   methods: {
@@ -92,57 +102,96 @@ export default {
       var vm = this;
       vm.$refs['inputFrom'].validate((valid) => {
         if (valid) {
-          const loading = vm.$loading({
-            lock: true,
-            text: 'Loading',
-            spinner: 'el-icon-loading',
-            background: 'rgba(0, 0, 0, 0.2)'
-          });
-          // var userInfo = vm.$db.getObject('user');
-          vm.$http.get('api/rip/invalidIDConsistency', {
+          vm.loading = true;
+          vm.orderNumber = 'zm' + new Date().getTime();
+          vm.$http.get('api/rip/sesameCreditScore/jurisdiction', {
             params: {
               name: vm.inputFrom.name,
               idCard: vm.inputFrom.idCard,
-              beginDate: vm.inputFrom.beginDate
+              mobile: vm.inputFrom.mobile,
+              orderNumber: vm.orderNumber // 用时间戳啦
             },
             headers: {
               authorization: vm.$db.get('authorization')
             }
             }).then(function (res) {
-            if (res.data.success && res.data.data) {
-                  vm.result = {
-                    example: false,
-                    resultType: res.data.data.compareStatus,
-                    name: res.data.data.name,
-                    idCard: res.data.data.identityCard,
-                    beginDate: res.data.data.beginDate
-                    };
-            } else {
-              vm.$message({
-                showClose: true,
-                message: res.data.errorDesc,
-                type: 'error',
-                duration: '5000'
-              });
+              if (res.data.code == '0' && res.data.data) {
+                vm.btnText = '等待授权操作,需耐心等待';
+                var qrCode = res.data.data.authUrl;
+                const h = vm.$createElement;
+                vm.currentNotify = vm.$notify({
+                  title: '授权请求',
+                  message: h('div', null, [h('h3', {style: {width: '500px'}}, '请扫描二维码提供芝麻分授权'),
+                                           h('qriously', {props: {size: 220, value: qrCode}}, null)]),
+                  duration: 180000
+                });
+                vm.tryAgain = 35; // 给34次轮询时间。大概180秒
+                // 5秒后开始检查状态
+                setTimeout(vm.startPollingSearch, 5000);
+              } else {
+                vm.loading = false;
+                vm.$message({
+                  showClose: true,
+                  message: res.data.message || '请求失败',
+                  type: 'error',
+                  duration: '5000'
+                });
             }
-            loading.close();
           });
         }
       });
-    }
-  },
-  computed: {
-    resultSuccess: function () {
-      if (this.result.resultType == 'SAME') {
-        return {name: '一致', logo: 'success'};
-      }
-      if (this.result.resultType == 'DIFFERENT') {
-        return {name: '不一致', logo: 'danger'};
-      }
-      if (this.result.resultType == 'NO_DATA') {
-       return {name: '无数据', logo: 'info'};
-      }
+    },
+    startPollingSearch: function () {
+      var vm = this;
+      vm.$http.get('api/rip/sesameCreditScore/result', {
+        params: {
+          orderNumber: vm.orderNumber // 用时间戳啦
+        },
+        headers: {
+          authorization: vm.$db.get('authorization')
+        }
+      }).then(function (res) {
+        if (res.data.return_code == '0') {
+          vm.result = {
+            example: false,
+            data: res.data.data,
+            name: vm.inputFrom.name,
+            idCard: vm.inputFrom.idCard,
+            return_code: '0'
+          };
+          vm.loading = false;
+          vm.btnText = '执行查询';
+          vm.currentNotify && vm.currentNotify.close();
+          vm.$message({
+            showClose: true,
+            message: '成功获取芝麻信用分!',
+            type: 'success',
+            duration: '1000'
+          });
+        } else {
+          // 5秒后再次检查
+          if (vm.tryAgain != 0) {
+            vm.tryAgain--;
+            setTimeout(vm.startPollingSearch, 5000);
+          } else {
+            // 超时啦
+            vm.$message({
+              showClose: true,
+              message: '很抱歉！请求超时，未成功获取芝麻评分。',
+              type: 'error',
+              duration: '5000'
+            });
+          }
+        }
+      });
     }
   }
 };
 </script>
+<style scoped>
+ .coderequest {
+    width: 260px;
+    text-align: center;
+    margin-top: 20px;
+ }
+</style>

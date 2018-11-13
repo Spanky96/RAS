@@ -17,10 +17,11 @@ import Print from '@/plugs/print';
 import formUtil from '@/components/utils/formUtil.js';
 import validator from './validator';
 import filters from './filters';
+import VueQriously from 'vue-qriously';
 
 Vue.use(ElementUI);
 Vue.use(Print);
-
+Vue.use(VueQriously);
 Vue.prototype.$http = axios;
 Vue.config.productionTip = false;
 Vue.prototype.$db = db;

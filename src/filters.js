@@ -170,5 +170,25 @@ export default {
   },
   resultSuccessFmt: function (val) {
     return RESULT_SUCCESS[val];
+  },
+  sesameLevel: function (score) {
+    if (isNaN(score)) {
+      return '';
+    }
+    var result = '';
+    if (score >= 700) {
+      result = '极好';
+    } else if (score >= 650) {
+      result = '优秀';
+    } else if (score >= 600) {
+      result = '良好';
+    } else if (score >= 550) {
+      result = '中等';
+    } else if (score >= 350) {
+      result = '较差';
+    } else {
+      result = '很差';
+    }
+    return `[${result}]`;
   }
 };
