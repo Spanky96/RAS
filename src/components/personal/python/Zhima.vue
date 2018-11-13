@@ -181,6 +181,8 @@ export default {
               type: 'error',
               duration: '5000'
             });
+            vm.loading = false;
+            vm.btnText = '执行查询';
           }
         }
       });
