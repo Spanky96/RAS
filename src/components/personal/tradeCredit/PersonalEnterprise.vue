@@ -499,7 +499,7 @@ export default {
               if (res.data.success) {
                   if (res.data.data.status == 'EXIST') {
                       vm.result.idCard = res.data.data.key;
-                vm.result.status = '数据存在',
+                vm.result.status = '数据存在';
                 vm.result.punishBreaks = res.data.data.punishBreaks;
                 vm.result.punished = res.data.data.punished;
                 vm.result.caseInfos = res.data.data.caseInfos;
@@ -509,7 +509,7 @@ export default {
                 vm.result.example = false;
                   } else {
                       vm.result.idCard = res.data.data.key;
-                vm.result.status = '数据不存在',
+                vm.result.status = '数据不存在';
                 vm.result.punishBreaks = res.data.data.punishBreaks;
                 vm.result.punished = res.data.data.punished;
                 vm.result.caseInfos = res.data.data.caseInfos;
