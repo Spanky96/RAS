@@ -52,7 +52,7 @@
                 <td class="mytd" width="25%">案号 ：</td>
                 <td class="mytd">{{ret.caseCode}}</td>
                 <td class="mytd" width="25%">被执行人姓名/名称 ：</td>
-                <td class="mytd">{{ret.name}}</td>
+                <td class="mytd">{{ret.name | handleName()}}</td>
               </tr>
               <tr class="text-left resultRows">
                 <td class="mytd" width="25%">失信人类型 ：</td>
@@ -64,7 +64,7 @@
                 <td class="mytd" width="25%">年龄 ：</td>
                 <td class="mytd">{{ret.age}}</td>
                 <td class="mytd" width="25%">身份证号码 ：</td>
-                <td class="mytd">{{ret.cardNum}}</td>
+                <td class="mytd">{{ret.cardNum | handleIdCard()}}</td>
               </tr>
               <tr class="text-left resultRows">
                 <td class="mytd" width="25%">身份证原始发证地 ：</td>
@@ -124,11 +124,11 @@
                 <td class="mytd" width="25%">案号 ：</td>
                 <td class="mytd">{{ret.caseCode}}</td>
                 <td class="mytd" width="25%">被执行人姓名/名称 ：</td>
-                <td class="mytd">{{ret.name}}</td>
+                <td class="mytd">{{ret.name | handleName()}}</td>
               </tr>
               <tr class="text-left resultRows">
                 <td class="mytd" width="25%">身份证号码 ：</td>
-                <td class="mytd">{{ret.cardNum}}</td>
+                <td class="mytd">{{ret.cardNum | handleIdCard()}}</td>
                 <td class="mytd" width="25%">性别 ：</td>
                 <td class="mytd">{{ret.sex}}</td>
               </tr>
@@ -228,7 +228,7 @@
               <table class="table card-text" v-for="(ret, index) in result.corporates" :key="index">
               <tr class="text-left resultRows" >
                 <td class="mytd" width="25%">查询人姓名 ：</td>
-                <td class="mytd">{{ret.ryName}}</td>
+                <td class="mytd">{{ret.ryName | handleName()}}</td>
                 <td class="mytd" width="25%">企业（机构）名称 ：</td>
                 <td class="mytd">{{ret.entName}}</td>
               </tr>
@@ -264,7 +264,7 @@
               <table class="table card-text" v-for="(ret, index) in result.corporateShareholders" :key="index">
               <tr class="text-left resultRows">
                 <td class="mytd" width="25%">查询人姓名 ：</td>
-                <td class="mytd">{{ret.ryName}}</td>
+                <td class="mytd">{{ret.ryName | handleName()}}</td>
                 <td class="mytd" width="25%">企业（机构）名称 ：</td>
                 <td class="mytd">{{ret.entName}}</td>
               </tr>
@@ -312,7 +312,7 @@
               <table class="table card-text" v-for="(ret, index) in result.corporateManagers" :key="index">
               <tr class="text-left resultRows">
                 <td class="mytd" width="25%">查询人姓名 ：</td>
-                <td class="mytd">{{ret.ryName}}</td>
+                <td class="mytd">{{ret.ryName | handleName()}}</td>
                 <td class="mytd" width="25%">企业（机构）名称 ：</td>
                 <td class="mytd">{{ret.entName}}</td>
               </tr>
