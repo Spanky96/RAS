@@ -274,7 +274,7 @@ export default {
             } else {
               vm.$message({
                 showClose: true,
-                message: res.data.errorDesc,
+                message: res.data.message,
                 type: 'error',
                 duration: '5000'
               });

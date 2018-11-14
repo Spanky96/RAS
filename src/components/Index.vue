@@ -105,10 +105,10 @@
             index: "2-4",
             icon: 'jiaoyi',
             subs: [
-              {name: '消费等级', index: "2-4-2", icon: 'zongheyewutongji'},
-              {name: '资产令牌', index: "2-4-3", icon: 'chuzheng'},
-              {name: '航旅信息', index: "2-4-4", icon: 'lvyou'},
-              {name: '银行卡交易信息', index: "2-4-5", icon: 'zhifuweikuan'},
+              {name: '消费等级', index: "/personal/tradeCredit/ConsumptionLevel", icon: 'zongheyewutongji'},
+              {name: '资产令牌', index: "/personal/tradeCredit/AssetQuery", icon: 'chuzheng'},
+              {name: '航旅信息', index: "/personal/tradeCredit/AirTravel", icon: 'lvyou'},
+              {name: '银行卡交易信息', index: "/personal/tradeCredit/BankCardTransaction", icon: 'zhifuweikuan'},
               {name: '名下关联企业', index: "2-4-6", icon: 'qiyechaxun_huaban'}
             ]},
             {name: '爬虫数据类',
