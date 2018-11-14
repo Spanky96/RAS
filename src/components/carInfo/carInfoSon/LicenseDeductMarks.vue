@@ -6,11 +6,27 @@
       </div>
       <el-form :model="inputFrom" :rules="rules" ref="inputFrom" id="inputForm">
         <el-row>
-         <el-col :span="5">
-            <el-form-item label="车牌号" label-width="0" prop="plateNumber" class="form-item">
-              <el-input v-model="inputFrom.plateNumber"></el-input>
+         <el-col :span="10">
+            <el-form-item label="驾驶证号码" label-width="0" prop="idCard" class="form-item">
+              <el-input v-model="inputFrom.idCard"></el-input>
             </el-form-item>
           </el-col>
+          <el-col :span="10">
+            <el-form-item label="档案编号" label-width="0" prop="fileNO" class="form-item">
+              <el-input v-model="inputFrom.fileNO"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="10">
+            <el-form-item label="省份及城市" label-width="0" prop="province" class="form-item">
+             <el-cascader
+              placeholder="请选择"
+              :options="options"
+              v-model="inputFrom.province"
+              @change="handleChange">
+            </el-cascader>
+            </el-form-item>
+          </el-col>
+          
           </el-row>
         <el-row type="flex" justify="end">
           <el-col :span="4">
@@ -37,149 +53,342 @@
           <td></td>
         </tr>
           <tr class="text-left">
-          <td>车辆状态</td>
-          <td>{{result.vehicleStatus}}</td>
-          <td>车牌号</td>
-          <td>{{result.plateNumber}}</td>
+          <td>驾驶证号码</td>
+          <td>{{result.idCard}}</td>
+          <td>档案编号</td>
+          <td>{{result.fileNO}}</td>
         </tr>
         <tr class="text-left">
-          <td>号牌种类</td>
-          <td>{{result.plateType}}</td>
+          <td>省份及城市</td>
+          <td>{{result.province}}</td>
           <td></td>
           <td></td>
         </tr>
         <tr class="text-left">
-          <td>品牌名称</td>
-          <td>{{result.brandName}}</td>
-          <td>车身颜色</td>
-          <td>{{result.bodyColor}}</td>
-        </tr>
-        <tr class="text-left">
-          <td>使用性质</td>
-          <td>{{result.useType}}</td>
-          <td>车牌型号</td>
-          <td>{{result.vehicleModelc}}</td>
-        </tr>
-        <tr class="text-left">
-          <td>车辆类型</td>
-          <td>{{result.vehicleType}}</td>
-          <td>发动机号</td>
-          <td>{{result.engineNumber}}</td>
-        </tr>
-        <tr class="text-left">
-          <td>发动机型号</td>
-          <td>{{result.engineModel}}</td>
-          <td>车架号</td>
-          <td>{{result.vin}}</td>
-        </tr>
-        <tr class="text-left">
-          <td>初次登记日期</td>
-          <td>{{result.firstIssueDate}}</td>
-          <td>检验有效期止</td>
-          <td>{{result.validityDayEnd}}</td>
-        </tr>
-        <tr class="text-left">
-          <td>核定载客数</td>
-          <td>{{result.passengers}}</td>
+          <td>分数</td>
+          <td>{{result.marks}}</td>
           <td></td>
           <td></td>
-        </tr>
-        <tr class="text-left">
-          <td>强制报废期止</td>
-          <td>{{result.retirementDate}}</td>
-          <td>燃料种类</td>
-          <td>{{result.fuelType | handleFuelTypee}}</td>
-        </tr>
-        <tr class="text-left">
-          <td>排量</td>
-          <td>{{result.cc}}</td>
-          <td>出厂日期</td>
-          <td>{{result.ppsDate}}</td>
-        </tr>
-        <tr class="text-left">
-          <td>最大功率（KW）</td>
-          <td>{{result.maxJourney}}</td>
-          <td></td>
-          <td></td>
-        </tr>
-        <tr class="text-left">
-          <td>轴数</td>
-          <td>{{result.shaft}}</td>
-          <td>轴距</td>
-          <td>{{result.wheelBase}}</td>
-        </tr>
-        <tr class="text-left">
-          <td>前轮距</td>
-          <td>{{result.frontTread}}</td>
-          <td>后轮距</td>
-          <td>{{result.rearTread}}</td>
-        </tr>
-        <tr class="text-left">
-          <td>总质量</td>
-          <td>{{result.crossWeight}}</td>
-          <td>整备质量</td>
-          <td>{{result.curbWeight}}</td>
-        </tr>
-        <tr class="text-left">
-          <td>核定载质量</td>
-          <td>{{result.loadWeight}}</td>
-          <td></td>
-          <td></td>
-        </tr>
-        <tr class="text-left">
-          <td>查询数据状态</td>
-          <td>{{result.status}}</td>
         </tr>
       </table>
     </el-card>
   </div>
 </template>
-
 <script>
 export default {
-  name: 'VehicleLicenseInfo',
+  name: 'LicenseDeductMarks',
   components: {
   },
   data () {
     return {
+      options: [{
+        value: '北京',
+        label: '北京',
+        children: [{
+            value: '北京',
+            label: '北京'
+          }]
+      }, {
+        value: '天津',
+        label: '天津',
+        children: [{
+            value: '天津',
+            label: '天津'
+          }]
+      }, {
+        value: '上海',
+        label: '上海',
+        children: [{
+            value: '上海',
+            label: '上海'
+          }]
+      }, {
+        value: '重庆',
+        label: '重庆',
+        children: [{
+            value: '重庆',
+            label: '重庆'
+          }]
+      }, {
+        value: '辽宁',
+        label: '辽宁',
+        children: [{
+            value: '辽宁',
+            label: '辽宁'
+          }]
+      }, {
+        value: '吉林',
+        label: '吉林',
+        children: [{
+            value: '吉林',
+            label: '吉林'
+          }]
+      }, {
+        value: '黑龙江',
+        label: '黑龙江',
+        children: [{
+            value: '黑龙江',
+            label: '黑龙江'
+          }]
+      }, {
+        value: '河北',
+        label: '河北',
+        children: [{
+            value: '河北',
+            label: '河北'
+          }]
+      }, {
+        value: '山西',
+        label: '山西',
+        children: [{
+            value: '山西',
+            label: '山西'
+          }]
+      }, {
+        value: '陕西',
+        label: '陕西',
+        children: [{
+            value: '陕西',
+            label: '陕西'
+          }]
+      }, {
+        value: '山东',
+        label: '山东',
+        children: [{
+            value: '山东',
+            label: '山东'
+          }]
+      }, {
+        value: '江苏',
+        label: '江苏',
+        children: [{
+            value: '徐州',
+            label: '徐州'
+          }, {
+            value: '连云港',
+            label: '连云港'
+          }, {
+            value: '宿迁',
+            label: '宿迁'
+          }, {
+            value: '盐城',
+            label: '盐城'
+          }, {
+            value: '淮安',
+            label: '淮安'
+          }, {
+            value: '扬州',
+            label: '扬州'
+          }, {
+            value: '泰州',
+            label: '泰州'
+          }, {
+            value: '南通',
+            label: '南通'
+          }, {
+            value: '镇江',
+            label: '镇江'
+          }, {
+            value: '南京',
+            label: '南京'
+          }, {
+            value: '常州',
+            label: '常州'
+          }, {
+            value: '无锡',
+            label: '无锡'
+          }, {
+            value: '苏州',
+            label: '苏州'
+          }]
+      }, {
+        value: '浙江',
+        label: '浙江',
+        children: [{
+            value: '湖州',
+            label: '湖州'
+          }, {
+            value: '嘉兴',
+            label: '嘉兴'
+          }, {
+            value: '杭州',
+            label: '杭州'
+          }, {
+            value: '绍兴',
+            label: '绍兴'
+          }, {
+            value: '宁波',
+            label: '宁波'
+          }, {
+            value: '舟山',
+            label: '舟山'
+          }, {
+            value: '金华',
+            label: '金华'
+          }, {
+            value: '衢州',
+            label: '衢州'
+          }, {
+            value: '丽水',
+            label: '丽水'
+          }, {
+            value: '台州',
+            label: '台州'
+          }, {
+            value: '温州',
+            label: '温州'
+          }]
+      }, {
+        value: '安徽',
+        label: '安徽',
+        children: [{
+            value: '安徽',
+            label: '安徽'
+          }]
+      }, {
+        value: '河南',
+        label: '河南',
+        children: [{
+            value: '河南',
+            label: '河南'
+          }]
+      }, {
+        value: '湖北',
+        label: '湖北',
+        children: [{
+            value: '湖北',
+            label: '湖北'
+          }]
+      }, {
+        value: '湖南',
+        label: '湖南',
+        children: [{
+            value: '湖南',
+            label: '湖南'
+          }]
+      }, {
+        value: '江西',
+        label: '江西',
+        children: [{
+            value: '江西',
+            label: '江西'
+          }]
+      }, {
+        value: '福建',
+        label: '福建',
+        children: [{
+            value: '福建',
+            label: '福建'
+          }]
+      }, {
+        value: '福建',
+        label: '云南',
+        children: [{
+            value: '云南',
+            label: '云南'
+          }]
+      }, {
+        value: '海南',
+        label: '海南',
+        children: [{
+            value: '海南',
+            label: '海南'
+          }]
+      }, {
+        value: '四川',
+        label: '四川',
+        children: [{
+            value: '四川',
+            label: '四川'
+          }]
+      }, {
+        value: '贵州',
+        label: '贵州',
+        children: [{
+            value: '贵州',
+            label: '贵州'
+          }]
+      }, {
+        value: '广东',
+        label: '广东',
+        children: [{
+            value: '广东',
+            label: '广东'
+          }]
+      }, {
+        value: '甘肃',
+        label: '甘肃',
+        children: [{
+            value: '甘肃',
+            label: '甘肃'
+          }]
+      }, {
+        value: '青海',
+        label: '青海',
+        children: [{
+            value: '青海',
+            label: '青海'
+          }]
+      }, {
+        value: '西藏',
+        label: '西藏',
+        children: [{
+            value: '西藏',
+            label: '西藏'
+          }]
+      }, {
+        value: '新疆',
+        label: '新疆',
+        children: [{
+            value: '新疆',
+            label: '新疆'
+          }]
+      }, {
+        value: '广西',
+        label: '广西',
+        children: [{
+            value: '广西',
+            label: '广西'
+          }]
+      }, {
+        value: '内蒙古',
+        label: '内蒙古',
+        children: [{
+            value: '内蒙古',
+            label: '内蒙古'
+          }]
+      }, {
+        value: '宁夏',
+        label: '宁夏',
+        children: [{
+            value: '宁夏',
+            label: '宁夏'
+          }]
+      }, {
+        value: '甘肃',
+        label: '甘肃',
+        children: [{
+            value: '甘肃',
+            label: '甘肃'
+          }]
+      }],
       inputFrom: {
-        plateNumber: '',
-        plateType: '02'
+        idCard: '',
+        fileNO: '',
+        province: ''
       },
       rules: {
-        plateNumber: [{ required: true, message: '请输入车牌号', trigger: 'blur' }]
+        idCard: [{ required: true, message: '请输入驾驶证号码', trigger: 'blur' }],
+        fileNO: [{ required: true, message: '请输入档案编号', trigger: 'blur' }],
+        province: [{ required: true, message: '请输入省份及城市', trigger: 'blur' }]
       },
       result: {
         example: true,
         resultType: '0000',
-        brandName: '北京现代',
-        bodyColor: '白',
-        useType: '非营运',
-        vehicleModelc: 'BH****PAV',
-        vehicleType: '小型轿车',
-        engineNumber: 'GW6***99',
-        engineModel: 'G4NB',
-        vin: 'LVGB********18391',
-        firstIssueDate: '2016-05-17 00:00:00',
-        validityDayEnd: '2018-05-31 00:00:00',
-        vehicleStatus: '正常',
-        passengers: '5',
-        retirementDate: '2099-12-31 00:00:00',
-        fuelType: 'A',
-        cc: '1797',
-        ppsDate: '2016-04-27 00:00:00',
-        maxJourney: '105',
-        shaft: '2',
-        wheelBase: '2770',
-        frontTread: '1567',
-        rearTread: '1577',
-        crossWeight: '1860',
-        curbWeight: '1441',
-        loadWeight: '',
-        plateType: '小型汽车',
-        plateNumber: '粤 P8J665',
-        pageNum: '',
-        pageSize: '',
+        idCard: '43214321421',
+        fileNO: '43214321',
+        province: '北京',
+        marks: '10',
         status: '数据存在'
       }
     };
@@ -195,79 +404,31 @@ export default {
             spinner: 'el-icon-loading',
             background: 'rgba(0, 0, 0, 0.2)'
           });
-          vm.$http.get('api/rip/vehicleLicenseInformationHJ', {
+          vm.$http.get('api/rip/drivingLicensedeductMarksQuery', {
             params: vm.inputFrom,
             headers: {
               authorization: vm.$db.get('authorization')
             }
             }).then(function (res) {
-            if (res.data.code == '200' && res.data.data) {
-              if (res.data.data.resultCode == '1001') {
+            if (res.data.success && res.data.data) {
+              if (res.data.data.status == 'SUCCESS') {
                 vm.result = {
                   example: false,
                   resultType: '0000',
-                  brandName: res.data.data.resultInfo.brandName,
-                  bodyColor: res.data.data.resultInfo.bodyColor,
-                  useType: res.data.data.resultInfo.useType,
-                  vehicleModelc: res.data.data.resultInfo.vehicleModelc,
-                  vehicleType: res.data.data.resultInfo.vehicleType,
-                  engineNumber: res.data.data.resultInfo.engineNumber,
-                  engineModel: res.data.data.resultInfo.engineModel,
-                  vin: res.data.data.resultInfo.vin,
-                  firstIssueDate: res.data.data.resultInfo.firstIssueDate,
-                  validityDayEnd: res.data.data.resultInfo.validityDayEnd,
-                  vehicleStatus: res.data.data.resultInfo.vehicleStatus,
-                  passengers: res.data.data.resultInfo.passengers,
-                  retirementDate: res.data.data.resultInfo.retirementDate,
-                  fuelType: res.data.data.resultInfo.fuelType,
-                  cc: res.data.data.resultInfo.cc,
-                  ppsDate: res.data.data.resultInfo.ppsDate,
-                  maxJourney: res.data.data.resultInfo.maxJourney,
-                  shaft: res.data.data.resultInfo.shaft,
-                  wheelBase: res.data.data.resultInfo.wheelBase,
-                  frontTread: res.data.data.resultInfo.frontTread,
-                  rearTread: res.data.data.resultInfo.rearTread,
-                  crossWeight: res.data.data.resultInfo.crossWeight,
-                  curbWeight: res.data.data.resultInfo.curbWeight,
-                  loadWeight: res.data.data.resultInfo.loadWeight,
-                  plateType: res.data.data.resultInfo.plateType,
-                  plateNumber: res.data.data.resultInfo.plateNumber,
-                  pageNum: res.data.pageNum,
-                  pageSize: res.data.pageSize,
+                  idCard: res.data.data.idCard,
+                  fileNO: res.data.data.fileNO,
+                  province: res.data.data.province,
+                  marks: res.data.data.result,
                   status: '查得数据'
                 };
-              } else if (res.data.data.resultCode == '2001') {
+              } else if (res.data.data.status == 'FAIL') {
                 vm.result = {
                   example: false,
                   resultType: '0000',
-                  brandName: res.data.data.resultInfo.brandName,
-                  bodyColor: res.data.data.resultInfo.bodyColor,
-                  useType: res.data.data.resultInfo.useType,
-                  vehicleModelc: res.data.data.resultInfo.vehicleModelc,
-                  vehicleType: res.data.data.resultInfo.vehicleType,
-                  engineNumber: res.data.data.resultInfo.engineNumber,
-                  engineModel: res.data.data.resultInfo.engineModel,
-                  vin: res.data.data.resultInfo.vin,
-                  firstIssueDate: res.data.data.resultInfo.firstIssueDate,
-                  validityDayEnd: res.data.data.resultInfo.validityDayEnd,
-                  vehicleStatus: res.data.data.resultInfo.vehicleStatus,
-                  passengers: res.data.data.resultInfo.passengers,
-                  retirementDate: res.data.data.resultInfo.retirementDate,
-                  fuelType: res.data.data.resultInfo.fuelType,
-                  cc: res.data.data.resultInfo.cc,
-                  ppsDate: res.data.data.resultInfo.ppsDate,
-                  maxJourney: res.data.data.resultInfo.maxJourney,
-                  shaft: res.data.data.resultInfo.shaft,
-                  wheelBase: res.data.data.resultInfo.wheelBase,
-                  frontTread: res.data.data.resultInfo.frontTread,
-                  rearTread: res.data.data.resultInfo.rearTread,
-                  crossWeight: res.data.data.resultInfo.crossWeight,
-                  curbWeight: res.data.data.resultInfo.curbWeight,
-                  loadWeight: res.data.data.resultInfo.loadWeight,
-                  plateType: res.data.data.resultInfo.plateType,
-                  plateNumber: res.data.data.resultInfo.plateNumber,
-                  pageNum: res.data.pageNum,
-                  pageSize: res.data.pageSize,
+                  idCard: res.data.data.idCard,
+                  fileNO: res.data.data.fileNO,
+                  province: res.data.data.province,
+                  marks: res.data.data.result,
                   status: '未查得数据'
                 };
               }
