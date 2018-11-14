@@ -53,6 +53,9 @@ export default {
       }
       html += '</tr>';
     });
+    if (arrayInfo.length == 0) {
+      html += `</tr><td colspan=${Object.keys(kvs).length} class="centerAlign">无数据</td></tr>`;
+    }
     return html;
   },
   getHtmlByKvsFromObj: function (kvs, obj) {
