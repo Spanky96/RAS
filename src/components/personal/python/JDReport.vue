@@ -71,7 +71,7 @@
 
 <script>
 export default {
-  name: 'PersonalIdentityInvalid',
+  name: 'JDReport',
   components: {
   },
   data () {
@@ -201,7 +201,11 @@ export default {
     onSubmit: function () {
       var vm = this;
       vm.loading = true;
+      vm.btnText = '正在获取授权二维码...';
       vm.getRipId().then(function (data) {
+        if (!vm.loading) {
+          return;
+        }
         vm.ripId = data.rip_id;
         vm.token = data.token;
         vm.btnText = '等待授权操作,需耐心等待';
@@ -214,7 +218,7 @@ export default {
           duration: 180000
         });
         vm.tryAgain = 36; // 重试36次
-        vm.loading && vm.startPollingSearch();
+        vm.startPollingSearch();
       });
     },
     getResult: function () {
@@ -226,6 +230,8 @@ export default {
           type: 'error',
           duration: '5000'
         });
+        vm.loading = false;
+        vm.btnText = '执行查询';
       } else {
         vm.tryAgain--;
         vm.timeout = setTimeout(() => {
@@ -251,6 +257,8 @@ export default {
                 type: 'success',
                 duration: '5000'
               });
+              vm.loading = false;
+              vm.btnText = '执行查询';
             } else {
               vm.getResult();
               res.data.msg && (vm.errorMsg = res.data.msg);
