@@ -57,12 +57,16 @@
           <td>{{result.bankCardNo | handleBankCardNo}}</td>
         </tr>
         <tr class="text-left">
+          <td>数据是否存在</td>
+          <td>{{result.status}}</td>
+        </tr>
+        <tr class="text-left">
           <td>银行卡信息</td>
         </tr>
         <tr class="text-left">
-          <td>借贷标记(credit：信用卡，debit：借记卡)</td>
-          <td>{{result.bankCardInfo.loanMark}}</td>
-          <td>卡等级</td>
+          <td>借贷标记</td>
+          <td width = "25%">{{handleLoanMark(result.bankCardInfo.loanMark)}}</td>
+          <td width = "25%">卡等级</td>
           <td>{{result.bankCardInfo.cardRank}}</td>
         </tr>
         <tr class="text-left">
@@ -203,84 +207,180 @@
         </tr>
         <tr class="text-left">
           <td>近 1 个月典当、拍卖、信托交易金额</td>
-          <td>{{result.bankCardInfo.pawnAuctionTrust1M}}</td>
+          <td>{{result.pawnAuctionInfo.pawnAuctionTrust1M}}</td>
           <td>近 6 个月典当、拍卖、信托交易金额</td>
-          <td>{{result.bankCardInfo.pawnAuctionTrust6M}}</td>
+          <td>{{result.pawnAuctionInfo.pawnAuctionTrust6M}}</td>
         </tr>
         <tr class="text-left">
           <td>近 12 个月典当、拍卖、信托交易金额</td>
-          <td>{{result.bankCardInfo.pawnAuctionTrust12M}}</td>
+          <td>{{result.pawnAuctionInfo.pawnAuctionTrust12M}}</td>
           <td>近 1 个月典当、拍卖、信托交易笔数</td>
-          <td>{{result.bankCardInfo.pawnAuctionTrustTimes1M}}</td>
+          <td>{{result.pawnAuctionInfo.pawnAuctionTrustTimes1M}}</td>
         </tr>
         <tr class="text-left">
           <td>近 6 个月典当、拍卖、信托交易笔数</td>
-          <td>{{result.bankCardInfo.pawnAuctionTrustTimes6M}}</td>
+          <td>{{result.pawnAuctionInfo.pawnAuctionTrustTimes6M}}</td>
           <td>近 12 个月典当、拍卖、信托交易笔数</td>
-          <td>{{result.bankCardInfo.pawnAuctionTrustTimes12M}}</td>
+          <td>{{result.pawnAuctionInfo.pawnAuctionTrustTimes12M}}</td>
         </tr>
         <tr class="text-left">
           <td>证券保险类交易信息</td>
         </tr>
         <tr class="text-left">
-          <td>卡名称</td>
-          <td>{{result.bankCardInfo.cardName}}</td>
-          <td>发卡行</td>
-          <td>{{result.bankCardInfo.issuingBank}}</td>
+          <td>近 12 个月证券交易金额</td>
+          <td>{{result.securitiesInsuranceInfo.securityTrading12M}}</td>
+          <td>近 12 个月证券交易笔数</td>
+          <td>{{result.securitiesInsuranceInfo.securityTradingTimes12M}}</td>
+        </tr>
+        <tr class="text-left">
+          <td>近 1 个月保险支出金额</td>
+          <td>{{result.securitiesInsuranceInfo.insurance1M}}</td>
+          <td>近 6 个月保险支出金额</td>
+          <td>{{result.securitiesInsuranceInfo.insurance6M}}</td>
+        </tr>
+        <tr class="text-left">
+          <td>近 12 个月保险支出金额</td>
+          <td>{{result.securitiesInsuranceInfo.insurance12M}}</td>
+          <td>近 1 个月保险支出笔数</td>
+          <td>{{result.securitiesInsuranceInfo.insuranceTimes1M}}</td>
+        </tr>
+        <tr class="text-left">
+          <td>近 6 个月保险支出笔数</td>
+          <td>{{result.securitiesInsuranceInfo.insuranceTimes6M}}</td>
+          <td>近 12 个月保险支出笔数</td>
+          <td>{{result.securitiesInsuranceInfo.insuranceTimes12M}}</td>
         </tr>
         <tr class="text-left">
           <td>博彩罚款类交易信息</td>
         </tr>
         <tr class="text-left">
-          <td>卡名称</td>
-          <td>{{result.bankCardInfo.cardName}}</td>
-          <td>发卡行</td>
-          <td>{{result.bankCardInfo.issuingBank}}</td>
+          <td>近 1 个月博彩交易金额</td>
+          <td>{{result.gamingFinesInfo.gamingConsume1M}}</td>
+          <td>近 6 个月博彩交易金额</td>
+          <td>{{result.gamingFinesInfo.gamingConsume6M}}</td>
+        </tr>
+        <tr class="text-left">
+          <td>近 12 个月博彩交易金额</td>
+          <td>{{result.gamingFinesInfo.gamingConsume12M}}</td>
+          <td>近 1 个月博彩交易笔数</td>
+          <td>{{result.gamingFinesInfo.gamingConsumeTimes1M}}</td>
+        </tr>
+        <tr class="text-left">
+          <td>近 6 个月博彩交易笔数</td>
+          <td>{{result.gamingFinesInfo.gamingConsumeTimes6M}}</td>
+          <td>近 12 个月博彩交易笔数</td>
+          <td>{{result.gamingFinesInfo.gamingConsumeTimes12M}}</td>
+        </tr>
+        <tr class="text-left">
+          <td>近 1 个月罚款金额</td>
+          <td>{{result.gamingFinesInfo.fineLast1M}}</td>
+          <td>近 1 个月罚款笔数</td>
+          <td>{{result.gamingFinesInfo.fineLastTimes1M}}</td>
         </tr>
         <tr class="text-left">
           <td>医疗卫生类交易信息</td>
         </tr>
         <tr class="text-left">
-          <td>卡名称</td>
-          <td>{{result.bankCardInfo.cardName}}</td>
-          <td>发卡行</td>
-          <td>{{result.bankCardInfo.issuingBank}}</td>
+          <td>近 1个月卫生类交易金额</td>
+          <td>{{result.healthCareInfo.healthConsume1M}}</td>
+          <td>近 1个月卫生类交易笔数</td>
+          <td>{{result.healthCareInfo.healthConsumeTimes1M}}</td>
+        </tr>
+        <tr class="text-left">
+          <td>近 1个月医药和医疗器材专门零售类交易金额</td>
+          <td>{{result.healthCareInfo.medicalApparatusConsume1M}}</td>
+          <td>近 12 个月医药和医疗器材专门零售类交易金额</td>
+          <td>{{result.healthCareInfo.medicalApparatusConsume12M}}</td>
+        </tr>
+        <tr class="text-left">
+          <td>近 1个月医药和医疗器材专门零售类交易笔数</td>
+          <td>{{result.healthCareInfo.medicalApparatusConsumeTimes1M}}</td>
+          <td>近 12个月医药和医疗器材专门零售类交易笔数</td>
+          <td>{{result.healthCareInfo.medicalApparatusConsumeTimes12M}}</td>
         </tr>
         <tr class="text-left">
           <td>法律服务类交易信息</td>
         </tr>
         <tr class="text-left">
-          <td>卡名称</td>
-          <td>{{result.bankCardInfo.cardName}}</td>
-          <td>发卡行</td>
-          <td>{{result.bankCardInfo.issuingBank}}</td>
+          <td>近 1 个月法律服务交易金额</td>
+          <td>{{result.legalServiceInfo.legalService1M}}</td>
+          <td>近 12 个月法律服务交易金额</td>
+          <td>{{result.legalServiceInfo.legalService12M}}</td>
+        </tr>
+        <tr class="text-left">
+          <td>近 1 个月法律服务交易笔数</td>
+          <td>{{result.legalServiceInfo.legalServiceTimes1M}}</td>
+          <td>近 12 个月法律服务交易笔数</td>
+          <td>{{result.legalServiceInfo.legalServiceTimes12M}}</td>
         </tr>
         <tr class="text-left">
           <td>商户交易类信息</td>
         </tr>
         <tr class="text-left">
-          <td>卡名称</td>
-          <td>{{result.bankCardInfo.cardName}}</td>
-          <td>发卡行</td>
-          <td>{{result.bankCardInfo.issuingBank}}</td>
+          <td>近 1 个月高危商户交易金额</td>
+          <td>{{result.merchantTransactionInfo.highRiskStoreTrading1M}}</td>
+          <td>近 6 个月高危商户交易金额</td>
+          <td>{{result.merchantTransactionInfo.highRiskStoreTrading6M}}</td>
+        </tr>
+        <tr class="text-left">
+          <td>近 1 个月高危商户交易笔数</td>
+          <td>{{result.merchantTransactionInfo.highRiskStoreTrading6M}}</td>
+          <td>近 1 个月交易金额最大商户的商户名</td>
+          <td>{{result.merchantTransactionInfo.largestConsumeMerchant1M}}</td>
+        </tr>
+        <tr class="text-left">
+          <td>近 6 个月最大商户交易金额</td>
+          <td>{{result.merchantTransactionInfo.largestMerchantConsume6M}}</td>
+          <td>近 1 个月交易笔数最大商户的商户名</td>
+          <td>{{result.merchantTransactionInfo.mostFrequentMerchant1M}}</td>
+        </tr>
+        <tr class="text-left">
+          <td>近 6 个月交易笔数最大商户的商户名</td>
+          <td>{{result.merchantTransactionInfo.mostFrequentMerchant6M}}</td>
+          <td></td>
+          <td></td>
         </tr>
         <tr class="text-left">
           <td>购物类交易信息</td>
         </tr>
         <tr class="text-left">
-          <td>卡名称</td>
-          <td>{{result.bankCardInfo.cardName}}</td>
-          <td>发卡行</td>
-          <td>{{result.bankCardInfo.issuingBank}}</td>
+          <td>近 12个月网购交易金额</td>
+          <td>{{result.shoppingTransactionInfo.onlineTransaction12M}}</td>
+          <td>近 12个月网购交易笔数</td>
+          <td>{{result.shoppingTransactionInfo.onlineTransactionTimes12M}}</td>
+        </tr>
+        <tr class="text-left">
+          <td>近 1 个月奢侈品交易金额</td>
+          <td>{{result.shoppingTransactionInfo.luxuryConsume1M}}</td>
+          <td>近 12个月奢侈品交易金额</td>
+          <td>{{result.shoppingTransactionInfo.luxuryConsumeTimes1M}}</td>
         </tr>
         <tr class="text-left">
           <td>借贷还款类交易信息</td>
         </tr>
         <tr class="text-left">
-          <td>卡名称</td>
-          <td>{{result.bankCardInfo.cardName}}</td>
-          <td>发卡行</td>
-          <td>{{result.bankCardInfo.issuingBank}}</td>
+          <td>近 1 个月信用卡还款金额</td>
+          <td>{{result.loanRepaymentInfo.creditCardPayment1M}}</td>
+          <td>近 12 个月信用卡还款金额</td>
+          <td>{{result.loanRepaymentInfo.creditCardPayment12M}}</td>
+        </tr>
+        <tr class="text-left">
+          <td>近 12 个月信用卡还款笔数</td>
+          <td>{{result.loanRepaymentInfo.creditCardPaymentTimes12M}}</td>
+          <td>近 1 个月借贷交易的交易金额</td>
+          <td>{{result.loanRepaymentInfo.loan1M}}</td>
+        </tr>
+        <tr class="text-left">
+          <td>近 6 个月借贷交易的交易金额</td>
+          <td>{{result.loanRepaymentInfo.loan6M}}</td>
+          <td>近 1 个月借贷交易的交易笔数</td>
+          <td>{{result.loanRepaymentInfo.loanTimes1M}}</td>
+        </tr>
+        <tr class="text-left">
+          <td>近 6 个月借贷交易的交易笔数</td>
+          <td>{{result.loanRepaymentInfo.loanTimes6M}}</td>
+          <td></td>
+          <td></td>
         </tr>
       </table>
     </el-card>
@@ -307,10 +407,10 @@ export default {
       result: {
         example: true,
         resultType: '0000',
-        identityValid: '一致',
         name: '赵雷',
         idCard: '320281199606286770',
         bankCardNo: '3415432543254325432',
+        status: 'EXIST',
         bankCardInfo: {
             "loanMark": "debit",
             "cardRank": "\"null\"",
@@ -446,41 +546,43 @@ export default {
             params: {
               name: vm.inputFrom.name,
               idCard: vm.inputFrom.idCard,
-              month: vm.inputFrom.month,
-              passportNo: vm.inputFrom.passportNo
+              accountNO: vm.inputFrom.bankCardNo
             },
             headers: {
               authorization: vm.$db.get('authorization')
             }}).then(function (res) {
             if (res.data.success) {
-                  vm.result = {
+              if (res.data.data.status == 'EXIST') {
+                vm.result = {
                     example: false,
                     resultType: '0000',
-                    identityValid: res.data.data.idCardValidator,
                     name: res.data.data.name,
-                    idCard: res.data.data.idcard,
-                    firstTimes: res.data.data.flightInfoDetail.firstTimes,
-                    busTimes: res.data.data.flightInfoDetail.busTimes,
-                    avgDelayTime: res.data.data.flightInfoDetail.avgDelayTime,
-                    delayTime: res.data.data.flightInfoDetail.delayTime,
-                    ecoTimes: res.data.data.flightInfoDetail.ecoTimes,
-                    domesticAvgDiscount: res.data.data.flightInfoDetail.domesticAvgDiscount,
-                    flightDomesticTimes: res.data.data.flightInfoDetail.flightDomesticTimes,
-                    flightInterTimes: res.data.data.flightInfoDetail.flightInterTimes,
-                    flightTimes: res.data.data.flightInfoDetail.flightTimes,
-                    avgPrice: res.data.data.flightInfoDetail.avgPrice,
-                    favorFlightTimes: res.data.data.flightInfoDetail.favorFlightTimes,
-                    maxFromCity: res.data.data.flightInfoDetail.maxFromCity,
-                    busyMonth: res.data.data.flightInfoDetail.busyMonth,
-                    busyMonthTimes: res.data.data.flightInfoDetail.busyMonthTimes,
-                    maxToCity: res.data.data.flightInfoDetail.maxToCity,
-                    freeTimes: res.data.data.flightInfoDetail.freeTimes,
-                    avgAdvanceTicketday: res.data.data.flightInfoDetail.avgAdvanceTicketday,
-                    lastFlightDate: res.data.data.flightInfoDetail.lastFlightDate,
-                    lastFromCity: res.data.data.flightInfoDetail.lastFromCity,
-                    lastToCity: res.data.data.flightInfoDetail.lastToCity,
-                    flyTotalKm: res.data.data.flightInfoDetail.flyTotalKm
+                    idCard: res.data.data.idCard,
+                    bankCardNo: vm.inputFrom.bankCardNo,
+                    status: '数据存在',
+                    bankCardInfo: res.data.data.bankCardInfo,
+                    transactionCityInfo: res.data.data.transactionCityInfo,
+                    basicConsumptionInfo: res.data.data.basicConsumptionInfo,
+                    basicTransactionInfo: res.data.data.basicTransactionInfo,
+                    pawnAuctionInfo: res.data.data.pawnAuctionInfo,
+                    securitiesInsuranceInfo: res.data.data.securitiesInsuranceInfo,
+                    gamingFinesInfo: res.data.data.gamingFinesInfo,
+                    healthCareInfo: res.data.data.healthCareInfo,
+                    legalServiceInfo: res.data.data.legalServiceInfo,
+                    merchantTransactionInfo: res.data.data.merchantTransactionInfo,
+                    shoppingTransactionInfo: res.data.data.shoppingTransactionInfo,
+                    loanRepaymentInfo: res.data.data.loanRepaymentInfo
                   };
+              } else {
+                vm.result = {
+                    example: false,
+                    resultType: '0000',
+                    name: vm.inputFrom.name,
+                    idCard: vm.inputFrom.idCard,
+                    bankCardNo: vm.inputFrom.bankCardNo,
+                    status: '数据不存在'
+                  };
+              }   
             } else {
               vm.$message({
                 showClose: true,
@@ -493,6 +595,15 @@ export default {
           });
         }
       });
+    },
+    handleLoanMark (val) {
+      if (val == 'debit') {
+        return '借记卡';
+      } else if (val == 'credit') {
+        return '信用卡';
+      } else {
+        return '未知';
+      }
     }
   }
 };

@@ -62,7 +62,7 @@
       var menu = [
         {
           index: "/guide",
-          name: '风控向导',
+          name: '风控向导（测试阶段）',
           link: 'guide'
         },
         {
@@ -95,11 +95,11 @@
             subs: [
               {name: '不良信息排查', index: "/personal/riskTips/negativeInfo", icon: 'fengxianfenxi'},
               {name: '个人负面排查', index: "/personal/riskTips/personalNegativeInfo", icon: 'fengxianzhongxin'},
-              {name: '个人黑名单综合', index: "/personal/riskTips/personalRiskInfo", icon: 'chakantiezigengduoheimingdan'},
+              {name: '个人黑名单综合(未开放)', index: "/personal/riskTips/personalRiskInfo", icon: 'chakantiezigengduoheimingdan'},
               {name: '个人涉诉-A', index: "/personal/riskTips/personalLawsuitA", icon: 'renzhengshenhe'},
-              {name: '多重借贷', index: "/personal/riskTips/multipleLoan", icon: 'duotoujiedai--'},
-              {name: '个人信用认证', index: "/personal/riskTips/individualCredit", icon: 'hetongpingshen'},
-              {name: '失信执行', index: "/2-3-7", icon: '2shenfenzhenghaoma'}
+              {name: '多重借贷', index: "/personal/riskTips/multipleLoan", icon: 'duotoujiedai--'}
+              // {name: '个人信用认证', index: "/personal/riskTips/individualCredit", icon: 'hetongpingshen'},
+              // {name: '失信执行', index: "/2-3-7", icon: '2shenfenzhenghaoma'}
             ]},
             {name: '交易信用信息',
             index: "2-4",
@@ -109,7 +109,7 @@
               {name: '资产令牌', index: "/personal/tradeCredit/AssetQuery", icon: 'chuzheng'},
               {name: '航旅信息', index: "/personal/tradeCredit/AirTravel", icon: 'lvyou'},
               {name: '银行卡交易信息', index: "/personal/tradeCredit/BankCardTransaction", icon: 'zhifuweikuan'},
-              {name: '名下关联企业', index: "2-4-6", icon: 'qiyechaxun_huaban'}
+              {name: '名下关联企业', index: "/personal/tradeCredit/PersonalEnterprise", icon: 'qiyechaxun_huaban'}
             ]},
             {name: '爬虫数据类',
             icon: 'bug',
@@ -128,7 +128,7 @@
         },
         {
           index: "3",
-          name: '企业信息',
+          name: '企业信息(未开放)',
           functions: [
             {name: '工商信息',
             icon: 'web-icon-',
@@ -162,14 +162,14 @@
               {name: '行驶证信息查询', index: "/carInfo/carInfoSon/VehicleLicenseInfo", icon: 'buhuanhangshizheng'},
               {name: '车辆详情核验', index: "/carInfo/carInfoSon/VehicleDetails", icon: 'chepai'},
               {name: '驾驶证扣分查询', index: "/carInfo/carInfoSon/LicenseDeductMarks", icon: 'chaxunjiashizhengxinxi'},
-              {name: '出险记录', index: "4-4", icon: 'cheliangpengzhuang'},
-              {name: '违章查询', index: "4-5", icon: 'weizhang'}
+              {name: '出险记录（未开放）', index: "4-4", icon: 'cheliangpengzhuang'},
+              {name: '违章查询（未开放）', index: "4-5", icon: 'weizhang'}
             ]}
           ]
         },
         {
           index: "5",
-          name: '综合报告',
+          name: '综合报告（未开放）',
           functions: [
             {
               name: '综合报告',

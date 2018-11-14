@@ -405,7 +405,11 @@ export default {
             background: 'rgba(0, 0, 0, 0.2)'
           });
           vm.$http.get('api/rip/drivingLicensedeductMarksQuery', {
-            params: vm.inputFrom,
+            params: {
+              idCard: vm.inputFrom.idCard,
+              fileNO: vm.inputFrom.fileNO,
+              province: vm.inputFrom.province[1]
+            },
             headers: {
               authorization: vm.$db.get('authorization')
             }

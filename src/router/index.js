@@ -162,6 +162,11 @@ export default new Router({
           component: resolve => require(['@/components/personal/tradeCredit/BankCardTransaction'], resolve)
         },
         {
+          path: 'personal/tradeCredit/PersonalEnterprise',
+          name: 'PersonalEnterprise',
+          component: resolve => require(['@/components/personal/tradeCredit/PersonalEnterprise'], resolve)
+        },
+        {
           path: 'carInfo/carInfoSon/VehicleLicenseInfo',
           name: 'VehicleLicenseInfo',
           component: resolve => require(['@/components/carInfo/carInfoSon/VehicleLicenseInfo'], resolve)
