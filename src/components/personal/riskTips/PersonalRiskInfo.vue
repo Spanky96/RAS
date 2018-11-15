@@ -169,7 +169,7 @@ export default {
         }
       ],
       result: {
-        example: false,
+        example: true,
         resultType: "0000",
         name: "吴磊",
         idCard: "320281199606286770",
@@ -264,7 +264,7 @@ export default {
               vm.Reference = [];
               if (res.status == 200 && res.data.rc == "0000") {
                 vm.result = {
-                  example: true,
+                  example: false,
                   resultType: res.data.rc,
                   name: vm.inputFrom.name,
                   idCard: vm.inputFrom.idCard,
