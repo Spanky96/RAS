@@ -172,7 +172,6 @@ export default {
               authorization: vm.$db.get('authorization')
             }
             }).then(function (res) {
-              debugger;
             if (res.data.success && res.data.data) {
               if (res.data.data.status == 'EXIST') {
                 vm.result = {
