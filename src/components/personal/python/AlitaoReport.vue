@@ -41,7 +41,7 @@
         <tr>
           <td colspan="2" v-if="result.data.accounts.length == 0" class="centerAlign">无数据</td>
         </tr>
-        <tr class="inner-table" v-for="(account, index) in result.data.accounts" :key="index">
+        <tr class="inner-table" v-for="(account, index) in result.data.accounts" :key="index + '1'">
           <td colspan="2" style="padding: 0;">
             <table class="table" v-html="$FU.getHtmlByKvsFromObj(accountsKvs, account)">
             </table>
@@ -77,6 +77,52 @@
         </tr>
         <!-- ------------------------------------  -->
         <tr class="text-title">
+          <td colspan="2">信用额度信息（数组），花呗、借呗、网商贷</td>
+        </tr>
+        <tr class="inner-table">
+          <td colspan="2" style="padding: 0;"><table v-html="$FU.arrayInfo2HtmlV2(result.data.credit_limit, creditLimitKvs)" class="table"></table></td>
+        </tr>
+        <!-- ------------------------------------  -->
+        <tr class="text-title">
+          <td colspan="2">泛金融电商钱包持仓</td>
+        </tr>
+        <tr>
+          <td colspan="2" v-if="result.data.position_fund.length == 0" class="centerAlign">无数据</td>
+        </tr>
+        <tr class="inner-table" v-for="(pfund, index) in result.data.position_fund" :key="index + '2'">
+          <td colspan="2" style="padding: 0;">
+            <table class="table" v-html="$FU.getHtmlByKvsFromObj(positionFundKvs, pfund)">
+            </table>
+          </td>  
+        </tr>
+        <!-- ------------------------------------  -->
+        <tr class="text-title">
+          <td colspan="2">基金、理财产品持仓</td>
+        </tr>
+        <tr>
+          <td colspan="2" v-if="result.data.position_finance.length == 0" class="centerAlign">无数据</td>
+        </tr>
+        <tr class="inner-table" v-for="(pfe, index) in result.data.position_finance" :key="index + '3'">
+          <td colspan="2" style="padding: 0;">
+            <table class="table" v-html="$FU.getHtmlByKvsFromObj(positionFinanceKvs, pfe)">
+            </table>
+          </td>  
+        </tr>
+        <!-- ------------------------------------  -->
+        <tr class="text-title">
+          <td colspan="2">泛金融定期持仓</td>
+        </tr>
+        <tr>
+          <td colspan="2" v-if="result.data.position_fixed.length == 0" class="centerAlign">无数据</td>
+        </tr>
+        <tr class="inner-table" v-for="(pfixed, index) in result.data.position_fixed" :key="index + '4'">
+          <td colspan="2" style="padding: 0;">
+            <table class="table" v-html="$FU.getHtmlByKvsFromObj(positionFixedKvs, pfixed)">
+            </table>
+          </td>  
+        </tr>
+        <!-- ------------------------------------  -->
+        <tr class="text-title">
           <td colspan="2">商户流水</td>
         </tr>
         <tr class="inner-table">
@@ -109,52 +155,6 @@
         </tr>
         <tr class="inner-table">
           <td colspan="2" style="padding: 0;"><table v-html="$FU.arrayInfo2HtmlV2(result.data.bankcards_flows, huabeiFlowsKvs)" class="table"></table></td>
-        </tr>
-        <!-- ------------------------------------  -->
-        <tr class="text-title">
-          <td colspan="2">信用额度信息（数组），花呗、借呗、网商贷</td>
-        </tr>
-        <tr class="inner-table">
-          <td colspan="2" style="padding: 0;"><table v-html="$FU.arrayInfo2HtmlV2(result.data.credit_limit, creditLimitKvs)" class="table"></table></td>
-        </tr>
-        <!-- ------------------------------------  -->
-        <tr class="text-title">
-          <td colspan="2">泛金融电商钱包持仓</td>
-        </tr>
-        <tr>
-          <td colspan="2" v-if="result.data.position_fund.length == 0" class="centerAlign">无数据</td>
-        </tr>
-        <tr class="inner-table" v-for="(pfund, index) in result.data.position_fund" :key="index">
-          <td colspan="2" style="padding: 0;">
-            <table class="table" v-html="$FU.getHtmlByKvsFromObj(positionFundKvs, pfund)">
-            </table>
-          </td>  
-        </tr>
-        <!-- ------------------------------------  -->
-        <tr class="text-title">
-          <td colspan="2">基金、理财产品持仓</td>
-        </tr>
-        <tr>
-          <td colspan="2" v-if=" result.data.position_finance.length == 0" class="centerAlign">无数据</td>
-        </tr>
-        <tr class="inner-table" v-for="(pfe, index) in result.data.position_finance" :key="index">
-          <td colspan="2" style="padding: 0;">
-            <table class="table" v-html="$FU.getHtmlByKvsFromObj(positionFinanceKvs, pfe)">
-            </table>
-          </td>  
-        </tr>
-        <!-- ------------------------------------  -->
-        <tr class="text-title">
-          <td colspan="2">泛金融定期持仓</td>
-        </tr>
-        <tr>
-          <td colspan="2" v-if=" result.data.position_fixed.length == 0" class="centerAlign">无数据</td>
-        </tr>
-        <tr class="inner-table" v-for="(pfixed, index) in result.data.position_fixed" :key="index">
-          <td colspan="2" style="padding: 0;">
-            <table class="table" v-html="$FU.getHtmlByKvsFromObj(positionFixedKvs, pfixed)">
-            </table>
-          </td>  
         </tr>
       </table>
     </el-card>
@@ -299,7 +299,7 @@ export default {
             "address_area": "江苏省 南京市 浦口区 盘城街道",
             "address_detail": "南京信息工程大学滨江学院",
             "account_id": "158658527260",
-            "phone": "18795905679",
+            "phone": "187****5679",
             "name": "吴雨声",
             "postcode": "320111",
             "is_default": "n"
@@ -307,7 +307,7 @@ export default {
             "address_area": "江苏省 苏州市 昆山市 玉山镇",
             "address_detail": "玉山镇好美家花园15幢505室",
             "account_id": "158658527260",
-            "phone": "17314975816",
+            "phone": "173****5816",
             "name": "**辉",
             "postcode": "320583",
             "is_default": "n"
@@ -315,7 +315,7 @@ export default {
             "address_area": "安徽省 芜湖市 弋江区 中山南路街道",
             "address_detail": "虚拟地址",
             "account_id": "158658527260",
-            "phone": "18759592555",
+            "phone": "187****2555",
             "name": "Spanky",
             "postcode": "340203",
             "is_default": "n"
@@ -338,15 +338,6 @@ export default {
             "name": "**鸣",
             "card_type": "储蓄卡",
             "card": "7192"
-          }, {
-            "open_date": "2017-06-30",
-            "bank": "中信银行",
-            "account_id": "158658527260",
-            "fast_payment_flag": "y",
-            "phone": "187****5631",
-            "name": "**鸣",
-            "card_type": "储蓄卡",
-            "card": "0578"
           }],
           "huabei_flows": [{
             "payment_mode": "",
@@ -388,15 +379,15 @@ export default {
           "login_name": "xxxxxxx",
           "business_flows": [],
           "flows": [{
-            "address_area": "江苏省 无锡市 江阴市 长山农贸市场 大河港西路33-37号（座机0510-86195527）",
+            "address_area": "江苏省 无锡市 长山农贸市场 ",
             "payment_mode": "",
             "settle_date": "2018-08-08 15:33:44",
-            "trade_description": "现货包邮 码农翻身 用故事给技术加点料 好玩又有趣的编程知识 刘欣 计算机程序员软件编程项目开发经验 企业级应用架构",
+            "trade_description": "现货包邮 码农翻身 用故事给技术加点料 企业级应用架构",
             "postcode": "214400",
             "shop_name": "电子工业出版社旗舰店",
             "address_detail": "",
             "account_id": "158658527260",
-            "phone": "18915256527",
+            "phone": "189***6527",
             "settle_amount": "4100",
             "name": "**龙",
             "order_num": "175266114423926745",
@@ -410,27 +401,13 @@ export default {
             "shop_name": "Daotinの软件学院",
             "address_detail": "",
             "account_id": "158658527260",
-            "phone": "18759592555",
+            "phone": "187****2555",
             "settle_amount": "300",
             "name": "Spanky",
             "order_num": "156929506082926745",
             "status": "交易成功"
           }, {
-            "address_area": "上海省 上海市 浦东新区 张江科技园郭守敬路498号17号楼一层（给柜台即可）",
-            "payment_mode": "",
-            "settle_date": "2018-04-01 21:28:49",
-            "trade_description": "国行Apple苹果iphone AirPods无线耳机iphone8x蓝牙7plus原装正品",
-            "postcode": "200120",
-            "shop_name": "网e数码企业店铺",
-            "address_detail": "",
-            "account_id": "158658527260",
-            "phone": "18795905631",
-            "settle_amount": "100800",
-            "name": "**鸣",
-            "order_num": "130705627164926745",
-            "status": "交易成功"
-          }, {
-            "address_area": "江苏省 苏州市 昆山市 玉山镇好美家花园15幢505室",
+            "address_area": "江苏省 苏州市 昆山市 玉山镇好美家花园",
             "payment_mode": "",
             "settle_date": "2017-12-12 23:07:27",
             "trade_description": "【1212价】Intel/英特尔 I7 7700K 酷睿i7四核处理器 台式机电脑盒装CPU",
@@ -438,12 +415,29 @@ export default {
             "shop_name": "英特尔官方旗舰店",
             "address_detail": "",
             "account_id": "158658527260",
-            "phone": "17314975816",
+            "phone": "173****5816",
             "settle_amount": "235900",
             "name": "**辉",
             "order_num": "113270217104926745",
             "status": "交易成功"
           }],
+          "position_fund": [{
+             "dividend_type": "",
+              "net_value_date": "",
+              "capital": "",
+              "floating_pl": "",
+              "market_value": "42035",
+              "code": "",
+              "income_yesterday": "",
+              "usable_share": "42035",
+              "account_id": "131093006253",
+              "net_value": "",
+              "yield": "",
+              "name": "余额宝",
+              "currency": "人民币",
+              "share": "42035"
+            }
+          ],
           "organization_id": "1020004",
           "credit_limit": [{
             "credit_limit": "200000",
@@ -487,8 +481,7 @@ export default {
             "id": "158658527260",
             "account": "819****98@qq.com",
             "email": "819****98@qq.com"
-          }],
-          "position_fund": []
+          }]
         },
         "return_message": "",
         "return_code": "0"
@@ -549,7 +542,7 @@ export default {
                   const h = vm.$createElement;
                   vm.currentNotify = vm.$notify({
                     title: '授权请求',
-                    message: h('div', null, [h('h3', {style: {width: '500px'}}, '请扫描二维码提供授权'),
+                    message: h('div', null, [h('h3', {style: {width: '500px'}}, '请使用手机淘宝APP扫描二维码提供授权'),
                                             h('qriously', {props: {size: 220, value: qrCode}}, null)]),
                     duration: 140000
                   });
