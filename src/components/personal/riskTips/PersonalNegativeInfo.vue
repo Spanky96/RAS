@@ -567,7 +567,6 @@ export default {
             headers: {
               authorization: vm.$db.get('authorization')
             }}).then(function (res) {
-              debugger;
               if (res.data.code == '000000') {
                 vm.result.result = res.data.retdata.result;
                 vm.result.example = false;

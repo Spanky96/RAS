@@ -243,7 +243,6 @@ export default {
               authorization: vm.$db.get('authorization')
             }}).then(function (res) {
             if (res.data.success) {
-              debugger;
               if (res.data.data.status == 'EXSIT') {
                 vm.result = {
                     example: false,

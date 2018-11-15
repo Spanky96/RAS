@@ -134,7 +134,7 @@
             icon: 'web-icon-',
             index: "3-1",
             subs: [
-              {name: '企业工商数据查询', index: "3-1-1", icon: 'qiyechaxun_huaban'},
+              {name: '企业工商数据查询', index: "/enterpriseInfo/industryAndCommerce/BusinessData", icon: 'qiyechaxun_huaban'},
               {name: '统一社会信用代码信息', index: "3-1-2", icon: 'tixirenzheng'},
               {name: '行政许可信息', index: "3-1-3", icon: 'chuzheng'},
               {name: '企业经营异常名录', index: "3-1-4", icon: 'jilu1'}
