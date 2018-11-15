@@ -128,26 +128,26 @@
         },
         {
           index: "3",
-          name: '企业信息(未开放)',
+          name: '企业信息',
           functions: [
             {name: '工商信息',
             icon: 'web-icon-',
             index: "3-1",
             subs: [
               {name: '企业工商数据查询', index: "/enterpriseInfo/industryAndCommerce/BusinessData", icon: 'qiyechaxun_huaban'},
-              {name: '统一社会信用代码信息', index: "3-1-2", icon: 'tixirenzheng'},
-              {name: '行政许可信息', index: "3-1-3", icon: 'chuzheng'},
-              {name: '企业经营异常名录', index: "3-1-4", icon: 'jilu1'}
+              {name: '统一社会信用代码信息', index: "/enterpriseInfo/industryAndCommerce/UnifiedCredit", icon: 'tixirenzheng'},
+              {name: '行政许可信息', index: "/enterpriseInfo/industryAndCommerce/AdministrativePermission", icon: 'chuzheng'},
+              {name: '企业经营异常名录', index: "/enterpriseInfo/industryAndCommerce/EnterpriseOperationError", icon: 'jilu1'}
             ]},
             {name: '风险提示',
             icon: 'shishifengxianqingdan',
             index: "3-2",
             subs: [
-              {name: '企业涉诉查询-A', index: "3-2-1", icon: 'web-icon-'},
-              {name: '企业涉诉查询-C', index: "3-2-2", icon: 'web-icon-'},
-              {name: '法人负面信息', index: "3-2-3", icon: 'fengxianzhongxin'},
-              {name: '重大税收违法案件警示', index: "3-2-4", icon: 'huaban'},
-              {name: '政府采购严重违法失信名单', index: "3-2-5", icon: 'gongshangshixin'}
+              {name: '企业涉诉查询-A', index: "/enterpriseInfo/enterpriseRiskTips/EnterpriseLawsuitA", icon: 'web-icon-'},
+              {name: '企业涉诉查询-C', index: "/enterpriseInfo/enterpriseRiskTips/EnterpriseLawsuitC", icon: 'web-icon-'},
+              // {name: '法人负面信息', index: "3-2-3", icon: 'fengxianzhongxin'},
+              {name: '重大税收违法案件警示', index: "/enterpriseInfo/enterpriseRiskTips/IllegalTax", icon: 'huaban'},
+              {name: '政府采购严重违法失信名单', index: "/enterpriseInfo/enterpriseRiskTips/IllegalGovernmentProcurement", icon: 'gongshangshixin'}
             ]}
           ]
         },
@@ -161,9 +161,9 @@
             subs: [
               {name: '行驶证信息查询', index: "/carInfo/carInfoSon/VehicleLicenseInfo", icon: 'buhuanhangshizheng'},
               {name: '车辆详情核验', index: "/carInfo/carInfoSon/VehicleDetails", icon: 'chepai'},
-              {name: '驾驶证扣分查询', index: "/carInfo/carInfoSon/LicenseDeductMarks", icon: 'chaxunjiashizhengxinxi'},
-              {name: '出险记录（未开放）', index: "4-4", icon: 'cheliangpengzhuang'},
-              {name: '违章查询（未开放）', index: "4-5", icon: 'weizhang'}
+              {name: '驾驶证扣分查询', index: "/carInfo/carInfoSon/LicenseDeductMarks", icon: 'chaxunjiashizhengxinxi'}
+              // {name: '出险记录（未开放）', index: "4-4", icon: 'cheliangpengzhuang'},
+              // {name: '违章查询（未开放）', index: "4-5", icon: 'weizhang'}
             ]}
           ]
         },
