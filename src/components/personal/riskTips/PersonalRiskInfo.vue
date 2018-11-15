@@ -8,22 +8,22 @@
         <el-row>
          <el-col :span="10">
           <el-form-item label="姓名" label-width="0" prop="name" class="form-item">
-            <el-input v-model="inputFrom.name"></el-input>
+            <el-input v-model="inputFrom.name"  placeholder="必填"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="10">
           <el-form-item label="银行卡号" label-width="0" prop="bankCardNo" class="form-item">
-            <el-input v-model="bankCardNo"></el-input>
+            <el-input v-model="bankCardNo" placeholder="选填"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="10">
           <el-form-item label="身份号码" label-width="0" prop="idCard" class="form-item">
-            <el-input v-model="inputFrom.idCard"></el-input>
+            <el-input v-model="inputFrom.idCard" placeholder="必填"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="10">
           <el-form-item label="手机号" label-width="0" prop="mobile" class="form-item">
-            <el-input v-model="inputFrom.mobile"></el-input>
+            <el-input v-model="inputFrom.mobile" placeholder="必填"></el-input>
           </el-form-item>
         </el-col>
       </el-row>
