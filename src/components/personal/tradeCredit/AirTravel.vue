@@ -132,7 +132,7 @@
         </tr>
         <tr class="text-left">
           <td>平均提前多少天出票</td>
-          <td>{{result.avgAdvanceTicketday}}</td>
+          <td>{{result.avgAdvanceTicketday}} 天</td>
         </tr>
         <tr class="text-left">
           <td>最后飞行时间</td>

@@ -67,7 +67,7 @@
           <td>借贷标记</td>
           <td width = "25%">{{handleLoanMark(result.bankCardInfo.loanMark)}}</td>
           <td width = "25%">卡等级</td>
-          <td>{{result.bankCardInfo.cardRank}}</td>
+          <td>{{handleNull(result.bankCardInfo.cardRank)}}</td>
         </tr>
         <tr class="text-left">
           <td>卡名称</td>
@@ -84,9 +84,9 @@
         </tr>
         <tr class="text-left">
           <td>当月活动省市</td>
-          <td>{{result.transactionCityInfo.activeProvincesThisM}}</td>
+          <td>{{handleNull(result.transactionCityInfo.activeProvincesThisM)}}</td>
           <td>最近一笔交易城市</td>
-          <td>{{result.transactionCityInfo.latestTransactionCity}}</td>
+          <td>{{handleNull(result.transactionCityInfo.latestTransactionCity)}}</td>
         </tr>
         <tr class="text-left">
           <td>最近一笔交易城市名称</td>
@@ -102,21 +102,21 @@
         </tr>
         <tr class="text-left">
           <td>第一常用城市名称</td>
-          <td>{{result.transactionCityInfo.cityConsumeName1st}}</td>
+          <td>{{handleNull(result.transactionCityInfo.cityConsumeName1st)}}</td>
           <td>第二常用城市名称</td>
-          <td>{{result.transactionCityInfo.cityConsumeName2nd}}</td>
+          <td>{{handleNull(result.transactionCityInfo.cityConsumeName2nd)}}</td>
         </tr>
         <tr class="text-left">
           <td>第三常用城市名称</td>
-          <td>{{result.transactionCityInfo.cityConsumeName3rd}}</td>
+          <td>{{handleNull(result.transactionCityInfo.cityConsumeName3rd)}}</td>
           <td>近 6 个月交易金额排名第一的城市名称</td>
-          <td>{{result.transactionCityInfo.rankConsumeCity6M1st}}</td>
+          <td>{{handleNull(result.transactionCityInfo.rankConsumeCity6M1st)}}</td>
         </tr>
         <tr class="text-left">
           <td>近 6 个月交易金额排名第二的城市名称</td>
-          <td>{{result.transactionCityInfo.rankConsumeCity6M2nd}}</td>
+          <td>{{handleNull(result.transactionCityInfo.rankConsumeCity6M2nd)}}</td>
           <td>近 6 个月交易金额排名第三的城市名称</td>
-          <td>{{result.transactionCityInfo.rankConsumeCity6M3rd}}</td>
+          <td>{{handleNull(result.transactionCityInfo.rankConsumeCity6M3rd)}}</td>
         </tr>
         <tr class="text-left">
           <td><el-tag>基本消费信息</el-tag></td>
@@ -200,7 +200,7 @@
           <td>近 12 个月有无境外交易</td>
           <td>{{result.basicTransactionInfo.overseaTrade12M}}</td>
           <td>近 12 个月跨境交易国家名称列举</td>
-          <td>{{result.basicTransactionInfo.overseasTradeCountryList12M}}</td>
+          <td>{{handleNull(result.basicTransactionInfo.overseasTradeCountryList12M)}}</td>
         </tr>
         <tr class="text-left">
           <td>典当拍卖类交易信息</td>
@@ -410,7 +410,7 @@ export default {
         name: '赵雷',
         idCard: '320281199606286770',
         bankCardNo: '3415432543254325432',
-        status: 'EXIST',
+        status: '数据存在',
         bankCardInfo: {
             "loanMark": "debit",
             "cardRank": "\"null\"",
@@ -603,6 +603,15 @@ export default {
         return '信用卡';
       } else {
         return '未知';
+      }
+    },
+    handleNull (val) {
+      if (val == '"null"') {
+        return '空';
+      } else if (val == 'null') {
+        return '空';
+      } else {
+        return val;
       }
     }
   }

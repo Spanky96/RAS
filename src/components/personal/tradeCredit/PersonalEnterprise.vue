@@ -41,11 +41,137 @@
           <td width="20%">数据是否存在</td>
           <td>{{result.status}}</td>
         </tr>
+        
         <tr>
           <td colspan="2">
             <table class="table card-text">
               <tr class="text-left">
-                <td colspan="2">失信被执行人信息</td>
+                <td colspan="2" width="50%"><el-tag>企业法人信息</el-tag></td>
+              </tr>
+              <table class="table card-text" v-for="(ret, index) in result.corporates" :key="index">
+              <tr class="text-left resultRows" >
+                <td class="mytd" width="25%">查询人姓名 ：</td>
+                <td class="mytd">{{ret.ryName | handleName()}}</td>
+                <td class="mytd" width="25%">企业（机构）名称 ：</td>
+                <td class="mytd">{{ret.entName}}</td>
+              </tr>
+              <tr class="text-left resultRows" >
+                <td class="mytd" width="25%">注册号 ：</td>
+                <td class="mytd">{{ret.regNo}}</td>
+                <td class="mytd" width="25%">企业（机构）类型 ：</td>
+                <td class="mytd">{{ret.entType}}</td>
+              </tr>
+              <tr class="text-left resultRows" >
+                <td class="mytd" width="25%">注册资本（万元） ：</td>
+                <td class="mytd">{{ret.regCap}}</td>
+                <td class="mytd" width="25%">注册资本币种 ：</td>
+                <td class="mytd">{{ret.regCapCur}}</td>
+              </tr>
+              <tr class="text-left resultRows" >
+                <td class="mytd" width="25%">企业状态 ：</td>
+                <td class="mytd">{{ret.entStatus}}</td>
+                <td class="mytd" width="25%">统一社会信用代码 ：</td>
+                <td class="mytd">{{ret.creditNo}}</td>
+              </tr>
+              </table>
+            </table>
+          </td>
+        </tr>
+
+        <tr>
+          <td colspan="2">
+            <table class="table card-text">
+              <tr class="text-left">
+                <td colspan="2" width="50%"><el-tag>企业股东信息</el-tag></td>
+              </tr>
+              <table class="table card-text" v-for="(ret, index) in result.corporateShareholders" :key="index">
+              <tr class="text-left resultRows">
+                <td class="mytd" width="25%">查询人姓名 ：</td>
+                <td class="mytd">{{ret.ryName | handleName()}}</td>
+                <td class="mytd" width="25%">企业（机构）名称 ：</td>
+                <td class="mytd">{{ret.entName}}</td>
+              </tr>
+              <tr class="text-left resultRows">
+                <td class="mytd" width="25%">注册号 ：</td>
+                <td class="mytd">{{ret.regNo}}</td>
+                <td class="mytd" width="25%">企业（机构）类型 ：</td>
+                <td class="mytd">{{ret.entType}}</td>
+              </tr>
+              <tr class="text-left resultRows">
+                <td class="mytd" width="25%">注册资本（万元） ：</td>
+                <td class="mytd">{{ret.regCap}}</td>
+                <td class="mytd" width="25%">注册资本币种 ：</td>
+                <td class="mytd">{{ret.regCapCur}}</td>
+              </tr>
+              <tr class="text-left resultRows">
+                <td class="mytd" width="25%">企业状态 ：</td>
+                <td class="mytd">{{ret.entStatus}}</td>
+                <td class="mytd" width="25%">认缴出资额（万元） ：</td>
+                <td class="mytd">{{ret.subConam}}</td>
+              </tr>
+              <tr class="text-left resultRows">
+                <td class="mytd" width="25%">认缴出资币种 ：</td>
+                <td class="mytd">{{ret.currency}}</td>
+                <td class="mytd" width="25%">出资比例 ：</td>
+                <td class="mytd">{{ret.fundedRatio}}</td>
+              </tr>
+              <tr class="text-left resultRows">
+                <td class="mytd" width="25%">统一社会信用代码 ：</td>
+                <td class="mytd">{{ret.creditNo}}</td>
+                <td class="mytd" width="25%"></td>
+                <td class="mytd"></td>
+              </tr>
+              </table>
+            </table>
+          </td>
+        </tr>
+
+        <tr>
+          <td colspan="2">
+            <table class="table card-text">
+              <tr class="text-left">
+                <td colspan="2" width="50%"><el-tag>企业主要管理人员信息</el-tag></td>
+              </tr>
+              <table class="table card-text" v-for="(ret, index) in result.corporateManagers" :key="index">
+              <tr class="text-left resultRows">
+                <td class="mytd" width="25%">查询人姓名 ：</td>
+                <td class="mytd">{{ret.ryName | handleName()}}</td>
+                <td class="mytd" width="25%">企业（机构）名称 ：</td>
+                <td class="mytd">{{ret.entName}}</td>
+              </tr>
+              <tr class="text-left resultRows">
+                <td class="mytd" width="25%">注册号 ：</td>
+                <td class="mytd">{{ret.regNo}}</td>
+                <td class="mytd" width="25%">企业（机构）类型 ：</td>
+                <td class="mytd">{{ret.entType}}</td>
+              </tr>
+              <tr class="text-left resultRows">
+                <td class="mytd" width="25%">注册资本（万元） ：</td>
+                <td class="mytd">{{ret.regCap}}</td>
+                <td class="mytd" width="25%">注册资本币种 ：</td>
+                <td class="mytd">{{ret.regCapCur}}</td>
+              </tr>
+              <tr class="text-left resultRows">
+                <td class="mytd" width="25%">企业状态 ：</td>
+                <td class="mytd">{{ret.entStatus}}</td>
+                <td class="mytd" width="25%">职务 ：</td>
+                <td class="mytd">{{ret.position}}</td>
+              </tr>
+              <tr class="text-left resultRows">
+                <td class="mytd" width="25%">统一社会信用代码 ：</td>
+                <td class="mytd">{{ret.creditNo}}</td>
+                <td class="mytd" width="25%"></td>
+                <td class="mytd"></td>
+              </tr>
+              </table>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <table class="table card-text">
+              <tr class="text-left">
+                <td colspan="2"><el-tag>失信被执行人信息</el-tag></td>
               </tr>
               <table class="table card-text" v-for="(ret, index) in result.punishBreaks" :key="index">
               <tr class="text-left resultRows">
@@ -117,7 +243,7 @@
           <td colspan="2">
             <table class="table card-text">
               <tr class="text-left">
-                <td colspan="2">被执行人信息</td>
+                <td colspan="2"><el-tag>被执行人信息</el-tag></td>
               </tr>
               <table class="table card-text" v-for="(ret, index) in result.punished" :key="index">
               <tr class="text-left resultRows">
@@ -163,7 +289,7 @@
           <td colspan="2">
             <table class="table card-text">
               <tr class="text-left">
-                <td colspan="2">行政处罚历史信息</td>
+                <td colspan="2"><el-tag>行政处罚历史信息</el-tag></td>
               </tr>
               <table class="table card-text" v-for="(ret, index) in result.caseInfos" :key="index">
               <tr class="text-left resultRows">
@@ -213,132 +339,6 @@
                 <td class="mytd">{{ret.penExeSt}}</td>
                 <td></td>
                 <td></td>
-              </tr>
-              </table>
-            </table>
-          </td>
-        </tr>
-
-        <tr>
-          <td colspan="2">
-            <table class="table card-text">
-              <tr class="text-left">
-                <td colspan="2" width="50%">企业法人信息</td>
-              </tr>
-              <table class="table card-text" v-for="(ret, index) in result.corporates" :key="index">
-              <tr class="text-left resultRows" >
-                <td class="mytd" width="25%">查询人姓名 ：</td>
-                <td class="mytd">{{ret.ryName | handleName()}}</td>
-                <td class="mytd" width="25%">企业（机构）名称 ：</td>
-                <td class="mytd">{{ret.entName}}</td>
-              </tr>
-              <tr class="text-left resultRows" >
-                <td class="mytd" width="25%">注册号 ：</td>
-                <td class="mytd">{{ret.regNo}}</td>
-                <td class="mytd" width="25%">企业（机构）类型 ：</td>
-                <td class="mytd">{{ret.entType}}</td>
-              </tr>
-              <tr class="text-left resultRows" >
-                <td class="mytd" width="25%">注册资本（万元） ：</td>
-                <td class="mytd">{{ret.regCap}}</td>
-                <td class="mytd" width="25%">注册资本币种 ：</td>
-                <td class="mytd">{{ret.regCapCur}}</td>
-              </tr>
-              <tr class="text-left resultRows" >
-                <td class="mytd" width="25%">企业状态 ：</td>
-                <td class="mytd">{{ret.entStatus}}</td>
-                <td class="mytd" width="25%">统一社会信用代码 ：</td>
-                <td class="mytd">{{ret.creditNo}}</td>
-              </tr>
-              </table>
-            </table>
-          </td>
-        </tr>
-
-        <tr>
-          <td colspan="2">
-            <table class="table card-text">
-              <tr class="text-left">
-                <td colspan="2" width="50%">企业股东信息</td>
-              </tr>
-              <table class="table card-text" v-for="(ret, index) in result.corporateShareholders" :key="index">
-              <tr class="text-left resultRows">
-                <td class="mytd" width="25%">查询人姓名 ：</td>
-                <td class="mytd">{{ret.ryName | handleName()}}</td>
-                <td class="mytd" width="25%">企业（机构）名称 ：</td>
-                <td class="mytd">{{ret.entName}}</td>
-              </tr>
-              <tr class="text-left resultRows">
-                <td class="mytd" width="25%">注册号 ：</td>
-                <td class="mytd">{{ret.regNo}}</td>
-                <td class="mytd" width="25%">企业（机构）类型 ：</td>
-                <td class="mytd">{{ret.entType}}</td>
-              </tr>
-              <tr class="text-left resultRows">
-                <td class="mytd" width="25%">注册资本（万元） ：</td>
-                <td class="mytd">{{ret.regCap}}</td>
-                <td class="mytd" width="25%">注册资本币种 ：</td>
-                <td class="mytd">{{ret.regCapCur}}</td>
-              </tr>
-              <tr class="text-left resultRows">
-                <td class="mytd" width="25%">企业状态 ：</td>
-                <td class="mytd">{{ret.entStatus}}</td>
-                <td class="mytd" width="25%">认缴出资额（万元） ：</td>
-                <td class="mytd">{{ret.subConam}}</td>
-              </tr>
-              <tr class="text-left resultRows">
-                <td class="mytd" width="25%">认缴出资币种 ：</td>
-                <td class="mytd">{{ret.currency}}</td>
-                <td class="mytd" width="25%">出资比例 ：</td>
-                <td class="mytd">{{ret.fundedRatio}}</td>
-              </tr>
-              <tr class="text-left resultRows">
-                <td class="mytd" width="25%">统一社会信用代码 ：</td>
-                <td class="mytd">{{ret.creditNo}}</td>
-                <td class="mytd" width="25%"></td>
-                <td class="mytd"></td>
-              </tr>
-              </table>
-            </table>
-          </td>
-        </tr>
-
-        <tr>
-          <td colspan="2">
-            <table class="table card-text">
-              <tr class="text-left">
-                <td colspan="2" width="50%">企业主要管理人员信息</td>
-              </tr>
-              <table class="table card-text" v-for="(ret, index) in result.corporateManagers" :key="index">
-              <tr class="text-left resultRows">
-                <td class="mytd" width="25%">查询人姓名 ：</td>
-                <td class="mytd">{{ret.ryName | handleName()}}</td>
-                <td class="mytd" width="25%">企业（机构）名称 ：</td>
-                <td class="mytd">{{ret.entName}}</td>
-              </tr>
-              <tr class="text-left resultRows">
-                <td class="mytd" width="25%">注册号 ：</td>
-                <td class="mytd">{{ret.regNo}}</td>
-                <td class="mytd" width="25%">企业（机构）类型 ：</td>
-                <td class="mytd">{{ret.entType}}</td>
-              </tr>
-              <tr class="text-left resultRows">
-                <td class="mytd" width="25%">注册资本（万元） ：</td>
-                <td class="mytd">{{ret.regCap}}</td>
-                <td class="mytd" width="25%">注册资本币种 ：</td>
-                <td class="mytd">{{ret.regCapCur}}</td>
-              </tr>
-              <tr class="text-left resultRows">
-                <td class="mytd" width="25%">企业状态 ：</td>
-                <td class="mytd">{{ret.entStatus}}</td>
-                <td class="mytd" width="25%">职务 ：</td>
-                <td class="mytd">{{ret.position}}</td>
-              </tr>
-              <tr class="text-left resultRows">
-                <td class="mytd" width="25%">统一社会信用代码 ：</td>
-                <td class="mytd">{{ret.creditNo}}</td>
-                <td class="mytd" width="25%"></td>
-                <td class="mytd"></td>
               </tr>
               </table>
             </table>
