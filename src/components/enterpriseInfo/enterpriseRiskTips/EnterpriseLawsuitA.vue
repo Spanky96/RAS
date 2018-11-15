@@ -2,18 +2,13 @@
   <div>
     <el-card style="margin-bottom:25px">
       <div slot="header" class="clearfix">
-        <span>个人涉诉-A</span>
+        <span>企业涉诉查询-A</span>
       </div>
       <el-form :model="inputForm" :rules="rules" ref="inputForm" id="inputForm">
         <el-row>
          <el-col :span="10">
-            <el-form-item label="姓名" label-width="0" prop="name" class="form-item">
+            <el-form-item label="企业名称" label-width="0" prop="name" class="form-item">
               <el-input v-model="inputForm.name"></el-input>
-            </el-form-item>
-          </el-col>
-          <el-col :span="10">
-            <el-form-item label="身份号码" label-width="0" prop="idCard" class="form-item">
-              <el-input v-model="inputForm.idCard"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
@@ -43,10 +38,10 @@
           <td></td>
         </tr>
         <tr class="text-left">
-          <td width="25%">姓名:</td>
-          <td>{{result.name | handleName()}}</td>
-          <td width="25%">身份证号:</td>
-          <td>{{result.idCard | handleIdCard()}}</td>
+          <td width="25%">企业名称:</td>
+          <td>{{result.name}}</td>
+          <td width="25%"></td>
+          <td></td>
         </tr>
         <tr class="text-left">
           <td width="25%">开庭公告:</td>
@@ -94,7 +89,7 @@
 
 <script>
 export default {
-  name: 'PersonalLawsuitA',
+  name: 'EnterpriseLawsuitA',
   components: {
   },
   data () {
@@ -252,68 +247,56 @@ export default {
         pageIndex: '1'
       },
       rules: {
-        name: [{ required: true, message: '请输入姓名', trigger: 'blur' }],
-        idCard: [{ validator: this.$validator.idCardValidator, trigger: 'blur' }]
       },
       result: {
         example: true,
         resultType: '000000',
-        name: '喻海云',
-        idCard: '3101121962****0021',
+        name: '乐视网信息技术(北京)股份有限公司',
         statistic: {
-            "ktggResultSize": 0,
-            "cpwsResultSize": 0,
-            "zxggResultSize": 3,
-            "sxggResultSize": 2,
-            "fyggResultSize": 0,
+            "ktggResultSize": 757,
+            "cpwsResultSize": 2584,
+            "zxggResultSize": 88,
+            "sxggResultSize": 9,
+            "fyggResultSize": 23,
             "wdhmdResultSize": 0,
-            "ajlcResultSize": 0,
-            "bgtResultSize": 0
+            "ajlcResultSize": 740,
+            "bgtResultSize": 5
         },
         result: [
             {
-                "name": "喻海云",
-                "gender": "女性",
-                "implementationStatus": "全部未履行",
-                "evidenceCode": "(2017)沪0112民初34494号",
-                "identificationNO": "3101121962****0021",
-                "executableUnit": "上海市闵行区人民法院",
-                "specificCircumstances": "有履行能力而拒不履行生效法律文书确定义务",
-                "obligations": "详见判决书主文",
-                "age": 56,
-                "province": "上海市",
-                "postTime": 1541606400000,
-                "id": "c2018310112zhi10132_t20181024_pyuhaiyun@cG5hbWU65Za75rW35LqRQGlkY2FyZE5vOjMxMDExMjE5NjIxMDI2MDAyMQ==",
-                "recordTime": 1540310400000,
-                "content": "...海市闵行区人民法院 喻海云...",
-                "caseNO": "（2018）沪0112执10132号",
-                "court": "上海市闵行区人民法院",
-                "dataType": "SXGG",
-                "time": "2018年10月24日"
+                "title": "乐视网信息技术（北京）股份有限公司",
+                "name": "乐视网信息技术（北京）股份有限公司",
+                "caseStatus": "0",
+                "identificationNO": "76938905-1",
+                "executionTarget": 97209,
+                "id": "c2018110108zhi16681_t20181022_plswxxjsbjgfyxgs@cG5hbWU65LmQ6KeG572R5L%2Bh5oGv5oqA5pyv77yI5YyX5Lqs77yJ6IKh5Lu95pyJ6ZmQ5YWs5Y%2B4",
+                "recordTime": 1540137600000,
+                "content": "资金 乐视网信息技术（北京）股份有限公司 d 7693...",
+                "caseNO": "（2018）京0108执16681号",
+                "court": "北京市海淀区人民法院",
+                "dataType": "ZXGG",
+                "time": "2018年10月22日"
             },
             {
-                "title": "喻海云",
-                "name": "喻海云",
+                "title": "乐视网信息技术（北京）股份有限公司",
+                "name": "乐视网信息技术（北京）股份有限公司",
                 "caseStatus": "0",
-                "identificationNO": "31011219621****0021",
-                "executionTarget": 804520,
-                "id": "c2018310112zhi10132_t20181024_pyuhaiyun@cG5hbWU65Za75rW35LqRQGlkY2FyZE5vOjMxMDExMjE5NjIxMDI2MDAyMQ==",
-                "recordTime": 1540310400000,
-                "content": "...0021 -2 0 喻海云...",
-                "caseNO": "（2018）沪0112执10132号",
-                "court": "上海市闵行区人民法院",
+                "identificationNO": "76938905-1",
+                "executionTarget": 150160,
+                "id": "c2018110108zhi16682_t20181022_plswxxjsbjgfyxgs@cG5hbWU65LmQ6KeG572R5L%2Bh5oGv5oqA5pyv77yI5YyX5Lqs77yJ6IKh5Lu95pyJ6ZmQ5YWs5Y%2B4",
+                "recordTime": 1540137600000,
+                "content": "资金 乐视网信息技术（北京）股份有限公司 d 7693...",
+                "caseNO": "（2018）京0108执16682号",
+                "court": "北京市海淀区人民法院",
                 "dataType": "ZXGG",
-                "time": "2018年10月24日"
+                "time": "2018年10月22日"
             }
         ],
         pagination: {
-              "pageIndex": 1,
-              "totalPage": 1000,
-              "resultSize": 105,
-              "pageSize": 20,
-              "officialAccountAmount": 0,
-              "testAccountAmount": 0,
-              "totalAccountAmount": 0
+            "pageIndex": "1",
+            "totalPage": "211",
+            "resultSize": "4206",
+            "pageSize": "20"
         }
       }
     };
@@ -336,10 +319,9 @@ export default {
             spinner: 'el-icon-loading',
             background: 'rgba(0, 0, 0, 0.2)'
           });
-          vm.$http.get('api/rip/personalComplaintInquiry', {
+          vm.$http.get('api/rip/enterpriseLitigationInquiry', {
             params: {
               name: vm.inputForm.name,
-              idCard: vm.inputForm.idCard,
               pageIndex: pageIndex
             },
             headers: {
