@@ -318,7 +318,6 @@ export default {
             vm.$message({
               showClose: true,
               message: '请再次扫描二维码提供授权。',
-              type: 'error',
               duration: '5000'
             });
             vm.currentNotify = vm.$notify({

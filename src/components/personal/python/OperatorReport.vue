@@ -92,6 +92,7 @@ export default {
       var vm = this;
       vm.$refs['inputFrom'].validate((valid) => {
         if (valid) {
+          console.log(1);
         }
       });
     }
