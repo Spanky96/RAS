@@ -310,11 +310,30 @@ export default {
       if (vm.tryAgain != 0) {
         vm.tryAgain--;
         vm.getStaus().then(function (data) {
-          if (['0000', '0100'].includes(data.code)) {
+          if (data.code == '0006') {
+            vm.btnText = '请再次扫描二维码提供授权';
+            var qrCode = data.input.value;
+            const h = vm.$createElement;
+            vm.currentNotify && vm.currentNotify.close();
+            vm.$message({
+              showClose: true,
+              message: '请再次扫描二维码提供授权。',
+              type: 'error',
+              duration: '5000'
+            });
+            vm.currentNotify = vm.$notify({
+              title: '授权请求',
+              message: h('div', null, [h('h3', {style: {width: '500px'}}, '请使用支付宝APP扫描该二维码'),
+                                      h('img', {attrs: {src: 'data:image/png;base64,' + qrCode}, style: {width: '220px'}}, null)]),
+              duration: 190000
+            });
+            vm.tryAgain = 36; // 重试36次
+            vm.loading && vm.startPollingSearch();
+          } else if (['0000', '0100'].includes(data.code)) {
             // 获取结果
             vm.btnText = "已得到您的授权，正在获取报告。";
             vm.currentNotify && vm.currentNotify.close();
-            vm.tryAgain = data.code == '0000' ? 6 : 15;
+            vm.tryAgain = data.code == '0000' ? 6 : 40;
             vm.getResult();
           } else {
             vm.timeout = setTimeout(vm.startPollingSearch, 5000);

@@ -4,40 +4,25 @@
       <div slot="header" class="clearfix">
         <span>运营商报告</span>
       </div>
-      <el-form :model="inputFrom" :rules="rules" ref="inputFrom" id="inputForm" size="mini">
+      <el-form :model="inputFrom" :rules="rules" ref="inputFrom" id="inputForm">
         <el-row>
-          <el-col :span="8">
-            <el-form-item label="账号（运营商账号，例如移动手机号）" label-width="0" prop="name" class="form-item">
-              <el-input v-model="inputFrom.name"></el-input>
-            </el-form-item>
-          </el-col>
-          <el-col :span="8">
-            <el-form-item label="账号密码" label-width="0" prop="password" class="form-item">
-              <el-input type="password" v-model="inputFrom.password"></el-input>
+          <el-col :span="10">
+            <el-form-item label="用户partnerID（手机号/身份证等）" label-width="0" prop="partnerUserId" class="form-item">
+              <el-input maxlength="40" v-model="inputFrom.partnerUserId"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
-          <el-col :span="8">
-            <el-form-item label="身份证号" label-width="0" prop="identityCardNo" class="form-item">
-              <el-input v-model="inputFrom.identityCardNo"></el-input>
-            </el-form-item>
-          </el-col>
-          <el-col :span="8">
-            <el-form-item label="真实姓名" label-width="0" prop="identityName" class="form-item">
-              <el-input v-model="inputFrom.identityName"></el-input>
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="20">
-            <el-form-item label="查询内容" label-width="0" prop="identityName" class="form-item">
-              <el-checkbox-group v-model="inputFrom.contentType">
-                <el-checkbox label="美食/餐厅线上活动" name="contentType"></el-checkbox>
-                <el-checkbox label="地推活动" name="contentType"></el-checkbox>
-                <el-checkbox label="线下主题活动" name="contentType"></el-checkbox>
-                <el-checkbox label="单纯品牌曝光" name="contentType"></el-checkbox>
-              </el-checkbox-group>
+          <el-col :span="10">
+            <el-form-item label="所属机构" label-width="0" prop="org" class="form-item">
+              <el-select v-model="orgArea" placeholder="运营商" @change="inputFrom.org=undefined">
+                <el-option v-for="(f, index) in operatorList" :key="index" :label="f.name" :value="index"></el-option>
+              </el-select>
+              <el-select v-model="inputFrom.org" no-data-text="请先选择运营商分类">
+                <template v-if="!isNaN(orgArea)">
+                  <el-option v-for="(o, index) in operatorList[orgArea].childOrgs" :key="index" :label="o.name" :value="o.org_id"></el-option>
+                </template>
+              </el-select>
             </el-form-item>
           </el-col>
         </el-row>
@@ -60,7 +45,7 @@
       </div>
       <table class="table card-text">
         <tr class="text-left">
-          <td width="20%">查询结果</td>
+          <td width="20%">匹配结果</td>
           <td><el-tag type="success" class="tag">成功</el-tag></td>
         </tr>
       </table>
@@ -84,15 +69,32 @@ export default {
       },
       result: {
         example: true
-      }
+      },
+      operatorList: [],
+      orgArea: undefined
     };
   },
   methods: {
     onSubmit: function () {
       var vm = this;
+      console.log(vm);
       vm.$refs['inputFrom'].validate((valid) => {
         if (valid) {
         }
+      });
+    }
+  },
+  mounted: function () {
+    var vm = this;
+    vm.operatorList = vm.$db.getObject('operatorList');
+    if (!vm.operatorList) {
+      vm.$http.get('api/rip/operatorList', {
+        headers: {
+          authorization: vm.$db.get('authorization')
+        }
+        }).then(function (res) {
+        vm.operatorList = res.data.data;
+        vm.$db.set('operatorList', vm.operatorList);
       });
     }
   }
