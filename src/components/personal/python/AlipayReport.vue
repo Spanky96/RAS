@@ -133,7 +133,7 @@ export default {
           "basicInfo": {
             "accoutName": "138****5516",
             "registerDate": "2014 年 08 月 24 日",
-            "name": "袁哥 ",
+            "name": "*哥 ",
             "identityNo": "3****************X",
             "mobile": "138****5516",
             "email": "abc@yeah.net",
@@ -160,7 +160,7 @@ export default {
             "openDate": "2017.04.17"
           }],
           "addressInfo": [{
-            "name": "袁哥",
+            "name": "*哥",
             "address": "新华路",
             "zipcode": "100000",
             "mobile": "180****1010"
