@@ -142,6 +142,36 @@ export default new Router({
           component: resolve => require(['@/components/personal/python/Zhima'], resolve)
         },
         {
+          path: 'personal/tradeCredit/ConsumptionLevel',
+          name: 'ConsumptionLevel',
+          component: resolve => require(['@/components/personal/tradeCredit/ConsumptionLevel'], resolve)
+        },
+        {
+          path: 'personal/tradeCredit/AssetQuery',
+          name: 'AssetQuery',
+          component: resolve => require(['@/components/personal/tradeCredit/AssetQuery'], resolve)
+        },
+        {
+          path: 'personal/tradeCredit/AirTravel',
+          name: 'AirTravel',
+          component: resolve => require(['@/components/personal/tradeCredit/AirTravel'], resolve)
+        },
+        {
+          path: 'personal/tradeCredit/BankCardTransaction',
+          name: 'BankCardTransaction',
+          component: resolve => require(['@/components/personal/tradeCredit/BankCardTransaction'], resolve)
+        },
+        {
+          path: 'enterpriseInfo/industryAndCommerce/BusinessData',
+          name: 'BusinessData',
+          component: resolve => require(['@/components/enterpriseInfo/industryAndCommerce/BusinessData'], resolve)
+        },
+        {
+          path: 'personal/tradeCredit/PersonalEnterprise',
+          name: 'PersonalEnterprise',
+          component: resolve => require(['@/components/personal/tradeCredit/PersonalEnterprise'], resolve)
+        },
+        {
           path: 'carInfo/carInfoSon/VehicleLicenseInfo',
           name: 'VehicleLicenseInfo',
           component: resolve => require(['@/components/carInfo/carInfoSon/VehicleLicenseInfo'], resolve)

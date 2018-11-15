@@ -116,18 +116,19 @@ export default {
             }
             }).then(function (res) {
               if (res.data.code == '0' && res.data.data) {
-                vm.btnText = '等待授权操作,需耐心等待';
-                var qrCode = res.data.data.authUrl;
-                const h = vm.$createElement;
-                vm.currentNotify = vm.$notify({
-                  title: '授权请求',
-                  message: h('div', null, [h('h3', {style: {width: '500px'}}, '请扫描二维码提供芝麻分授权'),
-                                           h('qriously', {props: {size: 220, value: qrCode}}, null)]),
-                  duration: 180000
-                });
-                vm.tryAgain = 35; // 给34次轮询时间。大概180秒
-                // 5秒后开始检查状态
-                setTimeout(vm.startPollingSearch, 5000);
+                if (vm.loading) {
+                  vm.btnText = '等待授权操作,需耐心等待';
+                  var qrCode = res.data.data.authUrl;
+                  const h = vm.$createElement;
+                  vm.currentNotify = vm.$notify({
+                    title: '授权请求',
+                    message: h('div', null, [h('h3', {style: {width: '500px'}}, '请扫描二维码提供芝麻分授权'),
+                                            h('qriously', {props: {size: 220, value: qrCode}}, null)]),
+                    duration: 180000
+                  });
+                  vm.tryAgain = 35; // 给36*5次轮询  180秒
+                  vm.startPollingSearch();
+                }
               } else {
                 vm.loading = false;
                 vm.$message({
@@ -143,50 +144,57 @@ export default {
     },
     startPollingSearch: function () {
       var vm = this;
-      vm.$http.get('api/rip/sesameCreditScore/result', {
-        params: {
-          orderNumber: vm.orderNumber // 用时间戳啦
-        },
-        headers: {
-          authorization: vm.$db.get('authorization')
-        }
-      }).then(function (res) {
-        if (res.data.return_code == '0') {
-          vm.result = {
-            example: false,
-            data: res.data.data,
-            name: vm.inputFrom.name,
-            idCard: vm.inputFrom.idCard,
-            return_code: '0'
-          };
-          vm.loading = false;
-          vm.btnText = '执行查询';
-          vm.currentNotify && vm.currentNotify.close();
-          vm.$message({
-            showClose: true,
-            message: '成功获取芝麻信用分!',
-            type: 'success',
-            duration: '1000'
+      if (vm.tryAgain != 0) {
+        vm.tryAgain--;
+        vm.timeout = setTimeout(() => {
+          vm.$http.get('api/rip/sesameCreditScore/result', {
+            params: {
+              orderNumber: vm.orderNumber // 用时间戳啦
+            },
+            headers: {
+              authorization: vm.$db.get('authorization')
+            }
+          }).then(function (res) {
+            if (res.data.return_code == '0') {
+              vm.result = {
+                example: false,
+                data: res.data.data,
+                name: vm.inputFrom.name,
+                idCard: vm.inputFrom.idCard,
+                return_code: '0'
+              };
+              vm.loading = false;
+              vm.btnText = '执行查询';
+              vm.currentNotify && vm.currentNotify.close();
+              vm.$message({
+                showClose: true,
+                message: '成功获取芝麻信用分!',
+                type: 'success',
+                duration: '1000'
+              });
+            } else {
+              vm.startPollingSearch();
+            }
           });
-        } else {
-          // 5秒后再次检查
-          if (vm.tryAgain != 0) {
-            vm.tryAgain--;
-            setTimeout(vm.startPollingSearch, 5000);
-          } else {
-            // 超时啦
-            vm.$message({
-              showClose: true,
-              message: '很抱歉！请求超时，未成功获取芝麻评分。',
-              type: 'error',
-              duration: '5000'
-            });
-            vm.loading = false;
-            vm.btnText = '执行查询';
-          }
-        }
-      });
+        }, 5000);
+      } else {
+        // 超时啦
+        vm.$message({
+          showClose: true,
+          message: '很抱歉！请求超时，未成功获取芝麻评分。',
+          type: 'error',
+          duration: '5000'
+        });
+        vm.loading = false;
+        vm.btnText = '执行查询';
+      }
     }
+  },
+  destroyed: function () {
+    var vm = this;
+    vm.loading = false; // 防止点击执行查询按钮后，立刻离开页面
+    vm.currentNotify && vm.currentNotify.close();
+    vm.timeout && clearTimeout(vm.timeout);
   }
 };
 </script>
