@@ -268,7 +268,7 @@ export default {
               vm.Reference = [];
               if (res.status == 200 && res.data.rc == "0000") {
                 vm.result = {
-                  result: false,
+                  example: false,
                   resultType: res.data.rc,
                   name: vm.inputFrom.name,
                   idCard: vm.inputFrom.idCard,
