@@ -80,11 +80,11 @@
         </tr>
         <tr class="text-left">
           <td>平均延误分钟数</td>
-          <td>{{result.avgDelayTime}} 元</td>
+          <td>{{result.avgDelayTime}}</td>
         </tr>
         <tr class="text-left">
           <td>经济舱乘机次数</td>
-          <td>{{result.ecoTimes}} 元</td>
+          <td>{{result.ecoTimes}}</td>
         </tr>
         <tr class="text-left">
           <td>一年内平均折扣</td>
@@ -100,59 +100,59 @@
         </tr>
         <tr class="text-left">
           <td>乘机次数</td>
-          <td>{{result.flightTimes}} 月</td>
+          <td>{{result.flightTimes}}</td>
         </tr>
         <tr class="text-left">
           <td>平均票价</td>
-          <td>{{result.avgPrice}} 月</td>
+          <td>{{result.avgPrice}} 元</td>
         </tr>
         <tr class="text-left">
           <td>最频繁使用航空公司以及乘机次数</td>
-          <td>{{result.favorFlightTimes}} 月</td>
+          <td>{{result.favorFlightTimes}}</td>
         </tr>
         <tr class="text-left">
           <td>最频繁乘机出发城市</td>
-          <td>{{result.maxFromCity}} 月</td>
+          <td>{{result.maxFromCity}}</td>
         </tr>
         <tr class="text-left">
           <td>最繁忙的月份</td>
-          <td>{{result.busyMonth}} 月</td>
+          <td>{{result.busyMonth}}</td>
         </tr>
         <tr class="text-left">
           <td>最繁忙的月份乘机次数</td>
-          <td>{{result.busyMonthTimes}} 月</td>
+          <td>{{result.busyMonthTimes}}</td>
         </tr>
         <tr class="text-left">
           <td>最频繁乘机到达城市</td>
-          <td>{{result.maxToCity}} 月</td>
+          <td>{{result.maxToCity}}</td>
         </tr>
         <tr class="text-left">
           <td>免费次数</td>
-          <td>{{result.freeTimes}} 月</td>
+          <td>{{result.freeTimes}}</td>
         </tr>
         <tr class="text-left">
           <td>平均提前多少天出票</td>
-          <td>{{result.avgAdvanceTicketday}} 月</td>
+          <td>{{result.avgAdvanceTicketday}} 天</td>
         </tr>
         <tr class="text-left">
           <td>最后飞行时间</td>
-          <td>{{result.lastFlightDate}} 月</td>
+          <td>{{result.lastFlightDate}}</td>
         </tr>
         <tr class="text-left">
           <td>最后起飞城市</td>
-          <td>{{result.lastFromCity}} 月</td>
+          <td>{{result.lastFromCity}}</td>
         </tr>
         <tr class="text-left">
           <td>最后抵达城市</td>
-          <td>{{result.lastToCity}} 月</td>
+          <td>{{result.lastToCity}}</td>
         </tr>
         <tr class="text-left">
           <td>总共飞行里程数（KM）</td>
-          <td>{{result.flyTotalKm}} 月</td>
+          <td>{{result.flyTotalKm}}</td>
         </tr>
         <tr class="text-left">
           <td>总延误分钟数</td>
-          <td>{{result.delayTime}} 月</td>
+          <td>{{result.delayTime}}</td>
         </tr>
       </table>
     </el-card>

@@ -352,9 +352,9 @@ export default {
               "yj_month_income": 377280,
               "continuous_payment_max_months": 21,
               "phone": "",
-              "idcard": "110000160001011111",
+              "idcard": "11000******111",
               "medicare_balance": 541739,
-              "name": "华夏仁",
+              "name": "**仁",
               "customer": "",
               "maternityFlow": [{
                 "company_amount": 0,
