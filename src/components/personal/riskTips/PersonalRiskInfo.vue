@@ -13,7 +13,7 @@
         </el-col>
         <el-col :span="10">
           <el-form-item label="银行卡号" label-width="0" prop="bankCardNo" class="form-item">
-            <el-input v-model="inputFrom.bankCardNo"></el-input>
+            <el-input v-model="bankCardNo"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="10">
@@ -130,22 +130,19 @@ export default {
   components: {},
   data () {
     return {
+      bankCardNo:'',
       inputFrom: {
         name: "",
-        bankCardNo: "",
         idCard: "",
         mobile: ""
       },
       rules: {
         name: [{ required: true, message: "请输入姓名", trigger: "blur" }],
-        bankCardNo: [
-          { validator: this.$validator.bankCardValidator, trigger: "blur" }
-        ],
         idCard: [
-          { validator: this.$validator.idCardValidator, trigger: "blur" }
+          { required: true, validator: this.$validator.idCardValidator, trigger: "blur" }
         ],
         mobile: [
-          { validator: this.$validator.mobileValidator, trigger: "blur" }
+          { required: true, validator: this.$validator.mobileValidator, trigger: "blur" }
         ]
       },
       totalCounts: [
@@ -280,7 +277,7 @@ export default {
               } else {
                 vm.$message({
                   showClose: true,
-                  message: res.msg,
+                  message: '未查询到，请重试',
                   type: "error",
                   duration: "5000"
                 });
