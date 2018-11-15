@@ -146,32 +146,31 @@ const RESULT_CONSISIT = {
   '9998': '不一致',
   '3': '无数据'
 };
-const BLACK_TYPE ={
-  'A':'严重违法',
-  'B':'信贷逾期',
-  'C':'法院失信',
-  'D':'潜在风险',
-  'E':'多头借贷 '
+const BLACK_TYPE = {
+  'A': '严重违法',
+  'B': '信贷逾期',
+  'C': '法院失信',
+  'D': '潜在风险',
+  'E': '多头借贷 '
 };
-const RE_fER={
-  'A02':'名下公司税务重大违法',
-  'B01':'失联',
-  'B02':'贷款不良（逾期90天以上未还）',
-  'B03':'短时逾期',
-  'B04':'逾期',
-  'C01':'失信被执行人',
-  'C02':'被执行人',
-  'C03':'裁判文书',
-  'D01':'疑似催收风险',
-  'D02':'名下公司存在违规行为（被税务局或者工商局公示）',
-  'D03':'来自信贷高风险区域',
-  'D04':'其他潜在风险',
-  'E01':'7天内多头借贷',
-  'E02':'1月内多头借贷',
-  'E03':'3月内多头借贷',
-  'E04':'疑似多头借贷',
-
-}
+const RE_FER = {
+  'A02': '名下公司税务重大违法',
+  'B01': '失联',
+  'B02': '贷款不良（逾期90天以上未还）',
+  'B03': '短时逾期',
+  'B04': '逾期',
+  'C01': '失信被执行人',
+  'C02': '被执行人',
+  'C03': '裁判文书',
+  'D01': '疑似催收风险',
+  'D02': '名下公司存在违规行为（被税务局或者工商局公示）',
+  'D03': '来自信贷高风险区域',
+  'D04': '其他潜在风险',
+  'E01': '7天内多头借贷',
+  'E02': '1月内多头借贷',
+  'E03': '3月内多头借贷',
+  'E04': '疑似多头借贷'
+};
 
 export default {
   handleName: handleName,
@@ -217,25 +216,25 @@ export default {
     }
     return `[${result}]`;
   },
-  blackTypefilters:function(val){
-    return BLACK_TYPE[val]
+  blackTypefilters: function (val) {
+    return BLACK_TYPE[val];
   },
-  Refer:function(val){
-    if(val.length>3){
+  Refer: function (val) {
+    if (val.length > 3) {
      return val;
    }
-   if (val.length==3){
-    return RE_fER[val]
+   if (val.length == 3) {
+    return RE_FER[val];
   }
-  if (val.length<=1) {
+  if (val.length <= 1) {
     return BLACK_TYPE[val];
   }
 },
-blackCountfilters:function(val){
-  if (val=='0') {
-    return '未命中'
-  }else{
-    return '命中'+val+'条'
+blackCountfilters: function (val) {
+  if (val == '0') {
+    return '未命中';
+  } else {
+    return '命中' + val + '条';
   }
 }
 };
