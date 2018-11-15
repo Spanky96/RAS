@@ -138,7 +138,7 @@
         <el-row type="flex" justify="end" align="bottom">
           <el-col :span="4">
             <el-form-item>
-              <el-button type="primary" @click="onSubmit" round size="small">执行查询</el-button>
+              <el-button type="primary" @click="onSubmit" round size="small" :loading="loading">执行查询</el-button>
             </el-form-item>
           </el-col>
         </el-row>
@@ -401,25 +401,144 @@ export default {
           }
         }
       },
-      linkMan: ['1'],
-      linkManKvs
+      linkMan: [],
+      linkManKvs,
+      ripId: '',
+      token: '',
+      tryAgain: 0,
+      loading: false
     };
   },
   methods: {
     onSubmit: function () {
       var vm = this;
-      const engNumArr = ['1st', '2nd', '3rd'];
-      for (let i = 0; i < 3; i++) {
-        if (vm.linkMan.includes('' + i)) {
-          
+      vm.$refs['inputFrom'].validate((valid) => {
+        if (valid) {
+          const engNumArr = ['1st', '2nd', '3rd'];
+          const chnNumArr = ['一', '二', '三'];
+          var params = {
+            name: vm.inputFrom.name,
+            password: vm.inputFrom.password,
+            identityCardNo: vm.inputFrom.identityCardNo,
+            identityName: vm.inputFrom.identityName,
+            contentType: vm.inputFrom.contentType.join(';')
+          };
+          for (let i = 0; i < 3; i++) {
+            if (vm.linkMan.includes(i + 1 + '')) {
+              if (!(vm.inputFrom['contactName' + engNumArr[i]] && vm.inputFrom['contactMobile' + engNumArr[i]] &&
+                  vm.inputFrom['contactIdentityNo' + engNumArr[i]] && vm.inputFrom['contactRelationship' + engNumArr[i]])) {
+                  vm.$message({showClose: true, message: '第' + chnNumArr[i] + '联系人的信息不完整。', type: 'error'});
+                  return;
+              } else {
+                params['contactName' + engNumArr[i]] = vm.inputFrom['contactName' + engNumArr[i]];
+                params['contactMobile' + engNumArr[i]] = vm.inputFrom['contactMobile' + engNumArr[i]];
+                params['contactIdentityNo' + engNumArr[i]] = vm.inputFrom['contactIdentityNo' + engNumArr[i]];
+                params['contactRelationship' + engNumArr[i]] = vm.inputFrom['contactRelationship' + engNumArr[i]];
+              }
+            }
+          }
+          vm.startTask(params);
         }
+      });
+    },
+    startTask: function (params) {
+      var vm = this;
+      vm.loading = true;
+      vm.$http.get('api/rip/operatorCreditReports/result', { 
+        params: params,
+        headers: {
+          authorization: vm.$db.get('authorization')
+        }
+      }).then(function (res) {
+        if (res.data.code == '0010') {
+          vm.ripId = res.data.rip_id;
+          vm.token = res.data.token;
+          vm.tryAgain = 10;
+          vm.loading && vm.getStatus();
+        }
+      });
+    },
+    getStatus: function () {
+      var vm = this;
+      if (vm.tryAgain == 0) {
+        vm.$message({showClose: true, message: '超时，状态状态获取失败。', type: 'error'});
+        vm.loading = false;
       }
-      // vm.$refs['inputFrom'].validate((valid) => {
-      //   if (valid) {
-      //     console.log(1);
-      //   }
-      // });
+      vm.$http.get('api/operatorCreditReports/status', { 
+        params: {token: vm.token},
+        headers: {authorization: vm.$db.get('authorization')}
+      }).then(function (res) {
+        if (res.data.code == '0006') {
+          // 验证码采集
+          vm.$prompt('请输入短信验证码', '提示', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消'
+          }).then(({ value }) => {
+            vm.inputValidateCode(value);
+          }).catch(() => {
+            vm.$message({
+              type: 'info',
+              message: '您取消了。'
+            });
+            vm.loading = false;
+          });
+        } else if (res.data.code == '0000') {
+          vm.tryAgain = 5;
+          vm.$message({showClose: true, message: '正在获取报告', type: 'info'});
+          vm.loading && (vm.timeout = setTimeout(vm.getResult, 3000));
+        } else {
+          vm.tryAgain--;
+          if (res.data.msg) {
+            vm.$message({showClose: true, message: res.data.msg, type: 'success'});
+          }
+          vm.loading && (vm.timeout = setTimeout(vm.getStatus, 5000));
+        }
+      });
+    },
+    inputValidateCode: function (value) {
+      var vm = this;
+      vm.$http.get('api/operatorCreditReports/input', { 
+        params: {token: vm.token, input: value},
+        headers: {authorization: vm.$db.get('authorization')}
+      }).then(function (res) {
+        if (res.data.code == "0009") {
+          vm.$message({showClose: true, message: '验证码已提交', type: 'success'});
+          vm.tryAgain = 40;
+          vm.loading && vm.getStatus();
+        } else {
+          vm.$message({showClose: true, message: '验证码提交失败', type: 'error'});
+          vm.loading = false;
+        }
+      });
+    },
+    getResult: function () {
+      var vm = this;
+      if (vm.tryAgain == 0) {
+        vm.$message({showClose: true, message: '获取报告失败', type: 'error'});
+      }
+      vm.tryAgain--;
+      vm.$http.get('api/operatorCreditReports/report', { 
+        params: {token: vm.token, rip_id: vm.ripId},
+        headers: {authorization: vm.$db.get('authorization')}
+      }).then(function (res) {
+        if (res.data.code == "0000") {
+          vm.$message({showClose: true, message: res.data.msg, type: 'success'});
+          vm.result = {
+            example: false,
+            code: '0000',
+            data: res.data.data
+          };
+          console.log(vm.result);
+        } else {
+          vm.loading && (vm.timeout = setTimeout(vm.getResult, 3000));
+        }
+      });
     }
+  },
+  destroyed: function () {
+    var vm = this;
+    vm.loading = false;
+    vm.timeout && clearTimeout(vm.timeout);
   }
 };
 </script>
