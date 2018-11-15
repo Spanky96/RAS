@@ -46,45 +46,51 @@
     </div>
     <table class="table card-text">
       <tr class="text-left">
-        <th width="15%">查询结果：</th>
-        <td  colspan="2">
+        <td width="15%">查询结果：</td>
+        <td  colspan="3">
           <el-tag :type="result.resultType | resultLogoFmt" class="tag">{{result.resultType | resultSuccessFmt}}</el-tag>
         </td>
-        <th width="15%">查询单号：</th>
-        <td  colspan="2">{{result.orderNo}}</td>
+        <td width="15%">查询单号：</td>
+        <td  colspan="3">{{result.orderNo}}</td>
       </tr>
       <tr class="text-left">
-        <th width="15%">姓名：</th>
-        <td  colspan="2">{{result.name | handleName}}</td>
-        <th width="15%">身份证号码：</th>
-        <td  colspan="2">{{result.idCard |handleIdCard}}</td>
+        <td width="15%">姓名：</td>
+        <td  colspan="3">{{result.name | handleName}}</td>
+        <td width="15%">身份证号码：</td>
+        <td  colspan="3">{{result.idCard |handleIdCard}}</td>
+      </tr>
+      <tr>
+         <td width="15%">手机号:</td>
+        <td  colspan="3">{{result.mobile | handleMobile}}</td>
       </tr>
     </table>
     <el-card id="resultTable" class="resultTable-top">
-     <div slot="header" class="clearfix">
-      <el-row type="flex" justify="space-between">
-        <el-col :span="22"><span>综合风险概述</span></el-col>
-      </el-row>
-    </div>
     <div class="black-box">
      <table class="table card-text">
+       <tr>
+         <td colspan="2">
+           <el-tag>
+                综合风险概述
+           </el-tag>
+          </td>
+       </tr>
        <tr v-for="list in totalCounts" :key="list.blackType">
         <td>{{list.blackType | blackTypefilters}}</td>
         <td>{{list.blackCount | blackCountfilters}}</td>
       </tr>
     </table>
   </div>
-</el-card>
-<el-card id="resultTable" class="resultTable-top">
- <div slot="header" class="clearfix">
-  <el-row type="flex" justify="space-between">
-    <el-col :span="22"><span>明细</span></el-col>
-  </el-row>
-</div>
-<div class="black-body">
+  <div class="black-body">
  <table class="table card-text">
    <tr>
-     <th v-for="list in resultArr" :key="list.label">{{list.label}}</th>
+         <td colspan="2">
+           <el-tag>
+                明细
+           </el-tag>
+          </td>
+       </tr>
+   <tr>
+     <td v-for="list in resultArr" :key="list.label">{{list.label}}</td>
    </tr>
    <tr v-for="(key,i) in Reference" :key="i">
      <td v-for="(j,index) in resultArr" :key="index">{{key[j.prop]|Refer}}</td>
@@ -102,20 +108,16 @@
 }
 .black-box {
   width: 100%;
-  float: left;
+  padding: 5px;
   box-sizing: border-box;
   td {
     width: 50%;
     text-align: left;
-    font-weight: 900;
+     font-size: 13px;
   }
 }
 .black-body {
-  th {
-    text-align: left;
-    font-size: 14px;
-    font-weight: normal;
-  }
+   padding: 5px;
   td {
     font-size: 13px;
   }
@@ -153,11 +155,11 @@ export default {
         },
         {
           blackType: "B",
-          blackCount: 0
+          blackCount: 2
         },
         {
           blackType: "C",
-          blackCount: 0
+          blackCount: 1
         },
         {
           blackType: "D",
@@ -173,7 +175,9 @@ export default {
         resultType: "0000",
         name: "吴磊",
         idCard: "320281199606286770",
-        orderNo: "201811142311039474356"
+        orderNo: "201811142311039474356",
+        mobile: '15169693586'
+        
       },
       resultArr: [
         { label: "所属风险类型", prop: "blackRiskType" },
@@ -264,10 +268,11 @@ export default {
               vm.Reference = [];
               if (res.status == 200 && res.data.rc == "0000") {
                 vm.result = {
-                  example: false,
+                  result: false,
                   resultType: res.data.rc,
                   name: vm.inputFrom.name,
                   idCard: vm.inputFrom.idCard,
+                  mobile: vm.inputFrom.mobile,
                   orderNo: res.data.orderNo
                 };
                 vm.totalCounts = res.data.data.totalCounts;
