@@ -395,6 +395,12 @@ export default {
     tuomin (v, keyName) {
       if (['name', 'title', 'party', 'proposer'].includes(keyName)) {
         return (new Array(v.length)).join("*") + v.slice(-1);
+      } else if (['caseStatus'].includes(keyName)) {
+        if (v == '1') {
+          return '结案';
+        } else {
+          return '执行中';
+        }
       } else {
         return v;
       }

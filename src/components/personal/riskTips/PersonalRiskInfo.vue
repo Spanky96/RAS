@@ -68,7 +68,7 @@
     </div>
     <div class="black-box">
      <table class="table card-text">
-       <tr v-for="(list,index) in totalCounts" :key="list.blackType">
+       <tr v-for="list in totalCounts" :key="list.blackType">
         <td>{{list.blackType | blackTypefilters}}</td>
         <td>{{list.blackCount | blackCountfilters}}</td>
       </tr>
@@ -84,10 +84,10 @@
 <div class="black-body">
  <table class="table card-text">
    <tr>
-     <th v-for="(list,index) in resultArr" :key="list.label">{{list.label}}</th>
+     <th v-for="list in resultArr" :key="list.label">{{list.label}}</th>
    </tr>
-   <tr v-for="(i,index) in Reference">
-     <td v-for="(j,indexs) in resultArr">{{i[j.prop]|Refer}}</td>
+   <tr v-for="(key,i) in Reference" :key="i">
+     <td v-for="(j,index) in resultArr" :key="index">{{key[j.prop]|Refer}}</td>
    </tr>
  </table>
 </div>
@@ -97,179 +97,197 @@
 </div>
 </template>
 <style scoped lang="scss">
-.resultTable-top{
+.resultTable-top {
   margin-top: 15px;
 }
-.black-box{
+.black-box {
   width: 100%;
   float: left;
   box-sizing: border-box;
-  td{
+  td {
     width: 50%;
     text-align: left;
     font-weight: 900;
   }
 }
-.black-body{
-  th{
+.black-body {
+  th {
     text-align: left;
     font-size: 14px;
     font-weight: normal;
   }
-  td{
+  td {
     font-size: 13px;
   }
 }
 </style>
 
 <script>
-  export default {
-    name: 'PersonalRiskInfo',
-    components: {
-    },
-    data () {
-      return {
-        inputFrom: {
-          name: '',
-          bankCardNo: '',
-          idCard: '',
-          mobile: ''
-        },
-        rules: {
-          name: [{ required: true, message: '请输入姓名', trigger: 'blur' }],
-          bankCardNo: [{ validator: this.$validator.bankCardValidator, trigger: 'blur' }],
-          idCard: [{ validator: this.$validator.idCardValidator, trigger: 'blur' }],
-          mobile: [{ validator: this.$validator.mobileValidator, trigger: 'blur' }]
-        },
-        totalCounts:[
+export default {
+  name: "PersonalRiskInfo",
+  components: {},
+  data () {
+    return {
+      inputFrom: {
+        name: "",
+        bankCardNo: "",
+        idCard: "",
+        mobile: ""
+      },
+      rules: {
+        name: [{ required: true, message: "请输入姓名", trigger: "blur" }],
+        bankCardNo: [
+          { validator: this.$validator.bankCardValidator, trigger: "blur" }
+        ],
+        idCard: [
+          { validator: this.$validator.idCardValidator, trigger: "blur" }
+        ],
+        mobile: [
+          { validator: this.$validator.mobileValidator, trigger: "blur" }
+        ]
+      },
+      totalCounts: [
         {
-          "blackType":"A",
-          "blackCount":0
-        },
-        {
-          "blackType":"B",
-          "blackCount":0
-        },
-        {
-          "blackType":"C",
-          "blackCount":0
+          blackType: "A",
+          blackCount: 0
         },
         {
-          "blackType":"D",
-          "blackCount":0
+          blackType: "B",
+          blackCount: 0
         },
         {
-          "blackType":"E",
-          "blackCount":0
+          blackType: "C",
+          blackCount: 0
+        },
+        {
+          blackType: "D",
+          blackCount: 0
+        },
+        {
+          blackType: "E",
+          blackCount: 0
         }
-        ],
-        result: {
-          example: false,
-          resultType: '0000',
-          name: '吴磊',
-          idCard: '320281199606286770',
-          orderNo:'201811142311039474356'
+      ],
+      result: {
+        example: true,
+        resultType: "0000",
+        name: "吴磊",
+        idCard: "320281199606286770",
+        orderNo: "201811142311039474356"
+      },
+      resultArr: [
+        { label: "所属风险类型", prop: "blackRiskType" },
+        { label: "所属事实类型", prop: "blackFactsType" },
+        { label: "命中事件", prop: "blackFacts" },
+        { label: "实际金额", prop: "blackAmt" },
+        { label: "发生日期", prop: "blackHappenDate" },
+        { label: "持续时长(天)", prop: "blackDurationTime" },
+        { label: "信息来源", prop: "blackPublishSource" }
+      ],
+      Reference: []
+    };
+  },
+  methods: {
+    update () {
+      let testjson = [
+        {
+          blackRiskType: "信款逾期",
+          blackFactsType: "贷款不良(逾期90天以上未还)",
+          blackFacts: "身份证命中信贷逾期名单",
+          blackAmt: "1000,5000",
+          blackHappenDate: "2017-03",
+          blackDurationTime: "(90,180]",
+          blackPublishSource: " "
         },
-        resultArr:[
-        {label:'所属风险类型',prop:'blackRiskType'},
-        {label:'所属事实类型',prop:'blackFactsType'},
-        {label:'命中事件',prop:'blackFacts'},
-        {label:'实际金额',prop:'blackAmt'},
-        {label:'发生日期',prop:'blackHappenDate'},
-        {label:'持续时长(天)',prop:'blackDurationTime'},
-        {label:'信息来源',prop:'blackPublishSource'},
-        ],
-        Reference:[]
-      };
-    },
-    methods: {
-     update() {
-      let testjson=[{
-        blackRiskType:'信款逾期',
-        blackFactsType:'贷款不良(逾期90天以上未还)',
-        blackFacts:'身份证命中信贷逾期名单',
-        blackAmt:'1000,5000',
-        blackHappenDate:'2017-03',
-        blackDurationTime:'(90,180]',
-        blackPublishSource:' '
-      },{
-        blackRiskType:'信款逾期',
-        blackFactsType:'短时逾期',
-        blackFacts:'通过身份证号查得该用户非银(含全部非银类型)短期逾期',
-        blackAmt:' ',
-        blackHappenDate:' ',
-        blackDurationTime:' ',
-        blackPublishSource:' '
-      },{
-        blackRiskType:'法院失信',
-        blackFactsType:'被执行人',
-        blackFacts:'(2018)苏0812执03267号，执行中',
-        blackAmt:'355645',
-        blackHappenDate:'2018-09-20',
-        blackDurationTime:' ',
-        blackPublishSource:'淮安市清江浦区人民法院'
-      }]
+        {
+          blackRiskType: "信款逾期",
+          blackFactsType: "短时逾期",
+          blackFacts: "通过身份证号查得该用户非银(含全部非银类型)短期逾期",
+          blackAmt: " ",
+          blackHappenDate: " ",
+          blackDurationTime: " ",
+          blackPublishSource: " "
+        },
+        {
+          blackRiskType: "法院失信",
+          blackFactsType: "被执行人",
+          blackFacts: "(2018)苏0812执03267号，执行中",
+          blackAmt: "355645",
+          blackHappenDate: "2018-09-20",
+          blackDurationTime: " ",
+          blackPublishSource: "淮安市清江浦区人民法院"
+        }
+      ];
 
       for (let i = 0; i < testjson.length; i++) {
         let tr = this.getDataRow();
         tr.blackRiskType = testjson[i].blackRiskType;
         tr.blackFactsType = testjson[i].blackFactsType;
-        tr.blackFacts =testjson[i].blackFacts;
+        tr.blackFacts = testjson[i].blackFacts;
         tr.blackAmt = testjson[i].blackAmt;
         tr.blackHappenDate = testjson[i].blackHappenDate;
         tr.blackDurationTime = testjson[i].blackDurationTime;
-        tr.blackPublishSource=testjson[i].blackPublishSource;
+        tr.blackPublishSource = testjson[i].blackPublishSource;
         this.Reference.push(tr);
       }
-
     },
-    getDataRow() {
-      return { blackRiskType: '', blackFactsType: '', blackFacts: '', blackAmt: '', blackHappenDate: '', blackDurationTime: '',blackPublishSource:''};
+    getDataRow () {
+      return {
+        blackRiskType: "",
+        blackFactsType: "",
+        blackFacts: "",
+        blackAmt: "",
+        blackHappenDate: "",
+        blackDurationTime: "",
+        blackPublishSource: ""
+      };
     },
     onSubmit: function () {
-     var vm = this;
-     vm.$refs['inputFrom'].validate((valid) => {
-      if (valid) {
-        const loading = vm.$loading({
-          lock: true,
-          text: 'Loading',
-          spinner: 'el-icon-loading',
-          background: 'rgba(0, 0, 0, 0.2)'
-        });
-        vm.$http.get('api/rip/personalRiskInformation', {
-          params: vm.inputFrom,
-          headers: {
-            authorization: vm.$db.get('authorization')
-          }
-        }).then(function (res) {
-          vm.totalCount=[];
-          vm.Reference=[];
-          if (res.status==200&&res.data.rc=='0000') {
-           vm.result={
-            example: true,
-            resultType: res.data.rc,
-            name: vm.inputFrom.name,
-            idCard: vm.inputFrom.idCard,
-            orderNo:res.data.orderNo
-          };
-          vm.totalCounts=res.data.data.totalCounts;
-          vm.Reference=res.data.data.list;
-        } else {
-          vm.$message({
-            showClose: true,
-            message: res.msg,
-            type: 'error',
-            duration: '5000'
+      var vm = this;
+      vm.$refs["inputFrom"].validate(valid => {
+        if (valid) {
+          const loading = vm.$loading({
+            lock: true,
+            text: "Loading",
+            spinner: "el-icon-loading",
+            background: "rgba(0, 0, 0, 0.2)"
           });
+          vm.$http
+            .get("api/rip/personalRiskInformation", {
+              params: vm.inputFrom,
+              headers: {
+                authorization: vm.$db.get("authorization")
+              }
+            })
+            .then(function (res) {
+              vm.totalCount = [];
+              vm.Reference = [];
+              if (res.status == 200 && res.data.rc == "0000") {
+                vm.result = {
+                  example: false,
+                  resultType: res.data.rc,
+                  name: vm.inputFrom.name,
+                  idCard: vm.inputFrom.idCard,
+                  orderNo: res.data.orderNo
+                };
+                vm.totalCounts = res.data.data.totalCounts;
+                vm.Reference = res.data.data.list;
+              } else {
+                vm.$message({
+                  showClose: true,
+                  message: res.msg,
+                  type: "error",
+                  duration: "5000"
+                });
+              }
+              loading.close();
+            });
         }
-        loading.close();  
       });
-      }
-    });
-   }
- },
- mounted() {
-  this.update();
-}
+    }
+  },
+  mounted () {
+    this.update();
+  }
 };
 </script>

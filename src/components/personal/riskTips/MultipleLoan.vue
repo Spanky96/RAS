@@ -42,7 +42,7 @@
           <td colspan="2">
             <table class="table card-text">
               <tr class="text-left">
-                <td colspan="2">信贷平台注册详情</td>
+                <td colspan="2"><el-tag>信贷平台注册详情</el-tag></td>
               </tr>
               <table class="table card-text" v-for="(ret, index) in result.creditPlatformRegistrationDetails" :key="index">
               <tr class="text-left resultRows">
@@ -60,7 +60,7 @@
           <td colspan="2">
             <table class="table card-text">
               <tr class="text-left">
-                <td colspan="2">贷款申请详情</td>
+                <td colspan="2"><el-tag>贷款申请详情</el-tag></td>
               </tr>
               <table class="table card-text" v-for="(ret, index) in result.loanApplicationDetails" :key="index">
               <tr class="text-left resultRows">
@@ -83,7 +83,7 @@
           <td colspan="2">
             <table class="table card-text">
               <tr class="text-left">
-                <td colspan="2">贷款放款详情</td>
+                <td colspan="2"><el-tag>贷款放款详情</el-tag></td>
               </tr>
               <table class="table card-text" v-for="(ret, index) in result.loanDetails" :key="index">
               <tr class="text-left resultRows">
@@ -107,7 +107,7 @@
           <td colspan="2">
             <table class="table card-text">
               <tr class="text-left">
-                <td colspan="2" width="50%">贷款驳回详情</td>
+                <td colspan="2" width="50%"><el-tag>贷款驳回详情</el-tag></td>
               </tr>
               <table class="table card-text" v-for="(ret, index) in result.loanRejectDetails" :key="index">
               <tr class="text-left resultRows" >
@@ -125,7 +125,7 @@
           <td colspan="2">
             <table class="table card-text">
               <tr class="text-left">
-                <td colspan="2" width="50%">逾期平台详情</td>
+                <td colspan="2" width="50%"><el-tag>逾期平台详情</el-tag></td>
               </tr>
               <table class="table card-text" v-for="(ret, index) in result.overduePlatformDetails" :key="index">
               <tr class="text-left resultRows">
@@ -149,7 +149,7 @@
           <td colspan="2">
             <table class="table card-text">
               <tr class="text-left">
-                <td colspan="2" width="50%">欠款查询详情</td>
+                <td colspan="2" width="50%"><el-tag>欠款查询详情</el-tag></td>
               </tr>
               <tr class="text-left resultRows" v-for="(ret, index) in result.arrearsInquiry" :key="index">
                 <td class="mytd" width="25%">平台代码 ：</td>

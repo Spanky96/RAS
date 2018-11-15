@@ -296,23 +296,23 @@ export default {
         "example": true,
         "data": {
           "addresses": [{
-            "address_area": "江苏省 南京市 浦口区 盘城街道",
-            "address_detail": "南京信息工程大学滨江学院",
+            "address_area": "江苏省 南京市 *** ***",
+            "address_detail": "南京信息工程大学",
             "account_id": "158658527260",
             "phone": "187****5679",
-            "name": "吴雨声",
+            "name": "**声",
             "postcode": "320111",
             "is_default": "n"
           }, {
-            "address_area": "江苏省 苏州市 昆山市 玉山镇",
-            "address_detail": "玉山镇好美家花园15幢505室",
+            "address_area": "江苏省 苏州市 *******",
+            "address_detail": "**镇**园**幢***室",
             "account_id": "158658527260",
             "phone": "173****5816",
             "name": "**辉",
             "postcode": "320583",
             "is_default": "n"
           }, {
-            "address_area": "安徽省 芜湖市 弋江区 中山南路街道",
+            "address_area": "安徽省 芜湖市 *** ***",
             "address_detail": "虚拟地址",
             "account_id": "158658527260",
             "phone": "187****2555",
@@ -332,7 +332,7 @@ export default {
           }, {
             "open_date": "",
             "bank": "中国银行",
-            "account_id": "158658527260",
+            "account_id": "158658***260",
             "fast_payment_flag": "y",
             "phone": "187****5631",
             "name": "**鸣",
@@ -341,7 +341,7 @@ export default {
           }],
           "huabei_flows": [{
             "payment_mode": "",
-            "account_id": "158658527260",
+            "account_id": "158*****260",
             "settle_amount": "-111",
             "settle_date": "2018-11-14 09:35:00",
             "trade_description": "余额宝-2018.11.13-收益发放",
@@ -350,7 +350,7 @@ export default {
             "status": "交易成功"
           }, {
             "payment_mode": "",
-            "account_id": "158658527260",
+            "account_id": "1**6*****0",
             "settle_amount": "-199",
             "settle_date": "2018-11-14 03:44:00",
             "trade_description": "余额宝-自动转入",
@@ -359,16 +359,16 @@ export default {
             "status": "交易成功"
           }, {
             "payment_mode": "",
-            "account_id": "158658527260",
+            "account_id": "1586****8260",
             "settle_amount": "600",
             "settle_date": "2018-11-14 03:35:00",
-            "trade_description": "App Store & Apple Music: 于 11.13到 11.14期间完成的购买",
-            "order_num": "2018111422001473001015377514",
+            "trade_description": "App Store & Apple Music: ****期间完成的购买",
+            "order_num": "2018111****15377514",
             "shop_name": "App Store &amp; Apple Music",
             "status": "交易成功"
           }, {
             "payment_mode": "",
-            "account_id": "158658527260",
+            "account_id": "158*****260",
             "settle_amount": "1300",
             "settle_date": "2018-11-13 18:47:00",
             "trade_description": "商品",
@@ -379,42 +379,42 @@ export default {
           "login_name": "xxxxxxx",
           "business_flows": [],
           "flows": [{
-            "address_area": "江苏省 无锡市 长山农贸市场 ",
+            "address_area": "江苏省  *** *** ",
             "payment_mode": "",
             "settle_date": "2018-08-08 15:33:44",
             "trade_description": "现货包邮 码农翻身 用故事给技术加点料 企业级应用架构",
             "postcode": "214400",
             "shop_name": "电子工业出版社旗舰店",
             "address_detail": "",
-            "account_id": "158658527260",
+            "account_id": "15******7260",
             "phone": "189***6527",
             "settle_amount": "4100",
             "name": "**龙",
             "order_num": "175266114423926745",
             "status": "交易成功"
           }, {
-            "address_area": "安徽省 芜湖市 弋江区 虚拟地址",
+            "address_area": "安徽省 芜湖市 ******",
             "payment_mode": "",
             "settle_date": "2018-06-06 22:38:07",
             "trade_description": "［现货秒发］2018最新传智黑马PythonS教程零基础入门",
             "postcode": "000000",
             "shop_name": "Daotinの软件学院",
             "address_detail": "",
-            "account_id": "158658527260",
+            "account_id": "158******7260",
             "phone": "187****2555",
             "settle_amount": "300",
             "name": "Spanky",
-            "order_num": "156929506082926745",
+            "order_num": "15692950******6745",
             "status": "交易成功"
           }, {
-            "address_area": "江苏省 苏州市 昆山市 玉山镇好美家花园",
+            "address_area": "江苏省 苏州市 ******",
             "payment_mode": "",
             "settle_date": "2017-12-12 23:07:27",
             "trade_description": "【1212价】Intel/英特尔 I7 7700K 酷睿i7四核处理器 台式机电脑盒装CPU",
             "postcode": "215300",
             "shop_name": "英特尔官方旗舰店",
             "address_detail": "",
-            "account_id": "158658527260",
+            "account_id": "158******260",
             "phone": "173****5816",
             "settle_amount": "235900",
             "name": "**辉",
@@ -430,7 +430,7 @@ export default {
               "code": "",
               "income_yesterday": "",
               "usable_share": "42035",
-              "account_id": "131093006253",
+              "account_id": "131******06253",
               "net_value": "",
               "yield": "",
               "name": "余额宝",
@@ -449,7 +449,7 @@ export default {
           }, {
             "credit_limit": "",
             "name": "借呗",
-            "account_id": "158658527260",
+            "account_id": "158******60",
             "admit": "false",
             "usable_limit": "",
             "account": "819****98@qq.com"
@@ -464,7 +464,7 @@ export default {
           "accounts": [{
             "birthday": "1996-06-28",
             "gender": "男",
-            "taobao_account": "钻石小笨蛋",
+            "taobao_account": "******小笨蛋",
             "real_name": "**鸣",
             "type": "支付宝",
             "zmxy": "",
@@ -475,7 +475,7 @@ export default {
             "phone": "187****5631",
             "yuebao_balance": "1454065",
             "idcard": "3****************4",
-            "nick_name": "钻石小笨蛋",
+            "nick_name": "钻******笨蛋",
             "repay_day": "",
             "limit": "200000",
             "id": "158658527260",

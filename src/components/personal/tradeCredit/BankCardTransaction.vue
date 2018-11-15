@@ -61,13 +61,13 @@
           <td>{{result.status}}</td>
         </tr>
         <tr class="text-left">
-          <td>银行卡信息</td>
+          <td><el-tag>银行卡信息</el-tag></td>
         </tr>
         <tr class="text-left">
           <td>借贷标记</td>
           <td width = "25%">{{handleLoanMark(result.bankCardInfo.loanMark)}}</td>
           <td width = "25%">卡等级</td>
-          <td>{{result.bankCardInfo.cardRank}}</td>
+          <td>{{handleNull(result.bankCardInfo.cardRank)}}</td>
         </tr>
         <tr class="text-left">
           <td>卡名称</td>
@@ -80,13 +80,13 @@
           <td>{{result.bankCardInfo.isUnionpayVIP}}</td>
         </tr>
         <tr class="text-left">
-          <td>交易城市信息</td>
+          <td><el-tag>交易城市信息</el-tag></td>
         </tr>
         <tr class="text-left">
           <td>当月活动省市</td>
-          <td>{{result.transactionCityInfo.activeProvincesThisM}}</td>
+          <td>{{handleNull(result.transactionCityInfo.activeProvincesThisM)}}</td>
           <td>最近一笔交易城市</td>
-          <td>{{result.transactionCityInfo.latestTransactionCity}}</td>
+          <td>{{handleNull(result.transactionCityInfo.latestTransactionCity)}}</td>
         </tr>
         <tr class="text-left">
           <td>最近一笔交易城市名称</td>
@@ -102,24 +102,24 @@
         </tr>
         <tr class="text-left">
           <td>第一常用城市名称</td>
-          <td>{{result.transactionCityInfo.cityConsumeName1st}}</td>
+          <td>{{handleNull(result.transactionCityInfo.cityConsumeName1st)}}</td>
           <td>第二常用城市名称</td>
-          <td>{{result.transactionCityInfo.cityConsumeName2nd}}</td>
+          <td>{{handleNull(result.transactionCityInfo.cityConsumeName2nd)}}</td>
         </tr>
         <tr class="text-left">
           <td>第三常用城市名称</td>
-          <td>{{result.transactionCityInfo.cityConsumeName3rd}}</td>
+          <td>{{handleNull(result.transactionCityInfo.cityConsumeName3rd)}}</td>
           <td>近 6 个月交易金额排名第一的城市名称</td>
-          <td>{{result.transactionCityInfo.rankConsumeCity6M1st}}</td>
+          <td>{{handleNull(result.transactionCityInfo.rankConsumeCity6M1st)}}</td>
         </tr>
         <tr class="text-left">
           <td>近 6 个月交易金额排名第二的城市名称</td>
-          <td>{{result.transactionCityInfo.rankConsumeCity6M2nd}}</td>
+          <td>{{handleNull(result.transactionCityInfo.rankConsumeCity6M2nd)}}</td>
           <td>近 6 个月交易金额排名第三的城市名称</td>
-          <td>{{result.transactionCityInfo.rankConsumeCity6M3rd}}</td>
+          <td>{{handleNull(result.transactionCityInfo.rankConsumeCity6M3rd)}}</td>
         </tr>
         <tr class="text-left">
-          <td>基本消费信息</td>
+          <td><el-tag>基本消费信息</el-tag></td>
         </tr>
         <tr class="text-left">
           <td>近 1 个月消费金额</td>
@@ -146,7 +146,7 @@
           <td>{{result.basicConsumptionInfo.consumeTransactionTimes12M}}</td>
         </tr>
         <tr class="text-left">
-          <td>基本交易信息</td>
+          <td><el-tag>基本交易信息</el-tag></td>
         </tr>
         <tr class="text-left">
           <td>近 1 个月交易金额</td>
@@ -200,7 +200,7 @@
           <td>近 12 个月有无境外交易</td>
           <td>{{result.basicTransactionInfo.overseaTrade12M}}</td>
           <td>近 12 个月跨境交易国家名称列举</td>
-          <td>{{result.basicTransactionInfo.overseasTradeCountryList12M}}</td>
+          <td>{{handleNull(result.basicTransactionInfo.overseasTradeCountryList12M)}}</td>
         </tr>
         <tr class="text-left">
           <td>典当拍卖类交易信息</td>
@@ -224,7 +224,7 @@
           <td>{{result.pawnAuctionInfo.pawnAuctionTrustTimes12M}}</td>
         </tr>
         <tr class="text-left">
-          <td>证券保险类交易信息</td>
+          <td><el-tag>证券保险类交易信息</el-tag></td>
         </tr>
         <tr class="text-left">
           <td>近 12 个月证券交易金额</td>
@@ -251,7 +251,7 @@
           <td>{{result.securitiesInsuranceInfo.insuranceTimes12M}}</td>
         </tr>
         <tr class="text-left">
-          <td>博彩罚款类交易信息</td>
+          <td><el-tag>博彩罚款类交易信息</el-tag></td>
         </tr>
         <tr class="text-left">
           <td>近 1 个月博彩交易金额</td>
@@ -278,7 +278,7 @@
           <td>{{result.gamingFinesInfo.fineLastTimes1M}}</td>
         </tr>
         <tr class="text-left">
-          <td>医疗卫生类交易信息</td>
+          <td><el-tag>医疗卫生类交易信息</el-tag></td>
         </tr>
         <tr class="text-left">
           <td>近 1个月卫生类交易金额</td>
@@ -299,7 +299,7 @@
           <td>{{result.healthCareInfo.medicalApparatusConsumeTimes12M}}</td>
         </tr>
         <tr class="text-left">
-          <td>法律服务类交易信息</td>
+          <td><el-tag>法律服务类交易信息</el-tag></td>
         </tr>
         <tr class="text-left">
           <td>近 1 个月法律服务交易金额</td>
@@ -314,7 +314,7 @@
           <td>{{result.legalServiceInfo.legalServiceTimes12M}}</td>
         </tr>
         <tr class="text-left">
-          <td>商户交易类信息</td>
+          <td><el-tag>商户交易类信息</el-tag></td>
         </tr>
         <tr class="text-left">
           <td>近 1 个月高危商户交易金额</td>
@@ -341,7 +341,7 @@
           <td></td>
         </tr>
         <tr class="text-left">
-          <td>购物类交易信息</td>
+          <td><el-tag>购物类交易信息</el-tag></td>
         </tr>
         <tr class="text-left">
           <td>近 12个月网购交易金额</td>
@@ -356,7 +356,7 @@
           <td>{{result.shoppingTransactionInfo.luxuryConsumeTimes1M}}</td>
         </tr>
         <tr class="text-left">
-          <td>借贷还款类交易信息</td>
+          <td><el-tag>借贷还款类交易信息</el-tag></td>
         </tr>
         <tr class="text-left">
           <td>近 1 个月信用卡还款金额</td>
@@ -410,7 +410,7 @@ export default {
         name: '赵雷',
         idCard: '320281199606286770',
         bankCardNo: '3415432543254325432',
-        status: 'EXIST',
+        status: '数据存在',
         bankCardInfo: {
             "loanMark": "debit",
             "cardRank": "\"null\"",
@@ -603,6 +603,15 @@ export default {
         return '信用卡';
       } else {
         return '未知';
+      }
+    },
+    handleNull (val) {
+      if (val == '"null"') {
+        return '空';
+      } else if (val == 'null') {
+        return '空';
+      } else {
+        return val;
       }
     }
   }

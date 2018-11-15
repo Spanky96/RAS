@@ -81,7 +81,7 @@ export default {
         mobile: [{ validator: this.$validator.mobileValidator, trigger: 'blur' }]
       },
       result: {
-        name: '朱晓辉',
+        name: '**辉',
         idCard: '340154199512115445',
         example: true,
         "data": {
