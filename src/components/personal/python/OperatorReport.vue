@@ -464,7 +464,7 @@ export default {
         vm.$message({showClose: true, message: '超时，状态状态获取失败。', type: 'error'});
         vm.loading = false;
       }
-      vm.$http.get('api/operatorCreditReports/status', { 
+      vm.$http.get('api/rip/operatorCreditReports/status', { 
         params: {token: vm.token},
         headers: {authorization: vm.$db.get('authorization')}
       }).then(function (res) {
@@ -482,10 +482,10 @@ export default {
             });
             vm.loading = false;
           });
-        } else if (res.data.code == '0000') {
-          vm.tryAgain = 5;
-          vm.$message({showClose: true, message: '正在获取报告', type: 'info'});
-          vm.loading && (vm.timeout = setTimeout(vm.getResult, 3000));
+        } else if (['0000', '0100', '0200'].includes(res.data.code)) {
+          vm.tryAgain = 10;
+          vm.$message({showClose: true, message: '正在获取报告,请耐心等待', type: 'info'});
+          vm.loading && (vm.timeout = setTimeout(vm.getResult, 5000));
         } else {
           vm.tryAgain--;
           if (res.data.msg) {
@@ -497,7 +497,7 @@ export default {
     },
     inputValidateCode: function (value) {
       var vm = this;
-      vm.$http.get('api/operatorCreditReports/input', { 
+      vm.$http.get('api/rip/operatorCreditReports/input', { 
         params: {token: vm.token, input: value},
         headers: {authorization: vm.$db.get('authorization')}
       }).then(function (res) {
@@ -517,7 +517,7 @@ export default {
         vm.$message({showClose: true, message: '获取报告失败', type: 'error'});
       }
       vm.tryAgain--;
-      vm.$http.get('api/operatorCreditReports/report', { 
+      vm.$http.get('api/rip/operatorCreditReports/report', { 
         params: {token: vm.token, rip_id: vm.ripId},
         headers: {authorization: vm.$db.get('authorization')}
       }).then(function (res) {
