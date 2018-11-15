@@ -61,7 +61,7 @@
           <td>{{result.status}}</td>
         </tr>
         <tr class="text-left">
-          <td>银行卡信息</td>
+          <td><el-tag>银行卡信息</el-tag></td>
         </tr>
         <tr class="text-left">
           <td>借贷标记</td>
@@ -80,7 +80,7 @@
           <td>{{result.bankCardInfo.isUnionpayVIP}}</td>
         </tr>
         <tr class="text-left">
-          <td>交易城市信息</td>
+          <td><el-tag>交易城市信息</el-tag></td>
         </tr>
         <tr class="text-left">
           <td>当月活动省市</td>
@@ -119,7 +119,7 @@
           <td>{{result.transactionCityInfo.rankConsumeCity6M3rd}}</td>
         </tr>
         <tr class="text-left">
-          <td>基本消费信息</td>
+          <td><el-tag>基本消费信息</el-tag></td>
         </tr>
         <tr class="text-left">
           <td>近 1 个月消费金额</td>
@@ -146,7 +146,7 @@
           <td>{{result.basicConsumptionInfo.consumeTransactionTimes12M}}</td>
         </tr>
         <tr class="text-left">
-          <td>基本交易信息</td>
+          <td><el-tag>基本交易信息</el-tag></td>
         </tr>
         <tr class="text-left">
           <td>近 1 个月交易金额</td>
@@ -224,7 +224,7 @@
           <td>{{result.pawnAuctionInfo.pawnAuctionTrustTimes12M}}</td>
         </tr>
         <tr class="text-left">
-          <td>证券保险类交易信息</td>
+          <td><el-tag>证券保险类交易信息</el-tag></td>
         </tr>
         <tr class="text-left">
           <td>近 12 个月证券交易金额</td>
@@ -251,7 +251,7 @@
           <td>{{result.securitiesInsuranceInfo.insuranceTimes12M}}</td>
         </tr>
         <tr class="text-left">
-          <td>博彩罚款类交易信息</td>
+          <td><el-tag>博彩罚款类交易信息</el-tag></td>
         </tr>
         <tr class="text-left">
           <td>近 1 个月博彩交易金额</td>
@@ -278,7 +278,7 @@
           <td>{{result.gamingFinesInfo.fineLastTimes1M}}</td>
         </tr>
         <tr class="text-left">
-          <td>医疗卫生类交易信息</td>
+          <td><el-tag>医疗卫生类交易信息</el-tag></td>
         </tr>
         <tr class="text-left">
           <td>近 1个月卫生类交易金额</td>
@@ -299,7 +299,7 @@
           <td>{{result.healthCareInfo.medicalApparatusConsumeTimes12M}}</td>
         </tr>
         <tr class="text-left">
-          <td>法律服务类交易信息</td>
+          <td><el-tag>法律服务类交易信息</el-tag></td>
         </tr>
         <tr class="text-left">
           <td>近 1 个月法律服务交易金额</td>
@@ -314,7 +314,7 @@
           <td>{{result.legalServiceInfo.legalServiceTimes12M}}</td>
         </tr>
         <tr class="text-left">
-          <td>商户交易类信息</td>
+          <td><el-tag>商户交易类信息</el-tag></td>
         </tr>
         <tr class="text-left">
           <td>近 1 个月高危商户交易金额</td>
@@ -341,7 +341,7 @@
           <td></td>
         </tr>
         <tr class="text-left">
-          <td>购物类交易信息</td>
+          <td><el-tag>购物类交易信息</el-tag></td>
         </tr>
         <tr class="text-left">
           <td>近 12个月网购交易金额</td>
@@ -356,7 +356,7 @@
           <td>{{result.shoppingTransactionInfo.luxuryConsumeTimes1M}}</td>
         </tr>
         <tr class="text-left">
-          <td>借贷还款类交易信息</td>
+          <td><el-tag>借贷还款类交易信息</el-tag></td>
         </tr>
         <tr class="text-left">
           <td>近 1 个月信用卡还款金额</td>
