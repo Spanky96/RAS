@@ -130,5 +130,21 @@ export default {
         } else {
             callback(new Error('请输入正确的密码'));
         }
+    },
+    tesTing: (rule, value, callback) => {
+        if (value == '') {
+            callback(new Error('请输入日期'));
+        } else if (/^\d{4}\d{1,2}\d{1,2}$/.test(value)) {
+            callback();
+        } else {
+            callback(new Error('请输入正确日期'));
+        }
+    },
+    PassCheck: (rule, value, callback) => {
+        if (value == '') {
+            callback(new Error('请输入通行证号码'));
+        } else {
+            callback();
+        }
     }
 };
