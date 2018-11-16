@@ -85,6 +85,7 @@
             subs: [
               {name: '运营商二要素认证', index: "/personal/operators/operatorV2", icon: 'yunyingshang-xuanzhong'},
               {name: '运营商三要素认证', index: "/personal/operators/operatorV3", icon: 'yunyingshang-xuanzhong'},
+              {name: '运营商手机位置核验', index: "/personal/operators/MobileAreaCheck", icon: 'yunyingshang-xuanzhong'},
               {name: '手机在网时长', index: "/personal/operators/inNetTime", icon: 'iconfonticon-jianko'},
               {name: '手机在网状态', index: "/personal/operators/inNetStatus", icon: 'iconfonticon-baobia'},
               {name: '手机消费档次', index: "/personal/operators/mobileConsume", icon: 'jilu1'}
@@ -176,8 +177,8 @@
                icon: 'iconfonticon-dingwe',
               index: "5-1",
               subs: [
-                {name: '个人综合报告', index: "5-1", icon: 'baogao-copy'},
-                {name: '企业综合报告', index: "5-2", icon: 'icon-book'}
+                {name: '个人综合报告', index: "/comprehensiveReport/comprehensiveReportSon/Person", icon: 'baogao-copy'},
+                {name: '企业综合报告', index: "/comprehensiveReport/comprehensiveReportSon/Enterprise", icon: 'icon-book'}
               ]
             }
           ]

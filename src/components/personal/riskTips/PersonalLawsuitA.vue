@@ -6,7 +6,7 @@
       </div>
       <el-form :model="inputForm" :rules="rules" ref="inputForm" id="inputForm">
         <el-row>
-         <el-col :span="10">
+          <el-col :span="10">
             <el-form-item label="姓名" label-width="0" prop="name" class="form-item">
               <el-input v-model="inputForm.name"></el-input>
             </el-form-item>
