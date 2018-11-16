@@ -167,6 +167,41 @@ export default new Router({
           component: resolve => require(['@/components/enterpriseInfo/industryAndCommerce/BusinessData'], resolve)
         },
         {
+          path: 'enterpriseInfo/industryAndCommerce/AdministrativePermission',
+          name: 'AdministrativePermission',
+          component: resolve => require(['@/components/enterpriseInfo/industryAndCommerce/AdministrativePermission'], resolve)
+        },
+        {
+          path: 'enterpriseInfo/industryAndCommerce/UnifiedCredit',
+          name: 'UnifiedCredit',
+          component: resolve => require(['@/components/enterpriseInfo/industryAndCommerce/UnifiedCredit'], resolve)
+        },
+        {
+          path: 'enterpriseInfo/industryAndCommerce/EnterpriseOperationError',
+          name: 'EnterpriseOperationError',
+          component: resolve => require(['@/components/enterpriseInfo/industryAndCommerce/EnterpriseOperationError'], resolve)
+        },
+        {
+          path: 'enterpriseInfo/enterpriseRiskTips/IllegalTax',
+          name: 'IllegalTax',
+          component: resolve => require(['@/components/enterpriseInfo/enterpriseRiskTips/IllegalTax'], resolve)
+        },
+        {
+          path: 'enterpriseInfo/enterpriseRiskTips/IllegalGovernmentProcurement',
+          name: 'IllegalGovernmentProcurement',
+          component: resolve => require(['@/components/enterpriseInfo/enterpriseRiskTips/IllegalGovernmentProcurement'], resolve)
+        },
+        {
+          path: 'enterpriseInfo/enterpriseRiskTips/EnterpriseLawsuitA',
+          name: 'EnterpriseLawsuitA',
+          component: resolve => require(['@/components/enterpriseInfo/enterpriseRiskTips/EnterpriseLawsuitA'], resolve)
+        },
+        {
+          path: 'enterpriseInfo/enterpriseRiskTips/EnterpriseLawsuitC',
+          name: 'EnterpriseLawsuitC',
+          component: resolve => require(['@/components/enterpriseInfo/enterpriseRiskTips/EnterpriseLawsuitC'], resolve)
+        },
+        {
           path: 'personal/tradeCredit/PersonalEnterprise',
           name: 'PersonalEnterprise',
           component: resolve => require(['@/components/personal/tradeCredit/PersonalEnterprise'], resolve)

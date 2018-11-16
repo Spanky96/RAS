@@ -130,7 +130,7 @@ export default {
   components: {},
   data () {
     return {
-      bankCardNo:'',
+      bankCardNo: '',
       inputFrom: {
         name: "",
         idCard: "",
