@@ -391,7 +391,7 @@ export default {
       },
       {
         id: "3",
-        name: "手机运营商定位",
+        name: "运营商手机位置核验",
         params: ["mobile", "AreaCode"],
         apiUrl: "api/rip/xxxxx"
       },
