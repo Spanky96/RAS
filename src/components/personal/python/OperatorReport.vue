@@ -4,39 +4,46 @@
       <div slot="header" class="clearfix">
         <span>运营商报告</span>
       </div>
-      <el-form :model="inputFrom" :rules="rules" ref="inputFrom" id="inputForm" size="mini">
+      <el-form :model="inputForm" :rules="rules" ref="inputForm" id="inputForm" size="mini">
         <el-row>
           <el-col :span="8">
             <el-form-item label="账号（运营商账号，例如移动手机号）" label-width="0" prop="name" class="form-item">
-              <el-input v-model="inputFrom.name"></el-input>
+              <el-input v-model="inputForm.name"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="账号密码" label-width="0" prop="password" class="form-item">
-              <el-input type="password" v-model="inputFrom.password"></el-input>
+              <el-input type="password" v-model="inputForm.password"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="8">
             <el-form-item label="身份证号" label-width="0" prop="identityCardNo" class="form-item">
-              <el-input v-model="inputFrom.identityCardNo"></el-input>
+              <el-input v-model="inputForm.identityCardNo"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="真实姓名" label-width="0" prop="identityName" class="form-item">
-              <el-input v-model="inputFrom.identityName"></el-input>
+              <el-input v-model="inputForm.identityName"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="8">
             <el-form-item label="查询内容" label-width="0" prop="contentType" class="form-item">
-              <el-checkbox-group v-model="inputFrom.contentType">
+              <el-checkbox-group v-model="inputForm.contentType">
                 <el-checkbox name="contentType" label="sms">短信记录</el-checkbox>
                 <el-checkbox name="contentType" label="busi">业务记录</el-checkbox>
                 <el-checkbox name="contentType" label="net">上网记录</el-checkbox>
               </el-checkbox-group>
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item label="启用睿普分" label-width="0" prop="contentType" class="form-item">
+              <el-tooltip :content="inputForm.score == '1' ? '已选择启用' : '未选择启用'" placement="top">
+                <el-switch v-model="inputForm.score" active-value="1" inactive-value="0"></el-switch>
+              </el-tooltip>
             </el-form-item>
           </el-col>
         </el-row>
@@ -55,24 +62,24 @@
           <el-row>
             <el-col :span="8">
               <el-form-item label="第一联系人姓名" label-width="0" prop="contactName1st" class="form-item">
-                <el-input v-model="inputFrom.contactName1st"></el-input>
+                <el-input v-model="inputForm.contactName1st"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="第一联系人手机号码" label-width="0" prop="contactMobile1st" class="form-item">
-                <el-input v-model="inputFrom.contactMobile1st"></el-input>
+                <el-input v-model="inputForm.contactMobile1st"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row>
             <el-col :span="8">
               <el-form-item label="第一联系人身份证号码" label-width="0" prop="contactIdentityNo1st" class="form-item">
-                <el-input v-model="inputFrom.contactIdentityNo1st"></el-input>
+                <el-input v-model="inputForm.contactIdentityNo1st"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="第一联系人关系" label-width="0" prop="contactRelationship1st" class="form-item">
-                <el-select v-model="inputFrom.contactRelationship1st" style="width: 100%;">
+                <el-select v-model="inputForm.contactRelationship1st" style="width: 100%;">
                   <el-option v-for="(linkMan, index) in linkManKvs" :key="index" :label="linkMan" :value="index"></el-option>
                 </el-select>
               </el-form-item>
@@ -83,24 +90,24 @@
           <el-row>
             <el-col :span="8">
               <el-form-item label="第二联系人姓名" label-width="0" prop="contactName2nd" class="form-item">
-                <el-input v-model="inputFrom.contactName2nd"></el-input>
+                <el-input v-model="inputForm.contactName2nd"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="第二联系人手机号码" label-width="0" prop="contactMobile2nd" class="form-item">
-                <el-input v-model="inputFrom.contactMobile2nd"></el-input>
+                <el-input v-model="inputForm.contactMobile2nd"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row>
             <el-col :span="8">
               <el-form-item label="第二联系人身份证号码" label-width="0" prop="contactIdentityNo2nd" class="form-item">
-                <el-input v-model="inputFrom.contactIdentityNo2nd"></el-input>
+                <el-input v-model="inputForm.contactIdentityNo2nd"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="第二联系人关系" label-width="0" prop="contactRelationship2nd" class="form-item">
-                <el-select v-model="inputFrom.contactRelationship2nd" style="width: 100%;">
+                <el-select v-model="inputForm.contactRelationship2nd" style="width: 100%;">
                   <el-option v-for="(linkMan, index) in linkManKvs" :key="index" :label="linkMan" :value="index"></el-option>
                 </el-select>
               </el-form-item>
@@ -111,24 +118,24 @@
           <el-row>
             <el-col :span="8">
               <el-form-item label="第三联系人姓名" label-width="0" prop="contactName3rd" class="form-item">
-                <el-input v-model="inputFrom.contactName2nd"></el-input>
+                <el-input v-model="inputForm.contactName2nd"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="第三联系人手机号码" label-width="0" prop="contactMobile3rd" class="form-item">
-                <el-input v-model="inputFrom.contactMobile3rd"></el-input>
+                <el-input v-model="inputForm.contactMobile3rd"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row>
             <el-col :span="8">
               <el-form-item label="第三联系人身份证号码" label-width="0" prop="contactIdentityNo3rd" class="form-item">
-                <el-input v-model="inputFrom.contactIdentityNo3rd"></el-input>
+                <el-input v-model="inputForm.contactIdentityNo3rd"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="第三联系人关系" label-width="0" prop="contactRelationship3rd" class="form-item">
-                <el-select v-model="inputFrom.contactRelationship3rd" style="width: 100%;">
+                <el-select v-model="inputForm.contactRelationship3rd" style="width: 100%;">
                   <el-option v-for="(linkMan, index) in linkManKvs" :key="index" :label="linkMan" :value="index"></el-option>
                 </el-select>
               </el-form-item>
@@ -155,9 +162,204 @@
         <tr class="text-left">
           <td width="20%">查询结果</td>
           <td width="30%"><el-tag :type="result.code | resultLogoFmt" class="tag">{{result.code | resultSuccessFmt}}</el-tag></td>
+          <td width="20%">报告编号</td>
+          <td width="30%">{{result.data.report.reportNo}}</td>
+        </tr>
+        <tr class="text-left">
+          <td width="20%">数据来源</td>
+          <td width="30%">{{result.data.report.dataSource}}</td>
           <td width="20%">报告日期</td>
           <td width="30%">{{result.data.report.reportTime}}</td>
         </tr>
+        <!-- ------------------------------------  -->
+        <tr class="text-title">
+          <td colspan="4">基本信息</td>
+        </tr>
+        <tr class="inner-table">
+          <td colspan="4" style="padding: 0;">
+            <table class="table" v-html="$FU.getHtmlByKvsFromObjTm(basicInfoKvs, result.data.basicInfo)"></table>
+          </td>  
+        </tr>
+        <!-- ------------------------------------  -->
+        <tr class="text-title">
+          <td colspan="4">紧急联系人信息</td>
+        </tr>
+        <tr>
+          <td colspan="4" v-if="result.data.contactInfo == 0" class="centerAlign">无数据</td>
+        </tr>
+        <tr class="inner-table" v-for="(contact, index) in result.data.contactInfo" :key="index">
+          <td colspan="4" style="padding: 0;">
+            <table class="table" v-html="$FU.getHtmlByKvsFromObjTm(contactInfoKvs, contact, null, operatorValueFmt)">
+            </table>
+          </td>  
+        </tr>
+        <!-- ------------------------------------  -->
+        <tr class="text-title">
+          <td colspan="4">关联信息</td>
+        </tr>
+        <tr class="inner-table">
+          <td colspan="1">关联身份证信息</td>
+          <td colspan="3">{{$FU.arrayJoin(result.data.relationInfo.identiyNos, true)}}</td>
+        </tr>
+        <tr class="inner-table">
+          <td colspan="1">关联手机号信息</td>
+          <td colspan="3">{{$FU.arrayJoin(result.data.relationInfo.mobiles, true)}}</td>
+        </tr>
+        <tr class="inner-table">
+          <td colspan="1">关联家庭地址信息</td>
+          <td colspan="3">{{$FU.arrayJoin(result.data.relationInfo.homeAddresses)}}</td>
+        </tr>
+        <!-- ------------------------------------  -->
+        <tr class="text-title">
+          <td colspan="4">用户画像</td>
+        </tr>
+        <tr class="inner-table">
+          <td colspan="1">风险概况</td>
+          <td colspan="3" style="padding: 0;">
+            <table class="table" v-html="$FU.getHtmlByKvsFromObj(personasKvs['riskProfile'], result.data.personas.riskProfile)">
+            </table>
+          </td>
+        </tr>
+        <tr class="inner-table">
+          <td colspan="1">社交概况</td>
+          <td colspan="3" style="padding: 0;">
+            <table class="table" v-html="$FU.getHtmlByKvsFromObj(personasKvs['socialContactProfile'], result.data.personas.socialContactProfile)">
+            </table>
+          </td>
+        </tr>
+        <tr class="inner-table">
+          <td colspan="1">通话概况</td>
+          <td colspan="3" style="padding: 0;">
+            <table class="table" v-html="$FU.getHtmlByKvsFromObj(personasKvs['callProfile'], result.data.personas.callProfile)">
+            </table>
+          </td>
+        </tr>
+        <tr class="inner-table">
+          <td colspan="1">消费概况</td>
+          <td colspan="3" style="padding: 0;">
+            <table class="table" v-html="$FU.getHtmlByKvsFromObj(personasKvs['consumptionProfile'], result.data.personas.consumptionProfile)">
+            </table>
+          </td>
+        </tr>
+        <!-- ------------------------------------  -->
+        <tr class="text-title">
+          <td colspan="4">基本信息检测</td>
+        </tr>
+        <tr class="inner-table">
+          <td colspan="4" style="padding: 0;">
+            <table class="table" v-html="$FU.arrayInfo2HtmlV2(result.data.basicInfoCheck, basicInfoCheckKvs)"></table>
+          </td>  
+        </tr>
+        <!-- ------------------------------------  -->
+        <tr class="text-title">
+          <td colspan="4">风险清单检测</td>
+        </tr>
+        <tr class="inner-table">
+          <td colspan="4" style="padding: 0;">
+            <table class="table" v-html="$FU.arrayInfo2HtmlV2(result.data.riskListCheck, riskListCheckKvs)"></table>
+          </td>  
+        </tr>
+        <!-- ------------------------------------  -->
+        <tr class="text-title">
+          <td colspan="4">多头借贷检查</td>
+        </tr>
+        <tr class="inner-table">
+          <td colspan="4" style="padding: 0;">
+            <table class="table">
+              <tr><th>检查项</th><th>借贷平台类型</th><th>借贷次数</th></tr>
+              <tr v-for="(r, index) in result.data.multiLendCheck" :key="index">
+                <td :rowspan="r.details.length">{{r.desc}}</td>
+                <div v-for="(detail, id) in r.details" :key="id">
+                  <td>{{detail.lendType}}</td>
+                  <td>{{detail.lendCnt}}</td>
+                </div>
+              </tr>
+            </table>
+          </td>  
+        </tr>
+        <!-- ------------------------------------  -->
+        <!-- ------------------------------------  -->
+        <!-- ------------------------------------  -->
+        <!-- ------------------------------------  -->
+        <tr class="text-title">
+          <td colspan="4">通话概况</td>
+        </tr>
+        <td colspan="4" style="padding: 0;">
+          <table class="table" v-html="$FU.getHtmlByKvsFromObj(callAnalysisKvs, result.data.callAnalysis)">
+          </table>
+        </td>
+        <!-- ------------------------------------  -->
+        <tr class="text-title">
+          <td colspan="4">活跃情况</td>
+        </tr>
+        <tr class="inner-table">
+          <td colspan="4" style="padding: 0;">
+            <table class="table" v-html="$FU.arrayInfo2HtmlV2(result.data.activeCallAnalysis, activeCallAnalysisKvs)"></table>
+          </td>  
+        </tr>
+        <!-- ------------------------------------  -->
+        <tr class="text-title">
+          <td colspan="4">静默情况</td>
+        </tr>
+        <td colspan="4" style="padding: 0;">
+          <table class="table" v-html="$FU.getHtmlByKvsFromObj(silenceAnalysisKvs, result.data.silenceAnalysis)">
+          </table>
+        </td>
+        <!-- ------------------------------------  -->
+        <tr class="text-title">
+          <td colspan="4">通话时间段分析</td>
+        </tr>
+        <tr class="inner-table">
+          <td colspan="4" style="padding: 0;">
+            <table class="table" v-html="$FU.arrayInfo2HtmlV3(result.data.callDurationAnalysis, callDurationAnalysisKvs, ['freqContactNum'])"></table>
+          </td>  
+        </tr>
+        <!-- ------------------------------------  -->
+        <tr class="text-title">
+          <td colspan="4">消费能力</td>
+        </tr>
+        <tr class="inner-table">
+          <td colspan="4" style="padding: 0;">
+            <table class="table" v-html="$FU.arrayInfo2HtmlV2(result.data.consumptionAnalysis, consumptionAnalysisKvs)"></table>
+          </td>  
+        </tr>
+        <!-- ------------------------------------  -->
+        <tr class="text-title">
+          <td colspan="4">出行信息</td>
+        </tr>
+        <tr class="inner-table">
+          <td colspan="4" style="padding: 0;">
+            <table class="table" v-html="$FU.arrayInfo2HtmlV2(result.data.tripAnalysis, tripAnalysisKvs)"></table>
+          </td>  
+        </tr>
+        <!-- ------------------------------------  -->
+        <tr class="text-title">
+          <td colspan="4">社交关系概况</td>
+        </tr>
+        <tr class="inner-table">
+          <td colspan="4" style="padding: 0;">
+            <table class="table" v-html="$FU.arrayInfo2HtmlV2(result.data.socialContactAnalysis, socialContactAnalysisKvs)"></table>
+          </td>  
+        </tr>
+        <!-- ------------------------------------  -->
+        <tr class="text-title">
+          <td colspan="4">通话区域分析</td>
+        </tr>
+        <tr class="inner-table">
+          <td colspan="4" style="padding: 0;">
+            <table class="table" v-html="$FU.arrayInfo2HtmlV2(result.data.callAreaAnalysis, callAreaAnalysisKvs)"></table>
+          </td>  
+        </tr>
+        <!-- ------------------------------------  -->
+        <tr class="text-title">
+          <td colspan="4">通话联系人分析</td>
+        </tr>
+        <tr class="inner-table">
+          <td colspan="4" style="padding: 0;">
+            <table class="table" v-html="$FU.arrayInfo2HtmlV3(result.data.contactAnalysis, contactAnalysisKvs, null, operatorValueFmt)"></table>
+          </td>  
+        </tr>
+        <!-- ------------------------------------  -->
       </table>
     </el-card>
   </div>
@@ -193,9 +395,149 @@ export default {
       COWORKER: '同事',
       OTHERS: '其他'
     };
+    const basicInfoKvs = {
+      "name": "姓名",
+      "identityNo": "身份证号",
+      "gender": "性别",
+      "age": "年龄",
+      "mobile": "手机号",
+      "regTime": "入网时间",
+      "nativeAddress": "用户地址"
+    };
+    const contactInfoKvs = {
+      "name": "姓名",
+      "mobile": "手机号",
+      "identityNo": "身份证号",
+      "relationship": "与本人关系",
+      "callCnt": "通话次数",
+      "callTime": "通话时长（s）",
+      "callRank": "通话频度排名",
+      "isHitRiskList": "是否命中风险清单"
+    };
+    const basicInfoCheckKvs = {
+      "desc": "检查项",
+      "result": "检查结果",
+      "resultDesc": "检查结果描述"
+    };
+    const riskListCheckKvs = {
+      "item": "检查项",
+      "desc": "检查项描述",
+      "result": "检查结果"
+    };
+    const personasKvs = {
+      riskProfile: {
+        "riskListCnt": "命中风险清单次数",
+        "overdueLoanCnt": "信贷逾期次数",
+        "multiLendCnt": "多头借贷次数",
+        "riskCallCnt": "风险通话次数"
+      },
+      socialContactProfile: {
+        "freContactArea": "最常联系人区域",
+        "contactNumCnt": "联系人号码总数",
+        "interflowContactCnt": "互通号码数",
+        "contactRishCnt": "联系人风险名单总数"
+      },
+      callProfile: {
+        "avgCallCnt": "日均通话次数",
+        "avgCallTime": "日均通话时长(m) ",
+        "silenceCnt": "静默次数",
+        "nightCallCnt": "夜间通话次数",
+        "nightCallTime": "夜间平均通话时长"
+      },
+      consumptionProfile: {"avgFeeMonth": "月均消费"}
+    };
+    // const overdueLoanCheckKvs = {
+    // };
+    const callAnalysisKvs = {
+      "avgCallCnt": "日均通话次数",
+      "avgCallTime": "日均通话时长(s)",
+      "avgCallingCnt": "日均主叫次数",
+      "avgCallingTime": "日均主叫时长(s)",
+      "avgCalledCnt": "日均被叫次数",
+      "avgCalledTime": "日均被叫时长(s)",
+      "locCallPct": "本地通话占比"
+    };
+    const activeCallAnalysisKvs = {
+      "desc": "项目",
+      "lately1m": "近 1 月",
+      "lately3m": "近 3 月",
+      "lately6m": "近 6 月",
+      "avgMonth": "月均"
+    };
+    const silenceAnalysisKvs = {
+      "silenceCnt": "静默次数",
+      "silenceTime": "静默总时长(s)",
+      "longestSilenceStart": "最长一次静默开始时间",
+      "longestSilenceTime": "最长一次静默时长(s)",
+      "lastSilenceStart": "最近一次静默开始时间",
+      "lastSilenceTime": "最近一次静默时长"
+    };
+    const callDurationAnalysisKvs = {
+      "desc": "项目",
+      "callCnt": "通话次数",
+      "callNumCnt": "通话号码数",
+      "freqContactNum": "最常联系号码",
+      "freqContactNumCnt": "最常联系号码次数",
+      "avgCallTime": "平均通话时长(s) ",
+      "callingCnt": "主叫次数",
+      "callingTime": "主叫时长(s)",
+      "calledCnt": "被叫次数",
+      "calledTime": "被叫时长(s)"
+    };
+    const consumptionAnalysisKvs = {
+      "desc": "项目",
+      "lately1m": "近 1 月",
+      "lately3m": "近 3 月",
+      "lately6m": "近 6 月",
+      "avgMonth": "月均"
+    };
+    const tripAnalysisKvs = {
+      "departureDate": "出发时间",
+      "returnDate": "回程时间",
+      "departurePlace": "出发地",
+      "destinationPlace": "目的地"
+    };
+    const socialContactAnalysisKvs = {
+      "desc": "项目",
+      "content": "内容",
+      "contentDesc": "内容描述"
+    };
+    const callAreaAnalysisKvs = {
+      "attribution": "通话地",
+      "callCnt": "通话次数",
+      "callNumCnt": "通话号码数",
+      "callTime": "通话时长",
+      "callingCnt": "主叫次数",
+      "callingTime": "主叫时长(s)",
+      "calledCnt": "被叫次数",
+      "calledTime": "被叫时长(s)"
+    };
+    const operatorValueFmt = {
+      isHitRiskList: function (v) {
+        return v == '1' ? '<span class="tag el-tag el-tag--error">命中</span>' : '<span class="tag el-tag el-tag--info">未命中</span>';
+      },
+      relationship: function (v) {
+        return linkManKvs[v] || v;
+      }
+    };
+    const contactAnalysisKvs = {
+      "callNum": "号码",
+      "isHitRiskList": "是否命中风险名单",
+      "callTag": "电话标记",
+      "attribution": "归属地",
+      "callCnt": "通话次数",
+      "callTime": "通话时长",
+      "callingCnt": "主叫次数",
+      "callingTime": "主叫时长(s)",
+      "calledCnt": "被叫次数",
+      "calledTime": "被叫时长(s)",
+      "lastStart": "最近一次通话时间",
+      "lastTime": "最近一次通话时时长"
+    };
     return {
-      inputFrom: {
-        contentType: ['sms', 'busi', 'net']
+      inputForm: {
+        contentType: ['sms', 'busi', 'net'],
+        score: '0'
       },
       rules: {
         name: [{ required: true, message: '请输入账号', trigger: 'blur' }],
@@ -213,192 +555,551 @@ export default {
       result: {
         example: true,
         code: '0000',
-        data: {
+        "data": {
           "report": {
-            "dataSource": "",
-            "reportTime": "",
-            "reportNo": ""
+            "dataSource": "江苏南京市移动",
+            "reportTime": "2018-11-15 20:36:16",
+            "reportNo": "20181115203616017978"
           },
           "basicInfo": {
-            "name": "",
-            "identityNo": "",
-            "gender": "",
-            "age": "",
-            "mobile": "",
-            "regTime": "",
+            "name": "金春洋",
+            "identityNo": "320219199606286774",
+            "gender": "男",
+            "age": "22",
+            "mobile": "18795905639",
+            "regTime": "2014-08-14 00:00:00",
             "nativeAddress": ""
           },
           "contactInfo": [{
-            "name": "",
-            "mobile": "",
-            "identityNo": "",
-            "relationship": "",
-            "callCnt": "",
-            "callTime": "",
-            "callRank": "",
-            "isHitRiskList": ""
+            "name": "金世宽", 
+            "mobile": "13915256527", 
+            "identityNo": "320281199606286770",  
+            "relationship": "FATHER",  
+            "callCnt": "1",  
+            "callTime": "1",  
+            "callRank": "1",  
+            "isHitRiskList": "1" 
           }],
           "relationInfo": {
-            "identiyNos": [],
-            "mobiles": [],
-            "homeAddresses": []
+            "identiyNos": ['320281199606286770', '320219196311106774'],
+            "mobiles": ['13815214445', '13815244446'],
+            "homeAddresses": ['昆山美好家园5']
           },
           "personas": {
             "riskProfile": {
-              "riskListCnt": "",
-              "overdueLoanCnt": "",
-              "multiLendCnt": "",
-              "riskCallCnt": ""
+              "riskListCnt": "0",
+              "overdueLoanCnt": "0",
+              "multiLendCnt": "6",
+              "riskCallCnt": "0"
             },
             "socialContactProfile": {
-              "freContactArea": "",
-              "contactNumCnt": "",
-              "interflowContactCnt": "",
-              "contactRishCnt": ""
+              "freContactArea": "无锡/上海/苏州",
+              "contactNumCnt": "80",
+              "interflowContactCnt": "4",
+              "contactRishCnt": "0"
             },
             "callProfile": {
-              "avgCallCnt": "",
-              "avgCallTime": "",
-              "silenceCnt": "",
-              "nightCallCnt": "",
-              "nightCallTime": ""
+              "avgCallCnt": "0.66",
+              "avgCallTime": "24.38",
+              "silenceCnt": "34",
+              "nightCallCnt": "0",
+              "nightCallTime": "0"
             },
             "consumptionProfile": {
-              "avgFeeMonth": ""
+              "avgFeeMonth": "54.85"
             }
           },
           "basicInfoCheck": [{
-            "item": "",
-            "desc": "",
-            "result": "",
-            "resultDesc": ""
+            "item": "idcard_check",
+            "desc": "身份证号是否有效",
+            "result": "0",
+            "resultDesc": "无效"
+          }, {
+            "item": "mobile_check",
+            "desc": "手机号是否实名认证",
+            "result": "1",
+            "resultDesc": "已实名认证"
+          }, {
+            "item": "idcard_match",
+            "desc": "身份证号与运营商数据是否匹配",
+            "result": "0",
+            "resultDesc": "匹配失败,运营商数据为:[暂无]"
+          }, {
+            "item": "name_match",
+            "desc": "姓名与运营商数据是否匹配",
+            "result": "2",
+            "resultDesc": "模糊匹配成功,运营商数据为:[**鸣]"
           }],
-          "riskListCheck": [{
-            "item": "",
-            "desc": "",
-            "result": ""
-          }],
-          "overdueLoanCheck": [{
-            "item": "",
-            "desc": "",
-            "details": [{
-              "overdueAmt": "",
-              "overdueDays": "",
-              "overdueTime": ""
-            }]
-          }],
+          "riskListCheck": [],
+          "overdueLoanCheck": [],
           "multiLendCheck": [{
-            "item": "",
-            "desc": "",
+            "item": "mobile_check",
+            "desc": "手机号申请借款",
             "details": [{
-              "lendType": "",
-              "lendCnt": ""
+              "lendType": "其他",
+              "lendCnt": "6"
             }]
           }],
-          "riskCallCheck": [{
-            "item": "",
-            "desc": "",
-            "hitDesc": "",
-            "cnt": "",
-            "duration": "",
-            "details": [{
-              "callTag": "",
-              "callType": "",
-              "callCnt": "",
-              "callTime": ""
-            }]
-          }],
+          "riskCallCheck": [],
           "callAnalysis": {
-            "avgCallCnt": "",
-            "avgCallTime": "",
-            "avgCallingCnt": "",
-            "avgCallingTime": "",
-            "avgCalledCnt": "",
-            "avgCalledTime": "",
-            "locCallPct": ""
+            "avgCallCnt": "0.66",
+            "avgCallTime": "24.38",
+            "avgCallingCnt": "0.09",
+            "avgCallingTime": "3.27",
+            "avgCalledCnt": "0.56",
+            "avgCalledTime": "21.11",
+            "locCallPct": "4.24%"
           },
           "activeCallAnalysis": [{
-            "item": "",
-            "desc": "",
-            "lately1m": "",
-            "lately3m": "",
-            "lately6m": "",
-            "avgMonth": ""
+            "item": "active_day",
+            "desc": "通话活跃天数",
+            "lately1m": "30",
+            "lately3m": "82",
+            "lately6m": "155",
+            "avgMonth": "25.83"
+          }, {
+            "item": "call_cnt",
+            "desc": "通话次数",
+            "lately1m": "20",
+            "lately3m": "48",
+            "lately6m": "118",
+            "avgMonth": "19.67"
+          }, {
+            "item": "call_time",
+            "desc": "通话时长",
+            "lately1m": "459",
+            "lately3m": "1137",
+            "lately6m": "4389",
+            "avgMonth": "731.50"
+          }, {
+            "item": "calling_cnt",
+            "desc": "主叫次数",
+            "lately1m": "2",
+            "lately3m": "6",
+            "lately6m": "17",
+            "avgMonth": "2.83"
+          }, {
+            "item": "calling_time",
+            "desc": "主叫时长",
+            "lately1m": "29",
+            "lately3m": "179",
+            "lately6m": "589",
+            "avgMonth": "98.17"
+          }, {
+            "item": "called_cnt",
+            "desc": "被叫次数",
+            "lately1m": "18",
+            "lately3m": "42",
+            "lately6m": "101",
+            "avgMonth": "16.83"
+          }, {
+            "item": "called_time",
+            "desc": "被叫时长",
+            "lately1m": "430",
+            "lately3m": "958",
+            "lately6m": "3800",
+            "avgMonth": "633.33"
+          }, {
+            "item": "max_single_call_time",
+            "desc": "单次通话最长时长",
+            "lately1m": "74",
+            "lately3m": "77",
+            "lately6m": "733",
+            "avgMonth": "0"
+          }, {
+            "item": "min_single_call_time",
+            "desc": "单次通话最短时长",
+            "lately1m": "4",
+            "lately3m": "4",
+            "lately6m": "2",
+            "avgMonth": "0"
+          }, {
+            "item": "avg_single_call_time",
+            "desc": "单次通话平均时长",
+            "lately1m": "22.95",
+            "lately3m": "23.69",
+            "lately6m": "37.19",
+            "avgMonth": "0"
+          }, {
+            "item": "call_time_1min_below_cnt_pct",
+            "desc": "时长在1分钟内通话次数占比",
+            "lately1m": "85.00%",
+            "lately3m": "89.58%",
+            "lately6m": "84.75%",
+            "avgMonth": "0"
+          }, {
+            "item": "call_time_1min_3min_cnt_pct",
+            "desc": "时长在1-3分钟内通话次数占比",
+            "lately1m": "15.00%",
+            "lately3m": "10.42%",
+            "lately6m": "12.71%",
+            "avgMonth": "0"
+          }, {
+            "item": "call_time_3min_10min_cnt_pct",
+            "desc": "时长在3-10分钟内通话次数占比",
+            "lately1m": "0.00%",
+            "lately3m": "0.00%",
+            "lately6m": "1.69%",
+            "avgMonth": "0"
+          }, {
+            "item": "call_time_10min_over_cnt_pct",
+            "desc": "时长在10分钟以上通话次数占比",
+            "lately1m": "0.00%",
+            "lately3m": "0.00%",
+            "lately6m": "0.85%",
+            "avgMonth": "0"
+          }, {
+            "item": "sms_cnt",
+            "desc": "短信条数",
+            "lately1m": "176",
+            "lately3m": "366",
+            "lately6m": "818",
+            "avgMonth": "136.33"
           }],
           "silenceAnalysis": {
-            "silenceCnt": "",
-            "silenceTime": "",
-            "longestSilenceStart": "",
-            "longestSilenceTime": "",
-            "lastSilenceStart": "",
-            "lastSilenceTime": ""
+            "silenceCnt": "34",
+            "silenceTime": "3993185",
+            "longestSilenceStart": "2018-09-22 11:37:04",
+            "longestSilenceTime": "254079",
+            "lastSilenceStart": "2018-11-11 21:10:04",
+            "lastSilenceTime": "87103"
           },
           "callDurationAnalysis": [{
-            "item": "",
-            "desc": "",
-            "callCnt": "",
-            "callNumCnt": "",
+            "item": "mid_night",
+            "desc": "01:30-05:30",
+            "callCnt": "0",
+            "callNumCnt": "0",
             "freqContactNum": "",
-            "freqContactNumCnt": "",
-            "avgCallTime": "",
-            "callingCnt": "",
-            "callingTime": "",
-            "calledCnt": "",
-            "calledTime": ""
+            "freqContactNumCnt": "0",
+            "avgCallTime": "0.00",
+            "callingCnt": "0",
+            "callingTime": "0",
+            "calledCnt": "0",
+            "calledTime": "0"
+          }, {
+            "item": "morning",
+            "desc": "05:30-08:30",
+            "callCnt": "2",
+            "callNumCnt": "2",
+            "freqContactNum": "18915256527",
+            "freqContactNumCnt": "1",
+            "avgCallTime": "24",
+            "callingCnt": "1",
+            "callingTime": "19",
+            "calledCnt": "1",
+            "calledTime": "28"
+          }, {
+            "item": "daytime",
+            "desc": "08:30-17:30",
+            "callCnt": "91",
+            "callNumCnt": "68",
+            "freqContactNum": "18915256527",
+            "freqContactNumCnt": "6",
+            "avgCallTime": "40",
+            "callingCnt": "9",
+            "callingTime": "358",
+            "calledCnt": "82",
+            "calledTime": "3292"
+          }, {
+            "item": "dust",
+            "desc": "17:30-19:30",
+            "callCnt": "22",
+            "callNumCnt": "14",
+            "freqContactNum": "13961631698",
+            "freqContactNumCnt": "4",
+            "avgCallTime": "27",
+            "callingCnt": "6",
+            "callingTime": "185",
+            "calledCnt": "16",
+            "calledTime": "410"
+          }, {
+            "item": "night",
+            "desc": "19:30-23:30",
+            "callCnt": "3",
+            "callNumCnt": "3",
+            "freqContactNum": "02510086",
+            "freqContactNumCnt": "1",
+            "avgCallTime": "32",
+            "callingCnt": "1",
+            "callingTime": "27",
+            "calledCnt": "2",
+            "calledTime": "70"
+          }, {
+            "item": "daybreak",
+            "desc": "23:30-01:30",
+            "callCnt": "0",
+            "callNumCnt": "0",
+            "freqContactNum": "",
+            "freqContactNumCnt": "0",
+            "avgCallTime": "0",
+            "callingCnt": "0",
+            "callingTime": "0",
+            "calledCnt": "0",
+            "calledTime": "0"
+          }],
+          "socialContactAnalysis": [{
+            "item": "interflow_contact_cnt",
+            "desc": "互通号码数",
+            "content": "4",
+            "contentDesc": "近6个月互通号码数"
+          }, {
+            "item": "friend_circle_contact_cnt",
+            "desc": "朋友圈紧密联系人数",
+            "content": "0",
+            "contentDesc": "近6个月累计联系10次以上每月通话1次以上号码数量"
+          }, {
+            "item": "friend_circle_city",
+            "desc": "朋友圈中心地",
+            "content": "江苏",
+            "contentDesc": "近6个月联系次数最多的归属地"
+          }, {
+            "item": "call_num_cnt",
+            "desc": "联系号码总数",
+            "content": "80",
+            "contentDesc": "近6个月联系号码数"
+          }],
+          "contactAnalysis": [{
+            "callNum": "051086417115",
+            "callTag": "未知",
+            "isHitRiskList": "0",
+            "attribution": "",
+            "callCnt": "4",
+            "callTime": "870",
+            "callingCnt": "3",
+            "callingTime": "137",
+            "calledCnt": "1",
+            "calledTime": "733",
+            "lastStart": "2018-08-01 16:41:04",
+            "lastTime": "71"
+          }, {
+            "callNum": "13636678382",
+            "callTag": "未知",
+            "isHitRiskList": "1",
+            "attribution": "上海",
+            "callCnt": "3",
+            "callTime": "205",
+            "callingCnt": "1",
+            "callingTime": "49",
+            "calledCnt": "2",
+            "calledTime": "156",
+            "lastStart": "2018-07-02 19:08:26",
+            "lastTime": "16"
+          }, {
+            "callNum": "051086191888",
+            "callTag": "未知",
+            "isHitRiskList": "0",
+            "attribution": "",
+            "callCnt": "2",
+            "callTime": "108",
+            "callingCnt": "0",
+            "callingTime": "0",
+            "calledCnt": "2",
+            "calledTime": "108",
+            "lastStart": "2018-11-14 08:40:37",
+            "lastTime": "34"
+          }, {
+            "callNum": "15190358642",
+            "callTag": "未知",
+            "isHitRiskList": "0",
+            "attribution": "江苏",
+            "callCnt": "2",
+            "callTime": "14",
+            "callingCnt": "0",
+            "callingTime": "0",
+            "calledCnt": "2",
+            "calledTime": "14",
+            "lastStart": "2018-11-13 11:33:24",
+            "lastTime": "4"
+          }, {
+            "callNum": "13373611213",
+            "callTag": "未知",
+            "isHitRiskList": "0",
+            "attribution": "江苏",
+            "callCnt": "2",
+            "callTime": "14",
+            "callingCnt": "0",
+            "callingTime": "0",
+            "calledCnt": "2",
+            "calledTime": "14",
+            "lastStart": "2018-11-02 11:26:42",
+            "lastTime": "5"
+          }, {
+            "callNum": "18721140001",
+            "callTag": "未知",
+            "isHitRiskList": "0",
+            "attribution": "上海",
+            "callCnt": "2",
+            "callTime": "80",
+            "callingCnt": "0",
+            "callingTime": "0",
+            "calledCnt": "2",
+            "calledTime": "80",
+            "lastStart": "2018-10-08 16:19:53",
+            "lastTime": "32"
+          }, {
+            "callNum": "18036868480",
+            "callTag": "未知",
+            "isHitRiskList": "0",
+            "attribution": "江苏",
+            "callCnt": "2",
+            "callTime": "114",
+            "callingCnt": "0",
+            "callingTime": "0",
+            "calledCnt": "2",
+            "calledTime": "114",
+            "lastStart": "2018-09-27 13:21:41",
+            "lastTime": "49"
+          }, {
+            "callNum": "15706298178",
+            "callTag": "未知",
+            "isHitRiskList": "0",
+            "attribution": "江苏",
+            "callCnt": "2",
+            "callTime": "69",
+            "callingCnt": "0",
+            "callingTime": "0",
+            "calledCnt": "2",
+            "calledTime": "69",
+            "lastStart": "2018-08-11 18:59:02",
+            "lastTime": "33"
+          }, {
+            "callNum": "18549854485",
+            "callTag": "未知",
+            "isHitRiskList": "0",
+            "attribution": "江苏",
+            "callCnt": "2",
+            "callTime": "38",
+            "callingCnt": "0",
+            "callingTime": "0",
+            "calledCnt": "2",
+            "calledTime": "38",
+            "lastStart": "2018-08-07 11:51:32",
+            "lastTime": "11"
+          }, {
+            "callNum": "02510086",
+            "callTag": "移动营业厅(清凉门大街店)",
+            "isHitRiskList": "0",
+            "attribution": "",
+            "callCnt": "1",
+            "callTime": "34",
+            "callingCnt": "0",
+            "callingTime": "0",
+            "calledCnt": "1",
+            "calledTime": "34",
+            "lastStart": "2018-10-19 20:59:11",
+            "lastTime": "34"
+          }, {
+            "callNum": "095187",
+            "callTag": "未知",
+            "isHitRiskList": "0",
+            "attribution": "",
+            "callCnt": "1",
+            "callTime": "66",
+            "callingCnt": "0",
+            "callingTime": "0",
+            "calledCnt": "1",
+            "calledTime": "66",
+            "lastStart": "2018-10-17 16:37:28",
+            "lastTime": "66"
+          }],
+          "callAreaAnalysis": [{
+            "attribution": "无锡",
+            "callCnt": "80",
+            "callNumCnt": "53",
+            "callTime": "2907",
+            "callingCnt": "11",
+            "callingTime": "345",
+            "calledCnt": "69",
+            "calledTime": "2562"
+          }, {
+            "attribution": "上海",
+            "callCnt": "27",
+            "callNumCnt": "22",
+            "callTime": "1223",
+            "callingCnt": "4",
+            "callingTime": "182",
+            "calledCnt": "23",
+            "calledTime": "1041"
+          }, {
+            "attribution": "苏州",
+            "callCnt": "5",
+            "callNumCnt": "5",
+            "callTime": "115",
+            "callingCnt": "1",
+            "callingTime": "27",
+            "calledCnt": "4",
+            "calledTime": "88"
+          }, {
+            "attribution": "南京",
+            "callCnt": "5",
+            "callNumCnt": "5",
+            "callTime": "76",
+            "callingCnt": "1",
+            "callingTime": "35",
+            "calledCnt": "4",
+            "calledTime": "41"
+          }, {
+            "attribution": "常州",
+            "callCnt": "1",
+            "callNumCnt": "1",
+            "callTime": "68",
+            "callingCnt": "0",
+            "callingTime": "0",
+            "calledCnt": "1",
+            "calledTime": "68"
           }],
           "consumptionAnalysis": [{
-            "item": "",
-            "desc": "",
-            "lately1m": "",
-            "lately3m": "",
-            "lately6m": "",
-            "avgMonth": ""
+            "item": "total_fee",
+            "desc": "消费总额",
+            "lately1m": "61.00",
+            "lately3m": "147.30",
+            "lately6m": "329.11",
+            "avgMonth": "54.85"
+          }, {
+            "item": "net_fee",
+            "desc": "网络流量消费金额",
+            "lately1m": "--",
+            "lately3m": "--",
+            "lately6m": "--",
+            "avgMonth": "--"
+          }, {
+            "item": "call_fee",
+            "desc": "通话消费金额",
+            "lately1m": "--",
+            "lately3m": "--",
+            "lately6m": "--",
+            "avgMonth": "--"
+          }, {
+            "item": "vas_fee",
+            "desc": "增值业务消费金额",
+            "lately1m": "--",
+            "lately3m": "--",
+            "lately6m": "--",
+            "avgMonth": "--"
+          }, {
+            "item": "extra_fee",
+            "desc": "其它消费金额",
+            "lately1m": "--",
+            "lately3m": "--",
+            "lately6m": "--",
+            "avgMonth": "--"
           }],
           "tripAnalysis": [{
             "departureDate": "",
-            "returnDate": "",
-            "departurePlace": "",
-            "destinationPlace": ""
-          }],
-          "socialContactAnalysis": [{
-            "item": "",
-            "desc": "",
-            "content": "",
-            "contentDesc": ""
-          }],
-          "callAreaAnalysis": [{
-            "attribution": "",
-            "callCnt": "",
-            "callNumCnt": "",
-            "callTime": "",
-            "callingCnt": "",
-            "callingTime": "",
-            "calledCnt": "",
-            "calledTime": ""
-          }],
-          "contactAnalysis": [{
-            "callNum": "",
-            "isHitRiskList": "",
-            "callTag": "",
-            "attribution": "",
-            "callCnt": "",
-            "callTime": "",
-            "callingCnt": "",
-            "callingTime": "",
-            "calledCnt": "",
-            "calledTime": "",
-            "lastStart": "",
-            "lastTime": ""
-          }],
-          "scoreAnalysis": {
-            "score": "",
-            "deductionDetails": [{
-              "item": "",
-              "desc": "",
-              "score": "",
-              "deduction": ""
-            }]
-          }
+            "returnDate": "2018-06-18",
+            "departurePlace": "无锡",
+            "destinationPlace": "南京"
+          }, {
+            "departureDate": "2018-06-18",
+            "returnDate": "2018-07-21",
+            "departurePlace": "南京",
+            "destinationPlace": "上海"
+          }, {
+            "departureDate": "2018-07-21",
+            "returnDate": "2018-07-28",
+            "departurePlace": "无锡",
+            "destinationPlace": "苏州"
+          }]
         }
       },
       linkMan: [],
@@ -406,34 +1107,50 @@ export default {
       ripId: '',
       token: '',
       tryAgain: 0,
-      loading: false
+      loading: false,
+      basicInfoKvs,
+      basicInfoCheckKvs,
+      contactInfoKvs,
+      personasKvs,
+      riskListCheckKvs,
+      callAnalysisKvs,
+      activeCallAnalysisKvs,
+      silenceAnalysisKvs,
+      callDurationAnalysisKvs,
+      consumptionAnalysisKvs,
+      tripAnalysisKvs,
+      socialContactAnalysisKvs,
+      callAreaAnalysisKvs,
+      contactAnalysisKvs,
+      operatorValueFmt
     };
   },
   methods: {
     onSubmit: function () {
       var vm = this;
-      vm.$refs['inputFrom'].validate((valid) => {
+      vm.$refs['inputForm'].validate((valid) => {
         if (valid) {
           const engNumArr = ['1st', '2nd', '3rd'];
           const chnNumArr = ['一', '二', '三'];
           var params = {
-            name: vm.inputFrom.name,
-            password: vm.inputFrom.password,
-            identityCardNo: vm.inputFrom.identityCardNo,
-            identityName: vm.inputFrom.identityName,
-            contentType: vm.inputFrom.contentType.join(';')
+            name: vm.inputForm.name,
+            password: vm.inputForm.password,
+            identityCardNo: vm.inputForm.identityCardNo,
+            identityName: vm.inputForm.identityName,
+            contentType: vm.inputForm.contentType.join(';'),
+            score: vm.inputForm.score
           };
           for (let i = 0; i < 3; i++) {
             if (vm.linkMan.includes(i + 1 + '')) {
-              if (!(vm.inputFrom['contactName' + engNumArr[i]] && vm.inputFrom['contactMobile' + engNumArr[i]] &&
-                  vm.inputFrom['contactIdentityNo' + engNumArr[i]] && vm.inputFrom['contactRelationship' + engNumArr[i]])) {
+              if (!(vm.inputForm['contactName' + engNumArr[i]] && vm.inputForm['contactMobile' + engNumArr[i]] &&
+                  vm.inputForm['contactIdentityNo' + engNumArr[i]] && vm.inputForm['contactRelationship' + engNumArr[i]])) {
                   vm.$message({showClose: true, message: '第' + chnNumArr[i] + '联系人的信息不完整。', type: 'error'});
                   return;
               } else {
-                params['contactName' + engNumArr[i]] = vm.inputFrom['contactName' + engNumArr[i]];
-                params['contactMobile' + engNumArr[i]] = vm.inputFrom['contactMobile' + engNumArr[i]];
-                params['contactIdentityNo' + engNumArr[i]] = vm.inputFrom['contactIdentityNo' + engNumArr[i]];
-                params['contactRelationship' + engNumArr[i]] = vm.inputFrom['contactRelationship' + engNumArr[i]];
+                params['contactName' + engNumArr[i]] = vm.inputForm['contactName' + engNumArr[i]];
+                params['contactMobile' + engNumArr[i]] = vm.inputForm['contactMobile' + engNumArr[i]];
+                params['contactIdentityNo' + engNumArr[i]] = vm.inputForm['contactIdentityNo' + engNumArr[i]];
+                params['contactRelationship' + engNumArr[i]] = vm.inputForm['contactRelationship' + engNumArr[i]];
               }
             }
           }
