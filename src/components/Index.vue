@@ -62,7 +62,7 @@
       var menu = [
         {
           index: "/guide",
-          name: '风控向导（测试阶段）',
+          name: '风控向导',
           link: 'guide'
         },
         {
@@ -87,6 +87,7 @@
             subs: [
               {name: '运营商二要素认证', index: "/personal/operators/operatorV2", icon: 'yunyingshang-xuanzhong'},
               {name: '运营商三要素认证', index: "/personal/operators/operatorV3", icon: 'yunyingshang-xuanzhong'},
+              {name: '运营商手机位置核验', index: "/personal/operators/MobileAreaCheck", icon: 'yunyingshang-xuanzhong'},
               {name: '手机在网时长', index: "/personal/operators/inNetTime", icon: 'iconfonticon-jianko'},
               {name: '手机在网状态', index: "/personal/operators/inNetStatus", icon: 'iconfonticon-baobia'},
               {name: '手机消费档次', index: "/personal/operators/mobileConsume", icon: 'jilu1'}
@@ -97,7 +98,7 @@
             subs: [
               {name: '不良信息排查', index: "/personal/riskTips/negativeInfo", icon: 'fengxianfenxi'},
               {name: '个人负面排查', index: "/personal/riskTips/personalNegativeInfo", icon: 'fengxianzhongxin'},
-              {name: '个人黑名单综合(未开放)', index: "/personal/riskTips/personalRiskInfo", icon: 'chakantiezigengduoheimingdan'},
+              {name: '个人黑名单综合', index: "/personal/riskTips/personalRiskInfo", icon: 'chakantiezigengduoheimingdan'},
               {name: '个人涉诉-A', index: "/personal/riskTips/personalLawsuitA", icon: 'renzhengshenhe'},
               {name: '多重借贷', index: "/personal/riskTips/multipleLoan", icon: 'duotoujiedai--'}
               // {name: '个人信用认证', index: "/personal/riskTips/individualCredit", icon: 'hetongpingshen'},
@@ -171,15 +172,15 @@
         },
         {
           index: "5",
-          name: '综合报告（未开放）',
+          name: '综合报告',
           functions: [
             {
               name: '综合报告',
                icon: 'iconfonticon-dingwe',
               index: "5-1",
               subs: [
-                {name: '个人综合报告', index: "5-1", icon: 'baogao-copy'},
-                {name: '企业综合报告', index: "5-2", icon: 'icon-book'}
+                {name: '个人综合报告', index: "/comprehensiveReport/comprehensiveReportSon/Person", icon: 'baogao-copy'},
+                {name: '企业综合报告', index: "/comprehensiveReport/comprehensiveReportSon/Enterprise", icon: 'icon-book'}
               ]
             }
           ]

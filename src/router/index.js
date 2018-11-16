@@ -82,6 +82,11 @@ export default new Router({
           component: resolve => require(['@/components/personal/operators/MobileConsume'], resolve)
         },
         {
+          path: 'personal/operators/MobileAreaCheck',
+          name: 'MobileAreaCheck',
+          component: resolve => require(['@/components/personal/operators/MobileAreaCheck'], resolve)
+        },
+        {
           path: 'personal/riskTips/negativeInfo',
           name: 'NegativeInfo',
           component: resolve => require(['@/components/personal/riskTips/NegativeInfo'], resolve)
@@ -230,6 +235,16 @@ export default new Router({
           path: 'carInfo/carInfoSon/LicenseDeductMarks',
           name: 'LicenseDeductMarks',
           component: resolve => require(['@/components/carInfo/carInfoSon/LicenseDeductMarks'], resolve)
+        },
+        {
+          path: 'comprehensiveReport/comprehensiveReportSon/Enterprise',
+          name: 'Enterprise',
+          component: resolve => require(['@/components/comprehensiveReport/comprehensiveReportSon/Enterprise'], resolve)
+        },
+        {
+          path: 'comprehensiveReport/comprehensiveReportSon/Person',
+          name: 'Person',
+          component: resolve => require(['@/components/comprehensiveReport/comprehensiveReportSon/Person'], resolve)
         }
       ]
     },
