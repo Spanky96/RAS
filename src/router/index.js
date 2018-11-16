@@ -47,6 +47,16 @@ export default new Router({
           component: resolve => require(['@/components/personal/identity/BaseBank'], resolve)
         },
         {
+          path: 'personal/identity/register',
+          name: 'BaseBank',
+          component: resolve => require(['@/components/personal/identity/register'], resolve)
+        },
+        {
+          path: 'personal/identity/PassCheck',
+          name: 'BaseBank',
+          component: resolve => require(['@/components/personal/identity/PassCheck'], resolve)
+        },
+        {
           path: 'personal/operators/operatorV2',
           name: 'OperatorV2',
           component: resolve => require(['@/components/personal/operators/OperatorV2'], resolve)
