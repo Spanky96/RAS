@@ -77,7 +77,9 @@
               {name: '失效身份证一致性验证', index: "/personal/identity/invalid", icon: 'Id'},
               {name: '银行卡三要素', index: "/personal/identity/bankV3", icon: 'xinyongqia'},
               {name: '银行卡四要素', index: "/personal/identity/bankV4", icon: 'xinyongqia'},
-              {name: '开户行查询', index: "/personal/identity/baseBank", icon: 'xinyongqia1'}
+              {name: '开户行查询', index: "/personal/identity/baseBank", icon: 'xinyongqia1'},
+              {name: '户籍信息验证', index: "/personal/identity/register", icon: '2shenfenzhenghaoma'},
+              {name: '通行证一致性验证', index: "/personal/identity/PassCheck", icon: '2shenfenzhenghaoma'}
             ]},
             {name: '运营商验证',
             icon: 'yunyingshang',
