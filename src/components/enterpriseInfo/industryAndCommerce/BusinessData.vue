@@ -1200,12 +1200,11 @@
 </div>
 </template>
 
-
 <script>
 export default {
   name: "BusinessData",
   components: {},
-  data() {
+  data () {
     return {
       inputFrom: {
         key: "",
@@ -1606,16 +1605,16 @@ export default {
     };
   },
   methods: {
-    limitarr:function(val){
-        let newarr=val.slice(0,9)
+    limitarr: function (val) {
+        let newarr = val.slice(0, 9);
         return newarr;
     },
-    arrjson:function(val){
-        let newarr=new Array();
-        newarr.push(val)
+    arrjson: function (val) {
+        let newarr = [];
+        newarr.push(val);
         return newarr;
     },
-    onSubmit: function() {
+    onSubmit: function () {
       var vm = this;
       vm.$refs["inputFrom"].validate(valid => {
         if (valid) {
@@ -1632,13 +1631,13 @@ export default {
                 authorization: vm.$db.get("authorization")
               }
             })
-            .then(function(res) {
+            .then(function (res) {
               if (res.status && res.data) {
-                vm.result.example=false;
-                vm.resultArr=res.data.data;
-                vm.resultArr.basic=vm.arrjson(res.data.data.basic);
-                vm.resultArr.orgDetails=vm.arrjson(res.data.data.orgDetails);
-                vm.resultArr.tradeMarks=vm.limitarr(res.data.data.tradeMarks);
+                vm.result.example = false;
+                vm.resultArr = res.data.data;
+                vm.resultArr.basic = vm.arrjson(res.data.data.basic);
+                vm.resultArr.orgDetails = vm.arrjson(res.data.data.orgDetails);
+                vm.resultArr.tradeMarks = vm.limitarr(res.data.data.tradeMarks);
               } else {
                 vm.$message({
                   showClose: true,
@@ -1653,6 +1652,6 @@ export default {
       });
     }
   },
-  mounted() {}
+  mounted () {}
 };
 </script>
