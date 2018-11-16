@@ -171,6 +171,16 @@ const RE_FER = {
   'E03': '3月内多头借贷',
   'E04': '疑似多头借贷'
 };
+const TAG_TYPE = {
+  '一致': 'success',
+  '不一致': 'warning',
+  '此项无记录': 'info',
+  '无数据': 'info',
+  '姓名不一致': 'danger',
+  '出生日期不一致': 'danger',
+  '有效期不一致': 'danger',
+  '多项不一致': 'danger'
+};
 
 export default {
   handleName: handleName,
@@ -236,5 +246,8 @@ blackCountfilters: function (val) {
   } else {
     return '命中' + val + '条';
   }
+},
+tagtype: function (val) {
+return TAG_TYPE[val];
 }
 };
