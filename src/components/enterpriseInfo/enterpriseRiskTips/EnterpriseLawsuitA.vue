@@ -27,7 +27,7 @@
       <div slot="header" class="clearfix">
         <el-row type="flex" justify="space-between">
           <el-col :span="22"><span>{{result.example ? '查询样例': '查询结果'}}</span></el-col>
-          <el-col :span="2" class="no-print"><el-button type="warning" icon="el-icon-printer" plain class="ext-button" @click="$emit('print', {title: '个人负面排查'})">打印</el-button></el-col>
+          <el-col :span="2" class="no-print"><el-button type="warning" icon="el-icon-printer" plain class="ext-button" @click="$emit('print', {title: '企业涉诉查询-A'})">打印</el-button></el-col>
         </el-row>
       </div>
       <table class="table card-text">

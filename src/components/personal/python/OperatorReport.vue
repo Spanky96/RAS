@@ -261,25 +261,66 @@
         </tr>
         <!-- ------------------------------------  -->
         <tr class="text-title">
+          <td colspan="4">信贷逾期检查</td>
+        </tr>
+        <tr class="inner-table">
+          <td colspan="4" style="padding: 0;">
+            <table class="table">
+              <tr><th>检查项</th><th>逾期金额(范围)</th><th>逾期天数(范围)</th><th>逾期时间</th></tr>
+              <tr v-if="result.data.overdueLoanCheck.length == 0"><td colspan=4 class="centerAlign">无数据</td></tr>
+              <tbody v-for="(ov, index) in result.data.overdueLoanCheck" :key="index">
+                <tr v-for="(d, index2) in ov.details" :key="index2">
+                  <td v-if="index2==0" :rowspan="ov.details.length">{{ov.desc}}</td>
+                  <td>{{d.overdueAmt}}</td><td>{{d.overdueDays}}</td><td>{{d.overdueTime}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </td>  
+        </tr>
+        <!-- ------------------------------------  -->
+        <tr class="text-title">
           <td colspan="4">多头借贷检查</td>
         </tr>
         <tr class="inner-table">
           <td colspan="4" style="padding: 0;">
             <table class="table">
               <tr><th>检查项</th><th>借贷平台类型</th><th>借贷次数</th></tr>
-              <tr v-for="(r, index) in result.data.multiLendCheck" :key="index">
-                <td :rowspan="r.details.length">{{r.desc}}</td>
-                <div v-for="(detail, id) in r.details" :key="id">
-                  <td>{{detail.lendType}}</td>
-                  <td>{{detail.lendCnt}}</td>
-                </div>
-              </tr>
+              <tr v-if="result.data.multiLendCheck.length == 0"><td colspan=4 class="centerAlign">无数据</td></tr>
+              <tbody v-for="(r, index) in result.data.multiLendCheck" :key="index">
+                <tr v-for="(d, index2) in r.details" :key="index2">
+                  <td v-if="index2==0" :rowspan="r.details.length">{{r.desc}}</td>
+                  <td>{{d.lendType}}</td>
+                  <td>{{d.lendCnt}}</td>
+                </tr>
+              </tbody>
             </table>
           </td>  
         </tr>
         <!-- ------------------------------------  -->
-        <!-- ------------------------------------  -->
-        <!-- ------------------------------------  -->
+        <tr class="text-title">
+          <td colspan="4">风险通话检测</td>
+        </tr>
+        <tr class="inner-table">
+          <td colspan="4" style="padding: 0;">
+            <table class="table">
+              <tr><th rowspan=2>检查项</th><th rowspan=2>命中描述</th><th rowspan=2>命中次数</th><th rowspan=2>时长(s)</th><th colspan=4>详情</th></tr>
+              <tr><th>通话标记</th><th>通话类型</th><th>通话次数</th><th>通话时长(s) </th></tr>
+              <tr v-if="result.data.riskCallCheck.length == 0"><td colspan=4 class="centerAlign">无数据</td></tr>
+              <tbody v-for="(rk, index) in result.data.riskCallCheck" :key="index">
+                <tr v-for="(d, index2) in rk.details" :key="index2">
+                  <td v-if="index2==0" :rowspan="rk.details.length">{{rk.desc}}</td>
+                  <td v-if="index2==0" :rowspan="rk.details.length">{{rk.hitDesc}}</td>
+                  <td v-if="index2==0" :rowspan="rk.details.length">{{rk.cnt}}</td>
+                  <td v-if="index2==0" :rowspan="rk.details.length">{{rk.duration}}</td>
+                  <td>{{d.callTag}}</td>
+                  <td>{{d.callType}}</td>
+                  <td>{{d.callCnt}}</td>
+                  <td>{{d.callTime}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </td>  
+        </tr>
         <!-- ------------------------------------  -->
         <tr class="text-title">
           <td colspan="4">通话概况</td>
@@ -360,6 +401,16 @@
           </td>  
         </tr>
         <!-- ------------------------------------  -->
+        <tr class="text-title" v-if="result.data.scoreAnalysis">
+          <td colspan="4">睿普分分析</td>
+        </tr>
+        <tr v-if="result.data.scoreAnalysis">
+          <th>评分项</th><th>评分项描述</th><th>配置分</th><th>扣分</th>
+        </tr>
+        <tr v-if="result.data.scoreAnalysis" v-for="(de, index) in result.data.scoreAnalysis.deductionDetails" :key="index + '0'">
+          <td>{{de.item}}</td><td>{{de.desc}}</td><td>{{de.score}}</td><td>{{de.deduction}}</td>
+        </tr>
+         <tr v-if="result.data.scoreAnalysis"><td colspan="1">最后得分</td><td colspan="3">{{result.data.scoreAnalysis.score}}</td></tr>
       </table>
     </el-card>
   </div>
@@ -556,6 +607,17 @@ export default {
         example: true,
         code: '0000',
         "data": {
+          scoreAnalysis: {
+            score: "10",
+            deductionDetails: [
+              {
+                "item": "综合", 
+                "desc": "综合智能", 
+                "score": "10",
+                "deduction": "10"
+              }
+            ]
+          },
           "report": {
             "dataSource": "江苏南京市移动",
             "reportTime": "2018-11-15 20:36:16",
@@ -628,7 +690,7 @@ export default {
             "item": "name_match",
             "desc": "姓名与运营商数据是否匹配",
             "result": "2",
-            "resultDesc": "模糊匹配成功,运营商数据为:[**鸣]"
+            "resultDesc": "模糊匹配成功,运营商数据为:[**洋]"
           }],
           "riskListCheck": [],
           "overdueLoanCheck": [],
@@ -640,7 +702,29 @@ export default {
               "lendCnt": "6"
             }]
           }],
-          "riskCallCheck": [],
+          "riskCallCheck": [
+            { 
+              "item": "法院传唤", 
+              "desc": "法院传唤", 
+              "hitDesc": "疑似法院传唤电话", 
+              "cnt": "3", 
+              "duration": "90", 
+              "details": [
+                {
+                  "callTag": "法院", 
+                  "callType": "被叫", 
+                  "callCnt": "2", 
+                  "callTime": "60" 
+                },
+                {
+                  "callTag": "法院", 
+                  "callType": "被叫", 
+                  "callCnt": "1", 
+                  "callTime": "30" 
+                }
+              ] 
+            } 
+          ],
           "callAnalysis": {
             "avgCallCnt": "0.66",
             "avgCallTime": "24.38",

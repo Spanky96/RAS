@@ -103,7 +103,7 @@
       <div slot="header" class="clearfix">
         <el-row type="flex" justify="space-between">
           <el-col :span="22"><span>{{result.example ? '查询样例': '查询结果'}}</span></el-col>
-          <el-col :span="2" class="no-print"><el-button type="warning" icon="el-icon-printer" plain class="ext-button" @click="$emit('print', {dom:'resultTable', title: '身份证一致性验证'})">打印</el-button></el-col>
+          <el-col :span="2" class="no-print"><el-button type="warning" icon="el-icon-printer" plain class="ext-button" @click="$emit('print', {dom:'resultTable', title: '户籍信息验证'})">打印</el-button></el-col>
         </el-row>
       </div>
       <table class="table card-text">

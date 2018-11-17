@@ -62,7 +62,7 @@
       var menu = [
         {
           index: "/guide",
-          name: '风控向导（测试阶段）',
+          name: '风控向导',
           link: 'guide'
         },
         {
@@ -98,7 +98,7 @@
             subs: [
               {name: '不良信息排查', index: "/personal/riskTips/negativeInfo", icon: 'fengxianfenxi'},
               {name: '个人负面排查', index: "/personal/riskTips/personalNegativeInfo", icon: 'fengxianzhongxin'},
-              {name: '个人黑名单综合(未开放)', index: "/personal/riskTips/personalRiskInfo", icon: 'chakantiezigengduoheimingdan'},
+              {name: '个人黑名单综合', index: "/personal/riskTips/personalRiskInfo", icon: 'chakantiezigengduoheimingdan'},
               {name: '个人涉诉-A', index: "/personal/riskTips/personalLawsuitA", icon: 'renzhengshenhe'},
               {name: '多重借贷', index: "/personal/riskTips/multipleLoan", icon: 'duotoujiedai--'},
               {name: '蜜罐数据', index: "/personal/riskTips/HoneyPot", icon: 'hetongpingshen'}
@@ -173,7 +173,7 @@
         },
         {
           index: "5",
-          name: '综合报告（未开放）',
+          name: '综合报告',
           functions: [
             {
               name: '综合报告',
