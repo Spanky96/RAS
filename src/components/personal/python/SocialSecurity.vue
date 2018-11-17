@@ -7,7 +7,7 @@
       <el-form :model="inputFrom" :rules="rules" ref="inputFrom" id="inputForm">
         <el-row>
           <el-col :span="10">
-            <el-form-item label="用户partnerID（手机号/身份证等）" label-width="0" prop="partnerUserId" class="form-item">
+            <el-form-item label="用户身份证号" label-width="0" prop="partnerUserId" class="form-item">
               <el-input maxlength="40" v-model="inputFrom.partnerUserId"></el-input>
             </el-form-item>
           </el-col>

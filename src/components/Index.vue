@@ -74,9 +74,9 @@
             index: "2-1",
             subs: [
               {name: '身份证二要素', index: '/personal/identity/idCheck', icon: 'shenfenxinxiyanzheng'},
-              {name: '失效身份证一致性验证', index: "/personal/identity/invalid", icon: 'Id'},
               {name: '户籍信息验证', index: "/personal/identity/register", icon: '2shenfenzhenghaoma'},
               {name: '通行证一致性验证', index: "/personal/identity/PassCheck", icon: '2shenfenzhenghaoma'},
+              {name: '失效身份证一致性验证', index: "/personal/identity/invalid", icon: 'Id'},
               {name: '银行卡三要素', index: "/personal/identity/bankV3", icon: 'xinyongqia'},
               {name: '银行卡四要素', index: "/personal/identity/bankV4", icon: 'xinyongqia'},
               {name: '开户行查询', index: "/personal/identity/baseBank", icon: 'xinyongqia1'}
@@ -87,21 +87,22 @@
             subs: [
               {name: '运营商二要素认证', index: "/personal/operators/operatorV2", icon: 'yunyingshang-xuanzhong'},
               {name: '运营商三要素认证', index: "/personal/operators/operatorV3", icon: 'yunyingshang-xuanzhong'},
-              {name: '运营商手机位置核验', index: "/personal/operators/MobileAreaCheck", icon: 'yunyingshang-xuanzhong'},
               {name: '手机在网时长', index: "/personal/operators/inNetTime", icon: 'iconfonticon-jianko'},
               {name: '手机在网状态', index: "/personal/operators/inNetStatus", icon: 'iconfonticon-baobia'},
-              {name: '手机消费档次', index: "/personal/operators/mobileConsume", icon: 'jilu1'}
+              {name: '手机消费档次', index: "/personal/operators/mobileConsume", icon: 'jilu1'},
+              {name: '运营商手机位置核验', index: "/personal/operators/MobileAreaCheck", icon: 'yunyingshang-xuanzhong'}
             ]},
             {name: '风险提示',
             index: "2-3",
             icon: 'risk',
             subs: [
+              {name: '综合风险报告', index: "/personal/riskTips/personalRiskInfo", icon: 'chakantiezigengduoheimingdan'},
+              {name: '综合风险高级报告', index: "/personal/riskTips/HoneyPot", icon: 'hetongpingshen'},
+              {name: '个人负面风险综合报告', index: "/personal/riskTips/personalNegativeInfo", icon: 'fengxianzhongxin'},
               {name: '不良信息排查', index: "/personal/riskTips/negativeInfo", icon: 'fengxianfenxi'},
-              {name: '个人负面排查', index: "/personal/riskTips/personalNegativeInfo", icon: 'fengxianzhongxin'},
-              {name: '个人黑名单综合', index: "/personal/riskTips/personalRiskInfo", icon: 'chakantiezigengduoheimingdan'},
               {name: '个人涉诉-A', index: "/personal/riskTips/personalLawsuitA", icon: 'renzhengshenhe'},
               {name: '多重借贷', index: "/personal/riskTips/multipleLoan", icon: 'duotoujiedai--'},
-              {name: '蜜罐数据', index: "/personal/riskTips/HoneyPot", icon: 'hetongpingshen'}
+              {name: '名下关联企业', index: "/personal/tradeCredit/PersonalEnterprise", icon: 'qiyechaxun_huaban'}
               // {name: '个人信用认证', index: "/personal/riskTips/individualCredit", icon: 'hetongpingshen'},
               // {name: '失信执行', index: "/2-3-7", icon: '2shenfenzhenghaoma'}
             ]},
@@ -112,8 +113,7 @@
               {name: '消费等级', index: "/personal/tradeCredit/ConsumptionLevel", icon: 'zongheyewutongji'},
               {name: '资产令牌', index: "/personal/tradeCredit/AssetQuery", icon: 'chuzheng'},
               {name: '航旅信息', index: "/personal/tradeCredit/AirTravel", icon: 'lvyou'},
-              {name: '银行卡交易信息', index: "/personal/tradeCredit/BankCardTransaction", icon: 'zhifuweikuan'},
-              {name: '名下关联企业', index: "/personal/tradeCredit/PersonalEnterprise", icon: 'qiyechaxun_huaban'}
+              {name: '银行卡交易信息', index: "/personal/tradeCredit/BankCardTransaction", icon: 'zhifuweikuan'}
             ]},
             {name: '爬虫数据类',
             icon: 'bug',
@@ -121,9 +121,9 @@
             subs: [
               {name: '运营商信用报告高级版', index: "/personal/python/operatorReport", icon: 'yunyingshang'},
               {name: '运营商信用报告', index: "/personal/python/operatorCredit", icon: 'yunyingshang'},
-              {name: '芝麻分认证', index: "/personal/python/zhima", icon: 'logo'},
-              {name: '支付宝报告', index: "/personal/python/alipay", icon: 'zhifubao'},
               {name: '淘宝报告', index: "/personal/python/alitao", icon: 'unie651'},
+              {name: '支付宝报告', index: "/personal/python/alipay", icon: 'zhifubao'},
+              {name: '芝麻分认证', index: "/personal/python/zhima", icon: 'logo'},
               {name: '京东报告', index: "/personal/python/jd", icon: 'jingdongbaitiao'},
               {name: '社保', index: "/personal/python/socialSecurity", icon: 'renlishebao'},
               {name: '公积金', index: "/personal/python/accumulation", icon: 'dkw_gongjijin'}
