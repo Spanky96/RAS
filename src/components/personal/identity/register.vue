@@ -113,9 +113,9 @@
         </tr>
         <tr class="text-left">
           <td>姓名</td>
-          <td>{{result.name}}</td>
+          <td>{{result.name | handleName}}</td>
           <td>身份证号码</td>
-          <td>{{result.identityCard}}</td>
+          <td>{{result.identityCard | handleIdCard}}</td>
         </tr>
         <tr class="text-left">
           <td>身份一致性</td>

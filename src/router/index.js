@@ -48,12 +48,12 @@ export default new Router({
         },
         {
           path: 'personal/identity/register',
-          name: 'BaseBank',
+          name: 'register',
           component: resolve => require(['@/components/personal/identity/register'], resolve)
         },
         {
           path: 'personal/identity/PassCheck',
-          name: 'BaseBank',
+          name: 'PassCheck',
           component: resolve => require(['@/components/personal/identity/PassCheck'], resolve)
         },
         {
@@ -105,6 +105,11 @@ export default new Router({
           path: 'personal/riskTips/personalLawsuitA',
           name: 'PersonalLawsuitA',
           component: resolve => require(['@/components/personal/riskTips/PersonalLawsuitA'], resolve)
+        },
+        {
+          path: 'personal/riskTips/HoneyPot',
+          name: 'HoneyPot',
+          component: resolve => require(['@/components/personal/riskTips/HoneyPot'], resolve)
         },
         {
           path: 'personal/riskTips/multipleLoan',
