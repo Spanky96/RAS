@@ -404,13 +404,15 @@
         <tr class="text-title" v-if="result.data.scoreAnalysis">
           <td colspan="4">睿普分分析</td>
         </tr>
-        <tr v-if="result.data.scoreAnalysis">
-          <th>评分项</th><th>评分项描述</th><th>配置分</th><th>扣分</th>
-        </tr>
-        <tr v-if="result.data.scoreAnalysis" v-for="(de, index) in result.data.scoreAnalysis.deductionDetails" :key="index + '0'">
-          <td>{{de.item}}</td><td>{{de.desc}}</td><td>{{de.score}}</td><td>{{de.deduction}}</td>
-        </tr>
-         <tr v-if="result.data.scoreAnalysis"><td colspan="1">最后得分</td><td colspan="3">{{result.data.scoreAnalysis.score}}</td></tr>
+        <template v-if="result.data.scoreAnalysis">
+          <tr>
+            <th>评分项</th><th>评分项描述</th><th>配置分</th><th>扣分</th>
+          </tr>
+          <tr v-for="(de, index) in result.data.scoreAnalysis.deductionDetails" :key="index + '0'">
+            <td>{{de.item}}</td><td>{{de.desc}}</td><td>{{de.score}}</td><td>{{de.deduction}}</td>
+          </tr>
+          <tr><td colspan="1">最后得分</td><td colspan="3">{{result.data.scoreAnalysis.score}}</td></tr>
+        </template>
       </table>
     </el-card>
   </div>
@@ -497,8 +499,6 @@ export default {
       },
       consumptionProfile: {"avgFeeMonth": "月均消费"}
     };
-    // const overdueLoanCheckKvs = {
-    // };
     const callAnalysisKvs = {
       "avgCallCnt": "日均通话次数",
       "avgCallTime": "日均通话时长(s)",
