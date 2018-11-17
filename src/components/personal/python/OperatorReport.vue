@@ -40,7 +40,7 @@
             </el-form-item>
           </el-col>
           <el-col :span="8">
-            <el-form-item label="启用睿普分" label-width="0" prop="contentType" class="form-item">
+            <el-form-item label="启用睿普信用评分" label-width="0" prop="contentType" class="form-item">
               <el-tooltip :content="inputForm.score == '1' ? '已选择启用' : '未选择启用'" placement="top">
                 <el-switch v-model="inputForm.score" active-value="1" inactive-value="0"></el-switch>
               </el-tooltip>
