@@ -388,10 +388,9 @@
                     <el-tag round size="mini">{{dataTypeChange(ret.dataType)}}</el-tag>
                     </td>
               </tr>
-              <tr class="text-left resultRows" v-for="(v,k) in ret" :key="k">
+              <tr class="text-left resultRows" v-for="(v,k) in ret" :key="k"  v-if="deletid(k)">
                 <td class="mytd" width="25%">{{getKeyName(ret.dataType, k)}}</td>
                 <td class="mytd">{{tuomin((v || '&nbsp;'), k)}}</td>
-               
               </tr>
             </table>
           </td>
@@ -427,7 +426,6 @@ export default {
           age: "年龄",
           province: "省份",
           postTime: "发布时间",
-          id: "失信公告 ID（唯一的标识）",
           recordTime: "立案时间（时间戳）",
           content: "内容",
           caseNO: "案号",
@@ -445,7 +443,6 @@ export default {
           caseStatus: "案件状态",
           identificationNO: "身份证/组织机构代码",
           executionTarget: "执行标的",
-          id: "执行公告 ID",
           recordTime: "立案时间（时间戳）",
           content: "内容",
           caseNO: "案号",
@@ -461,7 +458,6 @@ export default {
           caseType: "案件类型",
           title: "标题",
           litigants: "法官陪审员",
-          id: "裁判文书 ID",
           recordTime: "审结时间（时间戳）",
           content: "内容",
           caseNO: "案号",
@@ -478,7 +474,6 @@ export default {
           title: "标题",
           caseCause: "案由",
           courtroom: "法庭",
-          id: "开庭公告 ID",
           content: "内容",
           recordTime: "开庭时间（时间戳）",
           caseNO: "案号",
@@ -494,7 +489,6 @@ export default {
           layout: "版面",
           name: "当事人",
           announcementType: "公告类型",
-          id: "法院公告 ID",
           recordTime: "发布时间（时间戳）",
           content: "公告内容",
           court: "法院名称",
@@ -521,7 +515,6 @@ export default {
           court: "法院名称",
           time: "贷款时间（年月日格式）",
           dataType: "类别",
-          id: "网贷黑名单 ID"
         }
       },
       {
@@ -532,7 +525,6 @@ export default {
           caseCause: "案由",
           status: "流程状态",
           name: "当事人",
-          id: "案件流程 ID",
           recordTime: "立案时间（时间戳）",
           content: "内容",
           caseNO: "案号",
@@ -547,7 +539,6 @@ export default {
         kvs: {
           name: "当事人",
           proposer: "提案人",
-          id: "曝光台 ID",
           recordTime: "立案时间（时间戳）",
           content: "内容",
           caseNO: "案号",
@@ -775,6 +766,13 @@ export default {
     };
   },
   methods: {
+    deletid (val) {
+      if (val == 'id') {
+        return false;
+      } else {
+        return true;
+      }
+    },
     getKeyName (sourcet, name) {
       var i = this.sourcetArr.find(n => n.id == sourcet);
       return i.kvs[name] || "";
