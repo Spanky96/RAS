@@ -514,7 +514,7 @@ export default {
           content: "内容",
           court: "法院名称",
           time: "贷款时间（年月日格式）",
-          dataType: "类别",
+          dataType: "类别"
         }
       },
       {
