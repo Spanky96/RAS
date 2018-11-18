@@ -105,6 +105,9 @@
         th, td {
           padding: 8px 6px;
           border: 1px solid hsla(0,0%,72%,.17);
+          .table-pan{
+            width: 100%;
+          }
         }
       }
       .resultRows {
