@@ -249,5 +249,11 @@ blackCountfilters: function (val) {
 },
 tagtype: function (val) {
 return TAG_TYPE[val];
+},
+timestampToTime: function (val) {
+  if (val != '') {
+    var newdata = new Date(val);
+    return newdata.toLocaleString();
+  }
 }
 };
