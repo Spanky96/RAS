@@ -67,7 +67,7 @@
         </tr>
         <tr class="inner-table">
           <td colspan="4" style="padding: 0;">
-            <table class="table" v-html="$FU.getHtmlByKvsFromObj(loanBasicInfoKvs, result.data.report[0].data[0])">
+            <table class="table" v-html="$FU.getHtmlByKvsFromObjTm(loanBasicInfoKvs, result.data.report[0].data[0], [], moneyFmt)">
             </table>
           </td>
         </tr>
@@ -76,7 +76,7 @@
         </tr>
         <tr class="inner-table">
           <td colspan="4" style="padding: 0;">
-            <table class="table" v-html="$FU.arrayInfo2HtmlV2(result.data.report[0].data[0].loans, loansKvs)">
+            <table class="table" v-html="$FU.arrayInfo2HtmlV3(result.data.report[0].data[0].loans, loansKvs, [], moneyFmt)">
             </table>
           </td>
         </tr>
@@ -85,7 +85,7 @@
         </tr>
         <tr class="inner-table">
           <td colspan="4" style="padding: 0;">
-            <table class="table" v-html="$FU.getHtmlByKvsFromObj(depositeAnalyticKvs, result.data.report[0].data[0])">
+            <table class="table" v-html="$FU.getHtmlByKvsFromObjTm(depositeAnalyticKvs, result.data.report[0].data[0], [], moneyFmt)">
             </table>
           </td>
         </tr>
@@ -94,7 +94,7 @@
         </tr>
         <tr class="inner-table">
           <td colspan="4" style="padding: 0;">
-            <table class="table" v-html="$FU.getHtmlByKvsFromObj(repayAnalyticKvs, result.data.report[0].data[0])">
+            <table class="table" v-html="$FU.getHtmlByKvsFromObjTm(repayAnalyticKvs, result.data.report[0].data[0], [], moneyFmt)">
             </table>
           </td>
         </tr>
@@ -103,7 +103,7 @@
         </tr>
         <tr class="inner-table">
           <td colspan="4" style="padding: 0;">
-            <table class="table" v-html="$FU.arrayInfo2HtmlV2(result.data.report[0].data[0].flows, flowsKvs)">
+            <table class="table" v-html="$FU.arrayInfo2HtmlV3(result.data.report[0].data[0].flows, flowsKvs, [], moneyFmt)">
             </table>
           </td>
         </tr>
@@ -112,7 +112,7 @@
         </tr>
         <tr class="inner-table">
           <td colspan="4" style="padding: 0;">
-            <table class="table" v-html="$FU.arrayInfo2HtmlV2(result.data.report[0].data[0].companys, companysKvs)">
+            <table class="table" v-html="$FU.arrayInfo2HtmlV3(result.data.report[0].data[0].companys, companysKvs, [], moneyFmt)">
             </table>
           </td>
         </tr>
@@ -136,6 +136,32 @@ export default {
       vm.fundList = data.data;
       vm.ripId = data.rip_id;
     });
+    const moneyFmt = {
+      amount: this.$FU.moneyF2Y,
+      balance: this.$FU.moneyF2Y,
+      deposite_num_6: this.$FU.moneyF2Y,
+      deposite_num_12: this.$FU.moneyF2Y,
+      deposite_num_24: this.$FU.moneyF2Y,
+      take_amount_6: this.$FU.moneyF2Y,
+      take_amount_12: this.$FU.moneyF2Y,
+      take_amount_24: this.$FU.moneyF2Y,
+      repay_amount_6: this.$FU.moneyF2Y,
+      repay_amount_12: this.$FU.moneyF2Y,
+      repay_amount_24: this.$FU.moneyF2Y,
+      repay_capital_6: this.$FU.moneyF2Y,
+      repay_capital_12: this.$FU.moneyF2Y,
+      repay_capital_24: this.$FU.moneyF2Y,
+      repay_interest_6: this.$FU.moneyF2Y,
+      repay_interest_12: this.$FU.moneyF2Y,
+      repay_interest_24: this.$FU.moneyF2Y,
+      repay_penalty_6: this.$FU.moneyF2Y,
+      repay_penalty_12: this.$FU.moneyF2Y,
+      repay_penalty_24: this.$FU.moneyF2Y,
+      loan_repay_amount: this.$FU.moneyF2Y,
+      loan_amount: this.$FU.moneyF2Y,
+      loan_unpaid_amount: this.$FU.moneyF2Y,
+      limit: this.$FU.moneyF2Y
+    };
     const basicInfoKvs = {
       name: '姓名',
       sex: '性别',
@@ -155,8 +181,8 @@ export default {
       idcard_match: '身份证是否一致'
     };
     const flowsKvs = {
-      amount: '金额（单位：分）',
-      balance: '余额 （单位：分）',
+      amount: '金额',
+      balance: '余额',
       operation_type: '操作类型',
       operation_date: '操作日期',
       company: '公司名称',
@@ -164,15 +190,15 @@ export default {
       record_date: '缴存日期'
     };
     const depositeAnalyticKvs = {
-      deposite_num_6: '近6月缴存金额（单位：分）',
-      deposite_num_12: '近12月缴存金额 （单位：分）',
-      deposite_num_24: '近24月缴存金额 （单位：分）',
+      deposite_num_6: '近6月缴存金额',
+      deposite_num_12: '近12月缴存金额',
+      deposite_num_24: '近24月缴存金额',
       last_deposit_month_6: '近6月最大连续缴存月数',
       last_deposit_month_12: '近12月最大连续缴存月数',
       last_deposit_month_24: '近24月最大连续缴存月数',
-      take_amount_6: '近6月取出金额（单位：分）',
-      take_amount_12: '近12月取出金额（单位：分）',
-      take_amount_24: '近24月取出金额（单位：分）',
+      take_amount_6: '近6月取出金额',
+      take_amount_12: '近12月取出金额',
+      take_amount_24: '近24月取出金额',
       take_num_6: '近6月取出笔数',
       take_num_12: '近12月取出笔数',
       take_num_24: '近24月取出笔数'
@@ -190,30 +216,30 @@ export default {
       repay_num_6: '近6月还款合同数',
       repay_num_12: '近12月还款合同数',
       repay_num_24: '近24月还款合同数',
-      repay_amount_6: '近6月还款金额（单位：分）',
-      repay_amount_12: '近12月还款金额（单位：分）',
-      repay_amount_24: '近24月还款金额（单位：分）',
-      repay_capital_6: '近6月还款本金（单位：分）',
-      repay_capital_12: '近12月还款本金（单位：分）',
-      repay_capital_24: '近24月还款本金（单位：分）',
-      repay_interest_6: '近6月还款利息（单位：分）',
-      repay_interest_12: '近12月还款利息（单位：分）',
-      repay_interest_24: '近24月还款利息（单位：分）',
-      repay_penalty_6: '近6月还款罚息（单位：分）',
-      repay_penalty_12: '近12月还款罚息（单位：分）',
-      repay_penalty_24: '近24月还款罚息（单位：分）'
+      repay_amount_6: '近6月还款金额',
+      repay_amount_12: '近12月还款金额',
+      repay_amount_24: '近24月还款金额',
+      repay_capital_6: '近6月还款本金',
+      repay_capital_12: '近12月还款本金',
+      repay_capital_24: '近24月还款本金',
+      repay_interest_6: '近6月还款利息',
+      repay_interest_12: '近12月还款利息',
+      repay_interest_24: '近24月还款利息',
+      repay_penalty_6: '近6月还款罚息',
+      repay_penalty_12: '近12月还款罚息',
+      repay_penalty_24: '近24月还款罚息'
     };
     const loanBasicInfoKvs = {
       loan_count: '贷款笔数',
-      loan_repay_amount: '月还款金额（单位：分）',
-      loan_amount: '贷款总额（单位：分）',
+      loan_repay_amount: '月还款金额',
+      loan_amount: '贷款总额',
       loan_years: '贷款年限（单位：年）',
-      loan_unpaid_amount: '剩余贷款（单位：分）'
+      loan_unpaid_amount: '剩余贷款'
     };
     const companysKvs = {
       name: '缴费单位',
       term: '缴费期数（单位：月）',
-      amount: '缴费总金额 （单位：分）',
+      amount: '缴费总金额',
       last_term: '连续缴费期数（单位：月）',
       end_date: '结束时间',
       begin_date: '开始时间',
@@ -226,8 +252,8 @@ export default {
       phone: '手机号',
       bank: '贷款银行',
       period: '贷款期限（单位：年）',
-      limit: '贷款额度（单位：分）',
-      balance: '贷款余额（单位：分）',
+      limit: '贷款额度',
+      balance: '贷款余额',
       begin_date: '贷款开始时间',
       end_date: '贷款结束时间',
       loan_rate: '贷款年利率（单位：%）',
@@ -473,6 +499,7 @@ export default {
         },
         "return_code": "0"
       },
+      moneyFmt,
       fundList,
       ripId,
       orgArea: undefined,

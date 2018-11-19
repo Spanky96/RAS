@@ -66,21 +66,21 @@
           <td colspan="2">订单流水</td>
         </tr>
         <tr class="inner-table">
-          <td colspan="2" style="padding: 0;"><table v-html="$FU.arrayInfo2HtmlV2(result.data.flows, flowsKvs)" class="table"></table></td>
+          <td colspan="2" style="padding: 0;"><table v-html="$FU.arrayInfo2HtmlV3(result.data.flows, flowsKvs, [], moneyFmt)" class="table"></table></td>
         </tr>
         <!-- ------------------------------------  -->
         <tr class="text-title">
           <td colspan="2">支付宝流水</td>
         </tr>
         <tr class="inner-table">
-          <td colspan="2" style="padding: 0;"><table v-html="$FU.arrayInfo2HtmlV2(result.data.huabei_flows, huabeiFlowsKvs)" class="table"></table></td>
+          <td colspan="2" style="padding: 0;"><table v-html="$FU.arrayInfo2HtmlV3(result.data.huabei_flows, huabeiFlowsKvs, [], moneyFmt)" class="table"></table></td>
         </tr>
         <!-- ------------------------------------  -->
         <tr class="text-title">
           <td colspan="2">信用额度信息（数组），花呗、借呗、网商贷</td>
         </tr>
         <tr class="inner-table">
-          <td colspan="2" style="padding: 0;"><table v-html="$FU.arrayInfo2HtmlV2(result.data.credit_limit, creditLimitKvs)" class="table"></table></td>
+          <td colspan="2" style="padding: 0;"><table v-html="$FU.arrayInfo2HtmlV3(result.data.credit_limit, creditLimitKvs, [], creditLimitFmt)" class="table"></table></td>
         </tr>
         <!-- ------------------------------------  -->
         <tr class="text-title">
@@ -91,7 +91,7 @@
         </tr>
         <tr class="inner-table" v-for="(pfund, index) in result.data.position_fund" :key="index + '2'">
           <td colspan="2" style="padding: 0;">
-            <table class="table" v-html="$FU.getHtmlByKvsFromObj(positionFundKvs, pfund)">
+            <table class="table" v-html="$FU.getHtmlByKvsFromObjTm(positionFundKvs, pfund, [], moneyFmt)">
             </table>
           </td>  
         </tr>
@@ -104,7 +104,7 @@
         </tr>
         <tr class="inner-table" v-for="(pfe, index) in result.data.position_finance" :key="index + '3'">
           <td colspan="2" style="padding: 0;">
-            <table class="table" v-html="$FU.getHtmlByKvsFromObj(positionFinanceKvs, pfe)">
+            <table class="table" v-html="$FU.getHtmlByKvsFromObjTm(positionFinanceKvs, pfe, [], moneyFmt)">
             </table>
           </td>  
         </tr>
@@ -117,7 +117,7 @@
         </tr>
         <tr class="inner-table" v-for="(pfixed, index) in result.data.position_fixed" :key="index + '4'">
           <td colspan="2" style="padding: 0;">
-            <table class="table" v-html="$FU.getHtmlByKvsFromObj(positionFixedKvs, pfixed)">
+            <table class="table" v-html="$FU.getHtmlByKvsFromObjTm(positionFixedKvs, pfixed, [], moneyFmt)">
             </table>
           </td>  
         </tr>
@@ -126,35 +126,35 @@
           <td colspan="2">商户流水</td>
         </tr>
         <tr class="inner-table">
-          <td colspan="2" style="padding: 0;"><table v-html="$FU.arrayInfo2HtmlV2(result.data.business_flows, huabeiFlowsKvs)" class="table"></table></td>
+          <td colspan="2" style="padding: 0;"><table v-html="$FU.arrayInfo2HtmlV3(result.data.business_flows, huabeiFlowsKvs, [], moneyFmt)" class="table"></table></td>
         </tr>
                 <!-- ------------------------------------  -->
         <tr class="text-title">
           <td colspan="2">账户余额流水</td>
         </tr>
         <tr class="inner-table">
-          <td colspan="2" style="padding: 0;"><table v-html="$FU.arrayInfo2HtmlV2(result.data.balance_flows, huabeiFlowsKvs)" class="table"></table></td>
+          <td colspan="2" style="padding: 0;"><table v-html="$FU.arrayInfo2HtmlV3(result.data.balance_flows, huabeiFlowsKvs, [], moneyFmt)" class="table"></table></td>
         </tr>
         <!-- ------------------------------------  -->
         <tr class="text-title">
           <td colspan="2">余额宝流水</td>
         </tr>
         <tr class="inner-table">
-          <td colspan="2" style="padding: 0;"><table v-html="$FU.arrayInfo2HtmlV2(result.data.yuebao_flows, huabeiFlowsKvs)" class="table"></table></td>
+          <td colspan="2" style="padding: 0;"><table v-html="$FU.arrayInfo2HtmlV3(result.data.yuebao_flows, huabeiFlowsKvs, [], moneyFmt)" class="table"></table></td>
         </tr>
         <!-- ------------------------------------  -->
         <tr class="text-title">
           <td colspan="2">近期流水</td>
         </tr>
         <tr class="inner-table">
-          <td colspan="2" style="padding: 0;"><table v-html="$FU.arrayInfo2HtmlV2(result.data.recent_flows, huabeiFlowsKvs)" class="table"></table></td>
+          <td colspan="2" style="padding: 0;"><table v-html="$FU.arrayInfo2HtmlV3(result.data.recent_flows, huabeiFlowsKvs, [], moneyFmt)" class="table"></table></td>
         </tr>
         <!-- ------------------------------------  -->
         <tr class="text-title">
           <td colspan="2">银行卡流水</td>
         </tr>
         <tr class="inner-table">
-          <td colspan="2" style="padding: 0;"><table v-html="$FU.arrayInfo2HtmlV2(result.data.bankcards_flows, huabeiFlowsKvs)" class="table"></table></td>
+          <td colspan="2" style="padding: 0;"><table v-html="$FU.arrayInfo2HtmlV3(result.data.bankcards_flows, huabeiFlowsKvs, [], moneyFmt)" class="table"></table></td>
         </tr>
       </table>
     </el-card>
@@ -167,6 +167,26 @@ export default {
   components: {
   },
   data () {
+    const moneyFmt = {
+      settle_amount: this.$FU.moneyF2Y,
+      capital: this.$FU.moneyF2Y,
+      share: this.$FU.moneyF2Y,
+      usable_share: this.$FU.moneyF2Y,
+      net_value: this.$FU.moneyF2Y,
+      market_value: this.$FU.moneyF2Y,
+      expected_return: this.$FU.moneyF2Y,
+      floating_pl: this.$FU.moneyF2Y,
+      income_yesterday: this.$FU.moneyF2Y,
+      amount: this.$FU.moneyF2Y,
+      interest: this.$FU.moneyF2Y
+    };
+    const creditLimitFmt = {
+      credit_limit: this.$FU.moneyF2Y,
+      usable_limit: this.$FU.moneyF2Y,
+      admit: function (v) {
+        return v == 'true' ? '是' : '否';
+      }
+    };
     const accountsKvs = {
       id: '账户ID',
       type: '账户类型',
@@ -231,27 +251,27 @@ export default {
       name: '产品名称',
       admit: '是否开通',
       account: '账号',
-      credit_limit: '信用额度（分）',
-      usable_limit: '可用额度（分）'
+      credit_limit: '信用额度',
+      usable_limit: '可用额度'
     };
     const positionFinanceKvs = {
       account_id: '账户ID',
       code: '产品代码',
       name: '产品名称',
       currency: '币种（中文，如人民币）',
-      capital: '本金（分）',
-      share: '当前份额，余额宝余额使用该字段（分）',
-      usable_share: '可用份额（分）',
+      capital: '本金',
+      share: '当前份额，余额宝余额使用该字段',
+      usable_share: '可用份额',
       dividend_type: '分红方式（如 现金分红）',
-      net_value: '当前净值（分）',
-      market_value: '当前市值（分）',
+      net_value: '当前净值',
+      market_value: '当前市值',
       start_date: '开始时间',
       end_date: '到期时间',
-      expected_return: '预期收益（分）',
+      expected_return: '预期收益',
       expected_yield: '预期收益率（百分比）',
-      floating_pl: '浮动盈亏（分）',
+      floating_pl: '浮动盈亏',
       term: '存期',
-      income_yesterday: '昨日收益（分）',
+      income_yesterday: '昨日收益',
       status: '状态'
     };
     const positionFundKvs = {
@@ -259,16 +279,16 @@ export default {
       code: '产品代码',
       name: '产品名称',
       currency: '币种（中文，如人民币）',
-      capital: '本金（分）',
-      share: '当前份额，余额宝余额使用该字段（分）',
-      usable_share: '可用份额（分）',
+      capital: '本金',
+      share: '当前份额，余额宝余额使用该字段',
+      usable_share: '可用份额',
       dividend_type: '分红方式（如 现金分红）',
-      net_value: '当前净值（分）',
+      net_value: '当前净值',
       net_value_date: '净值日期',
-      market_value: '当前市值（分）',
-      floating_pl: '浮动盈亏（分）',
+      market_value: '当前市值',
+      floating_pl: '浮动盈亏',
       yield: '收益率（百分比）',
-      income_yesterday: '昨日收益（分）'
+      income_yesterday: '昨日收益'
     };
     const positionFixedKvs = {
       account_id: '账户ID',
@@ -278,9 +298,9 @@ export default {
       currency: '币种（中文，如人民币）',
       start_date: '开始日期',
       end_date: '到期日期',
-      capital: '本金（分）',
-      interest: '利息（分）',
-      amount: '本息总额（分）',
+      capital: '本金',
+      interest: '利息',
+      amount: '本息总额',
       interest_rate: '利率',
       term: '存期',
       automatic_redeposit: '自动转存'
@@ -490,6 +510,8 @@ export default {
       loading: false,
       btnText: "执行查询",
       tryAgain: 0,
+      moneyFmt,
+      creditLimitFmt,
       accountsKvs,
       addressesKvs,
       cardsKvs,

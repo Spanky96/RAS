@@ -57,7 +57,7 @@
         </tr>
         <tr class="inner-table">
           <td colspan="4" style="padding: 0;">
-            <table class="table" v-html="$FU.getHtmlByKvsFromObj(basicInfoKvs, result.data.report[0].data)">
+            <table class="table" v-html="$FU.getHtmlByKvsFromObjTm(basicInfoKvs, result.data.report[0].data, [], moneyFmt)">
             </table>
           </td>
         </tr>
@@ -65,73 +65,73 @@
           <td colspan="4">基本医疗保险流水</td>
         </tr>
         <tr class="inner-table">
-          <td colspan="4" style="padding: 0;"><table v-html="$FU.arrayInfo2HtmlV2(result.data.report[0].data.medicareFlow, medicareFlowKvs)" class="table"></table></td>
+          <td colspan="4" style="padding: 0;"><table v-html="$FU.arrayInfo2HtmlV3(result.data.report[0].data.medicareFlow, companyFlowKvs, [], moneyFmt)" class="table"></table></td>
         </tr>
         <tr class="text-title">
           <td colspan="4">基本养老保险流水</td>
         </tr>
         <tr class="inner-table">
-          <td colspan="4" style="padding: 0;"><table v-html="$FU.arrayInfo2HtmlV2(result.data.report[0].data.pensionFlow, pensionFlowKvs)" class="table"></table></td>
+          <td colspan="4" style="padding: 0;"><table v-html="$FU.arrayInfo2HtmlV3(result.data.report[0].data.pensionFlow, companyFlowKvs, [], moneyFmt)" class="table"></table></td>
         </tr>
         <tr class="text-title">
           <td colspan="4">基本失业保险流水</td>
         </tr>
         <tr class="inner-table">
-          <td colspan="4" style="padding: 0;"><table v-html="$FU.arrayInfo2HtmlV2(result.data.report[0].data.unemploymentFlow, unemploymentFlowKvs)" class="table"></table></td>
+          <td colspan="4" style="padding: 0;"><table v-html="$FU.arrayInfo2HtmlV3(result.data.report[0].data.unemploymentFlow, companyFlowKvs, [], moneyFmt)" class="table"></table></td>
         </tr>
         <tr class="text-title">
           <td colspan="4">基本工伤保险流水</td>
         </tr>
         <tr class="inner-table">
-          <td colspan="4" style="padding: 0;"><table v-html="$FU.arrayInfo2HtmlV2(result.data.report[0].data.injuryFlow, injuryFlowKvs)" class="table"></table></td>
+          <td colspan="4" style="padding: 0;"><table v-html="$FU.arrayInfo2HtmlV3(result.data.report[0].data.injuryFlow, personalFlowKvs, [], moneyFmt)" class="table"></table></td>
         </tr>
         <tr class="text-title">
           <td colspan="4">基本生育保险流水</td>
         </tr>
         <tr class="inner-table">
-          <td colspan="4" style="padding: 0;"><table v-html="$FU.arrayInfo2HtmlV2(result.data.report[0].data.maternityFlow, maternityFlowKvs)" class="table"></table></td>
+          <td colspan="4" style="padding: 0;"><table v-html="$FU.arrayInfo2HtmlV3(result.data.report[0].data.maternityFlow, personalFlowKvs, [], moneyFmt)" class="table"></table></td>
         </tr>
         <tr class="text-title">
           <td colspan="4">基本医疗保险摘要</td>
         </tr>
         <tr class="inner-table">
-          <td colspan="4" style="padding: 0;"><table v-html="$FU.objectInfo2Html(result.data.report[0].data.medicare_summary, medicare_summaryKvs)" class="table"></table></td>
+          <td colspan="4" style="padding: 0;"><table v-html="$FU.objectInfo2Html(result.data.report[0].data.medicare_summary, summaryKvs, moneyFmt)" class="table"></table></td>
         </tr>
         <tr class="text-title">
           <td colspan="4">基本养老保险摘要</td>
         </tr>
         <tr class="inner-table">
-          <td colspan="4" style="padding: 0;"><table v-html="$FU.objectInfo2Html(result.data.report[0].data.pension_summary, pension_summaryKvs)" class="table"></table></td>
+          <td colspan="4" style="padding: 0;"><table v-html="$FU.objectInfo2Html(result.data.report[0].data.pension_summary, summaryKvs, moneyFmt)" class="table"></table></td>
         </tr>
         <tr class="text-title">
           <td colspan="4">基本失业保险摘要</td>
         </tr>
         <tr class="inner-table">
-          <td colspan="4" style="padding: 0;"><table v-html="$FU.objectInfo2Html(result.data.report[0].data.unemployment_summary, unemployment_summaryKvs)" class="table"></table></td>
+          <td colspan="4" style="padding: 0;"><table v-html="$FU.objectInfo2Html(result.data.report[0].data.unemployment_summary, summaryKvs, moneyFmt)" class="table"></table></td>
         </tr>
         <tr class="text-title">
           <td colspan="4">基本工伤保险摘要</td>
         </tr>
         <tr class="inner-table">
-          <td colspan="4" style="padding: 0;"><table v-html="$FU.objectInfo2Html(result.data.report[0].data.injury_summary, injury_summaryKvs)" class="table"></table></td>
+          <td colspan="4" style="padding: 0;"><table v-html="$FU.objectInfo2Html(result.data.report[0].data.injury_summary, summaryKvs, moneyFmt)" class="table"></table></td>
         </tr>
         <tr class="text-title">
           <td colspan="4">基本生育保险摘要</td>
         </tr>
         <tr class="inner-table">
-          <td colspan="4" style="padding: 0;"><table v-html="$FU.objectInfo2Html(result.data.report[0].data.maternity_summary, maternity_summaryKvs)" class="table"></table></td>
+          <td colspan="4" style="padding: 0;"><table v-html="$FU.objectInfo2Html(result.data.report[0].data.maternity_summary, summaryKvs, moneyFmt)" class="table"></table></td>
         </tr>
         <tr class="text-title">
           <td colspan="4">医疗消费记录</td>
         </tr>
         <tr class="inner-table">
-          <td colspan="4" style="padding: 0;"><table v-html="$FU.arrayInfo2HtmlV2(result.data.report[0].data.consumptions, consumptionsKvs)" class="table"></table></td>
+          <td colspan="4" style="padding: 0;"><table v-html="$FU.arrayInfo2HtmlV3(result.data.report[0].data.consumptions, consumptionsKvs, [], moneyFmt)" class="table"></table></td>
         </tr>
         <tr class="text-title">
           <td colspan="4">就业历史</td>
         </tr>
         <tr class="inner-table">
-          <td colspan="4" style="padding: 0;"><table v-html="$FU.arrayInfo2HtmlV2(result.data.report[0].data.companys, companysKvs)" class="table"></table></td>
+          <td colspan="4" style="padding: 0;"><table v-html="$FU.arrayInfo2HtmlV3(result.data.report[0].data.companys, companysKvs, [], moneyFmt)" class="table"></table></td>
         </tr>
       </table>
     </el-card>
@@ -151,6 +151,21 @@ export default {
       vm.socialsecurityList = data.data;
       vm.ripId = data.rip_id;
     });
+    const moneyFmt = {
+      medicare_balance: this.$FU.moneyF2Y,
+      pension_balance: this.$FU.moneyF2Y,
+      max_base: this.$FU.moneyF2Y,
+      average_base: this.$FU.moneyF2Y,
+      current_base: this.$FU.moneyF2Y,
+      medicare_consumption_total_amount: this.$FU.moneyF2Y,
+      yj_month_income: this.$FU.moneyF2Y,
+      payment_base: this.$FU.moneyF2Y,
+      company_amount: this.$FU.moneyF2Y,
+      person_amount: this.$FU.moneyF2Y,
+      trade_amount: this.$FU.moneyF2Y,
+      amount: this.$FU.moneyF2Y,
+      total_amount: this.$FU.moneyF2Y
+    };
     const basicInfoKvs = {
       customer: '个人编号',
       name: '姓名',
@@ -168,27 +183,20 @@ export default {
       social_security_name: '最近社保机构名称',
       address: '通讯地址',
       phone: '联系电话',
-      medicare_balance: '医疗账户余额(单位：分)',
+      medicare_balance: '医疗账户余额',
       payment_months: '累计缴纳月数',
-      pension_balance: '养老账户余额(单位：分)',
+      pension_balance: '养老账户余额',
       period: '最近缴纳时间',
       continuous_payment_max_months: '历史连续缴纳最大月数',
-      max_base: '历史最大缴纳基数（单位：分）',
-      average_base: '平均缴纳基数（单位：分）',
-      current_base: '最近缴纳基数（单位：分）',
+      max_base: '历史最大缴纳基数',
+      average_base: '平均缴纳基数',
+      current_base: '最近缴纳基数',
       current_payment_months: '最近单位缴纳月数',
       medicare_consumption_total_amount: '医保累计消费金额',
-      yj_month_income: '预计月收入(单位：分)'
+      yj_month_income: '预计月收入'
     };
-    const medicareFlowKvs = {
-      'origin_name': '险种名称',
-      'period': '缴纳月份',
-      'payment_base': '缴费基数(单位：分)',
-      'company_amount': '单位缴费金额(单位：分)',
-      'person_amount': '个人缴费金额(单位：分)',
-      'company': '缴费单位名称'
-    };
-    const pensionFlowKvs = {
+
+    const companyFlowKvs = {
       'origin_name': '险种名称',
       'period': '缴纳月份',
       'payment_base': '缴费基数',
@@ -196,30 +204,15 @@ export default {
       'person_amount': '个人缴费金额',
       'company': '缴费单位名称'
     };
-    const unemploymentFlowKvs = {
-      'origin_name': '险种名称',
-      'period': '缴纳月份',
-      'payment_base': '缴费基数',
-      'company_amount': '单位缴费金额',
-      'person_amount': '个人缴费金额',
-      'company': '缴费单位名称'
-    };
-    const injuryFlowKvs = {
+    const personalFlowKvs = {
       'origin_name': '险种名称',
       'period': '缴纳月份',
       'payment_base': '缴费基数',
       'company_amount': '单位缴费金额',
       'person_amount': '个人缴费金额'
     };
-    const maternityFlowKvs = {
-      'origin_name': '险种名称',
-      'period': '缴纳月份',
-      'payment_base': '缴费基数',
-      'company_amount': '单位缴费金额',
-      'person_amount': '个人缴费金额'
-    };
-    // eslint-disable-next-line
-    const medicare_summaryKvs = {
+
+    const summaryKvs = {
       'origin_name': '险种名称',
       'first_insured_date': '首次参保时间',
       'company': '缴存单位名称',
@@ -234,80 +227,17 @@ export default {
       'last_year_company_num': '近12月社保社保缴纳不同单位数',
       'last_two_year_company_num': '近24月社保社保缴纳不同单位数'
     };
-    // eslint-disable-next-line
-    const pension_summaryKvs = {
-      'origin_name': '险种名称',
-      'first_insured_date': '首次参保时间',
-      'company': '缴存单位名称',
-      'total_amount': '累计缴纳金额（单位：分）',
-      'total_month': '累计缴纳月份',
-      'latest_continuous_payment_months': '最近连续缴纳月数',
-      'last_year_stop_payment_months': '最近1年停缴的月数',
-      'last_year_stop_payment_times': '最近1年停缴的次数',
-      'total_stop_payment_months': '历史停缴月数',
-      'total_stop_payment_times': '历史停缴次数',
-      'last_half_year_company_num': '近6月社保社保缴纳不同单位数',
-      'last_year_company_num': '近12月社保社保缴纳不同单位数',
-      'last_two_year_company_num': '近24月社保社保缴纳不同单位数'
-    };
-    // eslint-disable-next-line
-    const unemployment_summaryKvs = {
-      'origin_name': '险种名称',
-      'first_insured_date': '首次参保时间',
-      'company': '缴存单位名称',
-      'total_amount': '累计缴纳金额',
-      'total_month': '累计缴纳月份',
-      'latest_continuous_payment_months': '最近连续缴纳月数',
-      'last_year_stop_payment_months': '最近1年停缴的月数',
-      'last_year_stop_payment_times': '最近1年停缴的次数',
-      'total_stop_payment_months': '历史停缴月数',
-      'total_stop_payment_times': '历史停缴次数',
-      'last_half_year_company_num': '近6月社保社保缴纳不同单位数',
-      'last_year_company_num': '近12月社保社保缴纳不同单位数',
-      'last_two_year_company_num': '近24月社保社保缴纳不同单位数'
-    };
-    // eslint-disable-next-line
-    const injury_summaryKvs = {
-      'origin_name': '险种名称',
-      'first_insured_date': '首次参保时间',
-      'company': '缴存单位名称',
-      'total_amount': '累计缴纳金额',
-      'total_month': '累计缴纳月份',
-      'latest_continuous_payment_months': '最近连续缴纳月数',
-      'last_year_stop_payment_months': '最近1年停缴的月数',
-      'last_year_stop_payment_times': '最近1年停缴的次数',
-      'total_stop_payment_months': '历史停缴月数',
-      'total_stop_payment_times': '历史停缴次数',
-      'last_half_year_company_num': '近6月社保社保缴纳不同单位数',
-      'last_year_company_num': '近12月社保社保缴纳不同单位数',
-      'last_two_year_company_num': '近24月社保社保缴纳不同单位数'
-    };
-    // eslint-disable-next-line
-    const maternity_summaryKvs = {
-      'origin_name': '险种名称',
-      'first_insured_date': '首次参保时间',
-      'company': '缴存单位名称',
-      'total_amount': '累计缴纳金额',
-      'total_month': '累计缴纳月份',
-      'latest_continuous_payment_months': '最近连续缴纳月数',
-      'last_year_stop_payment_months': '最近1年停缴的月数',
-      'last_year_stop_payment_times': '最近1年停缴的次数',
-      'total_stop_payment_months': '历史停缴月数',
-      'total_stop_payment_times': '历史停缴次数',
-      'last_half_year_company_num': '近6月社保社保缴纳不同单位数',
-      'last_year_company_num': '近12月社保社保缴纳不同单位数',
-      'last_two_year_company_num': '近24月社保社保缴纳不同单位数'
-    };
+
     const consumptionsKvs = {
       'trade_time': '结算时间',
-      'trade_amount': '结算金额（单位：分）',
+      'trade_amount': '结算金额',
       'trade_type': '医疗类别',
       'trade_place': '医疗结构名称'
     };
     const companysKvs = {
       'name': '缴费单位',
       'term': '缴费期数',
-      'amount': '缴费总金额（单位：分）',
+      'amount': '缴费总金额',
       'last_term': '连续缴费期数',
       'end_date': '结束时间',
       'begin_date': '开始时间',
@@ -509,16 +439,10 @@ export default {
       ripId,
       taskId: '',
       basicInfoKvs,
-      medicareFlowKvs,
-      pensionFlowKvs,
-      unemploymentFlowKvs,
-      injuryFlowKvs,
-      maternityFlowKvs,
-      medicare_summaryKvs,
-      pension_summaryKvs,
-      unemployment_summaryKvs,
-      injury_summaryKvs,
-      maternity_summaryKvs,
+      companyFlowKvs,
+      personalFlowKvs,
+      moneyFmt,
+      summaryKvs,
       consumptionsKvs,
       companysKvs,
       tryAgain: 8 // 报报告找不到错误，但是重试可以解决设置8次重访问
