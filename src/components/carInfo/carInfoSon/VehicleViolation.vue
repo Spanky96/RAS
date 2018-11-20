@@ -33,18 +33,10 @@
         <tr class="text-left">
           <td width="20%">查询结果</td>
           <td width="30%"><el-tag :type="result.resultType | resultLogoFmt" class="tag">{{result.resultType | resultSuccessFmt}}</el-tag></td>
-          <td width="20%"></td>
-          <td></td>
         </tr>
           <tr class="text-left">
-          <td>车辆状态</td>
-          <td>{{result.vehicleStatus}}</td>
-          <td>车牌号</td>
-          <td>{{result.plateNumber}}</td>
-        </tr>
-        <tr class="text-left">
-          <td>查询数据状态</td>
-          <td>{{result.status}}</td>
+          <td width="20%">地址</td>
+          <td width="80%">{{result.url}}</td>
         </tr>
       </table>
     </el-card>
@@ -68,7 +60,7 @@ export default {
       result: {
         example: true,
         resultType: '0000',
-        status: '数据存在'
+        url: 'https://api.fudata.cn/mobile/access/h5/supportlist?p=8F11012D88E68B3EEBC503A080F09E8C3E7170C9A822C4DFA2E6A2601F26A4482C9EA19941A3BDE176A39E05595644803877842CF78087009BF43EC92A1B67C0EDA11891C7B6997468B16494FEF137391766C880556A905817F0AF3D7EF3A'
       }
     };
   },
@@ -90,47 +82,13 @@ export default {
             }
             }).then(function (res) {
             if (res.data.return_code == '0' && res.data.url) {
-              if (res.data.data.resultCode == '1001') {
+                debugger;
                 vm.result = {
                   example: false,
                   resultType: '0000',
-                  status: '查得数据'
+                  url: res.data.url
                 };
-              } else if (res.data.data.resultCode == '2001') {
-                vm.result = {
-                  example: false,
-                  resultType: '0000',
-                  brandName: res.data.data.resultInfo.brandName,
-                  bodyColor: res.data.data.resultInfo.bodyColor,
-                  useType: res.data.data.resultInfo.useType,
-                  vehicleModelc: res.data.data.resultInfo.vehicleModelc,
-                  vehicleType: res.data.data.resultInfo.vehicleType,
-                  engineNumber: res.data.data.resultInfo.engineNumber,
-                  engineModel: res.data.data.resultInfo.engineModel,
-                  vin: res.data.data.resultInfo.vin,
-                  firstIssueDate: res.data.data.resultInfo.firstIssueDate,
-                  validityDayEnd: res.data.data.resultInfo.validityDayEnd,
-                  vehicleStatus: res.data.data.resultInfo.vehicleStatus,
-                  passengers: res.data.data.resultInfo.passengers,
-                  retirementDate: res.data.data.resultInfo.retirementDate,
-                  fuelType: res.data.data.resultInfo.fuelType,
-                  cc: res.data.data.resultInfo.cc,
-                  ppsDate: res.data.data.resultInfo.ppsDate,
-                  maxJourney: res.data.data.resultInfo.maxJourney,
-                  shaft: res.data.data.resultInfo.shaft,
-                  wheelBase: res.data.data.resultInfo.wheelBase,
-                  frontTread: res.data.data.resultInfo.frontTread,
-                  rearTread: res.data.data.resultInfo.rearTread,
-                  crossWeight: res.data.data.resultInfo.crossWeight,
-                  curbWeight: res.data.data.resultInfo.curbWeight,
-                  loadWeight: res.data.data.resultInfo.loadWeight,
-                  plateType: res.data.data.resultInfo.plateType,
-                  plateNumber: res.data.data.resultInfo.plateNumber,
-                  pageNum: res.data.pageNum,
-                  pageSize: res.data.pageSize,
-                  status: '未查得数据'
-                };
-              }
+                window.open(res.data.url);
             } else {
               vm.$message({
                 showClose: true,
