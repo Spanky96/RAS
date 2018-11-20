@@ -2586,7 +2586,7 @@
       },
       getSix: function () {
         var vm = this;
-        vm.$refs["inputForm"].validate(valid => {
+        vm.$refs["inputFrom"].validate(valid => {
           if (valid) {
             const loading = vm.$loading({
               lock: true,
@@ -2597,7 +2597,7 @@
             vm.$http
               .get("api/rip/enterpriseLitigationInquiryC", {
                 params: {
-                  name: vm.inputForm.entname,
+                  name: vm.inputFrom.entname,
                   pageIndex: 1
                 },
                 headers: {
