@@ -3,7 +3,7 @@
     <div class="login-info"></div>
     <div class="login-border animated fadeInRight">
       <div class="login-main">
-        <h4 class="login-title">欢&nbsp;迎&nbsp;登&nbsp;录1
+        <h4 class="login-title">欢&nbsp;迎&nbsp;登&nbsp;录
         </h4>
         <div class="el-tabs el-tabs--top">
           <div class="el-tabs__header is-top">

@@ -127,7 +127,7 @@ export default {
               authorization: vm.$db.get('authorization')
             }}).then(function (res) {
             if (res.data.code == '000000') {
-                if (res.data.retData) {
+                if (res.data.retData.length > 0) {
                   vm.result = {
                     example: false,
                     resultType: '0000',
@@ -138,7 +138,7 @@ export default {
                     vm.result = {
                     example: false,
                     resultType: '0000',
-                     status: '数据不存在',
+                     status: '数据为空',
                     retData: res.data.retData
                   };
                 }
@@ -147,7 +147,7 @@ export default {
                 showClose: true,
                 message: res.data.msg,
                 type: 'error',
-                duration: '5000'
+                duration: '7000'
               });
             }
             loading.close();

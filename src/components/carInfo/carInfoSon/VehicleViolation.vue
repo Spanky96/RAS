@@ -82,7 +82,6 @@ export default {
             }
             }).then(function (res) {
             if (res.data.return_code == '0' && res.data.url) {
-                debugger;
                 vm.result = {
                   example: false,
                   resultType: '0000',

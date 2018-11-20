@@ -105,7 +105,7 @@ export default {
             params: {
               entname: vm.inputFrom.entname,
               creditCode: vm.inputFrom.creditCode,
-              dataType: '5'
+              dataType: '6'
             },
             headers: {
               authorization: vm.$db.get('authorization')
