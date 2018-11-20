@@ -78,7 +78,7 @@
               <tr class="text-left">
                 <td colspan="2"><el-tag round size="mini">{{index + 1}}</el-tag> {{dataTypeChange(ret.dataType)}}</td>
               </tr>
-              <tr class="text-left resultRows" v-for="(v,k) in ret" :key="k">
+              <tr class="text-left resultRows" v-for="(v,k) in ret" :key="k" v-if="k != 'id'">
                 <td class="mytd" width="25%">{{getKeyName(ret.dataType, k)}}</td>
                 <td class="mytd">{{tuomin((v || '&nbsp;'), k)}}</td>
               </tr>

@@ -55,11 +55,15 @@
         </tr>
         <tr class="text-left">
           <td>地区</td>
-          <td>{{CodeToText[result.AreaCode[0]]}},{{CodeToText[result.AreaCode[1]]}}</td>
+          <td>{{CodeToText[result.AreaCode]}}</td>
         </tr>
         <tr class="text-left">
           <td>手机运营商位置情况</td>
           <td>{{handleCheckResult(result.CheckResult)}}</td>
+        </tr>
+        <tr class="text-left" v-if="result.resultType == '3'">
+          <td>报错信息</td>
+          <td>{{result.errorMsg}}</td>
         </tr>
         
       </table>
@@ -89,8 +93,9 @@ export default {
         resultType: '0000',
         Mobile: '15201204367',
         status: '数据存在',
-        AreaCode: ["110000", "110100"],
-        CheckResult: '0'
+        AreaCode: "110000",
+        CheckResult: '0',
+        errorMsg: '系统错误'
       }
     };
   },
@@ -113,7 +118,8 @@ export default {
             headers: {
               authorization: vm.$db.get('authorization')
             }}).then(function (res) {
-            if (res.data.error_code == '0') {
+            if (res.data.error_code == 0) {
+              debugger;
               if (res.data.result) {
                 vm.result = {
                     example: false,
@@ -126,17 +132,24 @@ export default {
               } else {
                 vm.result = {
                     example: false,
-                    resultType: '0000',
-                    status: '无数据'
+                    resultType: '3',
+                    status: '无数据',
+                    errorMsg: res.data.reason
                   };
               }
             } else {
-              vm.$message({
-                showClose: true,
-                message: res.data.errorDesc,
-                type: 'error',
-                duration: '5000'
-              });
+              vm.result = {
+                    example: false,
+                    resultType: '3',
+                    status: '无数据',
+                    errorMsg: res.data.reason
+                  };
+              // vm.$message({
+              //   showClose: true,
+              //   message: res.data.reason,
+              //   type: 'error',
+              //   duration: '5000'
+              // });
             }
             loading.close();
           });
