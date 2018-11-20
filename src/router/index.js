@@ -242,6 +242,11 @@ export default new Router({
           component: resolve => require(['@/components/carInfo/carInfoSon/LicenseDeductMarks'], resolve)
         },
         {
+          path: 'carInfo/carInfoSon/VehicleViolation',
+          name: 'VehicleViolation',
+          component: resolve => require(['@/components/carInfo/carInfoSon/VehicleViolation'], resolve)
+        },
+        {
           path: 'comprehensiveReport/comprehensiveReportSon/Enterprise',
           name: 'Enterprise',
           component: resolve => require(['@/components/comprehensiveReport/comprehensiveReportSon/Enterprise'], resolve)
