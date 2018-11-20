@@ -42,7 +42,7 @@
         </tr>
         <tr class="inner-table">
           <td colspan="2" style="padding: 0;">
-            <table class="table" v-html="$FU.getHtmlByKvsFromObj(assetsInfoKvs, result.data.assetsInfo)"></table>
+            <table class="table" v-html="$FU.getHtmlByKvsFromObjTm(assetsInfoKvs, result.data.assetsInfo, [], moneyFmt)"></table>
           </td>  
         </tr>
         <!-- ------------------------------------  -->
@@ -64,7 +64,7 @@
           <td colspan="2">交易信息</td>
         </tr>
         <tr class="inner-table">
-          <td colspan="2" style="padding: 0;"><table v-html="$FU.arrayInfo2HtmlV2(result.data.tradeInfo, tradeInfoKvs)" class="table"></table></td>
+          <td colspan="2" style="padding: 0;"><table v-html="$FU.arrayInfo2HtmlV3(result.data.tradeInfo, tradeInfoKvs, [], moneyFmt)" class="table"></table></td>
         </tr>
       </table>
     </el-card>
@@ -77,6 +77,17 @@ export default {
   components: {
   },
   data () {
+    const moneyFmt = {
+      "totalAssets": this.$FU.moneyF2Y,
+      "amount": this.$FU.moneyF2Y,
+      "yuEBao": this.$FU.moneyF2Y,
+      "zhaoCaiBao": this.$FU.moneyF2Y,
+      "fund": this.$FU.moneyF2Y,
+      "cunJinBao": this.$FU.moneyF2Y,
+      "taoBaoLiCai": this.$FU.moneyF2Y,
+      "huabeiAvailableLimit": this.$FU.moneyF2Y,
+      "huabeiLimit": this.$FU.moneyF2Y
+    };
     const basicInfoKvs = {
       "accoutName": "用户名",
       "registerDate": "注册时间",
@@ -174,6 +185,7 @@ export default {
           }]
         }
       },
+      moneyFmt,
       loading: false,
       btnText: "执行查询",
       tryAgain: 0,

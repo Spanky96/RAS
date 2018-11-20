@@ -1,5 +1,10 @@
 // 默认需要脱敏的字段
 const needTm = ['name', 'identityNo', 'mobile', 'callNum'];
+// 分换元
+function moneyF2Y (v) {
+  var y = v / 100;
+  return v == '' || isNaN(y) ? '--' : y.toFixed(2);
+}
 // 脱敏
 function handShortStr (val) {
   return (new Array(val.length)).join("*") + val.slice(-1);
@@ -32,22 +37,24 @@ var getTmValue = function (k, v, tmArr) {
 };
 export default {
   // 下面是 结果转表单
-  objectInfo2Html: function (basicInfo, kvs) {
+  objectInfo2Html: function (basicInfo, kvs, format) {
     var html = "";
     let index = 0;
     var keys = Object.keys(basicInfo);
     for (let i in kvs) {
+      let v = basicInfo[i];
+      format && format[i] && (v = format[i](v));
       if (index % 2) {
         html += `
               <td width="20%">${kvs[i]}</td>
-              <td width="30%">${basicInfo[i]}</td>
+              <td width="30%">${v}</td>
               </tr>
             `;
       } else {
         html += `
           <tr class="text-left">
             <td width="20%">${kvs[i]}</td>
-            <td width="30%">${basicInfo[i]}</td>
+            <td width="30%">${v}</td>
         `;
         if (index == keys.length - 1) {
           html += '<td></td><td></td></tr>';
@@ -180,5 +187,6 @@ export default {
     } else {
       return arr.join(",");
     }
-  }
+  },
+  moneyF2Y
 };

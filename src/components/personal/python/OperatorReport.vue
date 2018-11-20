@@ -177,7 +177,7 @@
         </tr>
         <tr class="inner-table">
           <td colspan="4" style="padding: 0;">
-            <table class="table" v-html="$FU.getHtmlByKvsFromObjTm(basicInfoKvs, result.data.basicInfo)"></table>
+            <table class="table" v-html="$FU.getHtmlByKvsFromObj(basicInfoKvs, result.data.basicInfo)"></table>
           </td>  
         </tr>
         <!-- ------------------------------------  -->
@@ -189,7 +189,7 @@
         </tr>
         <tr class="inner-table" v-for="(contact, index) in result.data.contactInfo" :key="index">
           <td colspan="4" style="padding: 0;">
-            <table class="table" v-html="$FU.getHtmlByKvsFromObjTm(contactInfoKvs, contact, null, operatorValueFmt)">
+            <table class="table" v-html="$FU.getHtmlByKvsFromObjTm(contactInfoKvs, contact, [], operatorValueFmt)">
             </table>
           </td>  
         </tr>
@@ -335,7 +335,7 @@
         </tr>
         <tr class="inner-table">
           <td colspan="4" style="padding: 0;">
-            <table class="table" v-html="$FU.arrayInfo2HtmlV2(result.data.activeCallAnalysis, activeCallAnalysisKvs)"></table>
+            <table class="table" v-html="$FU.arrayInfo2HtmlV3(result.data.activeCallAnalysis, activeCallAnalysisKvs, [], activeCallValueFmt)"></table>
           </td>  
         </tr>
         <!-- ------------------------------------  -->
@@ -352,7 +352,7 @@
         </tr>
         <tr class="inner-table">
           <td colspan="4" style="padding: 0;">
-            <table class="table" v-html="$FU.arrayInfo2HtmlV3(result.data.callDurationAnalysis, callDurationAnalysisKvs, ['freqContactNum'])"></table>
+            <table class="table" v-html="$FU.arrayInfo2HtmlV2(result.data.callDurationAnalysis, callDurationAnalysisKvs)"></table>
           </td>  
         </tr>
         <!-- ------------------------------------  -->
@@ -397,7 +397,7 @@
         </tr>
         <tr class="inner-table">
           <td colspan="4" style="padding: 0;">
-            <table class="table" v-html="$FU.arrayInfo2HtmlV3(result.data.contactAnalysis, contactAnalysisKvs, null, operatorValueFmt)"></table>
+            <table class="table" v-html="$FU.arrayInfo2HtmlV3(result.data.contactAnalysis, contactAnalysisKvs, [], operatorValueFmt)"></table>
           </td>  
         </tr>
         <!-- ------------------------------------  -->
@@ -492,10 +492,10 @@ export default {
       },
       callProfile: {
         "avgCallCnt": "日均通话次数",
-        "avgCallTime": "日均通话时长(m) ",
+        "avgCallTime": "日均通话时长(s) ",
         "silenceCnt": "静默次数",
         "nightCallCnt": "夜间通话次数",
-        "nightCallTime": "夜间平均通话时长"
+        "nightCallTime": "夜间平均通话时长(s)"
       },
       consumptionProfile: {"avgFeeMonth": "月均消费"}
     };
@@ -509,7 +509,7 @@ export default {
       "locCallPct": "本地通话占比"
     };
     const activeCallAnalysisKvs = {
-      "desc": "项目",
+      "item": "项目",
       "lately1m": "近 1 月",
       "lately3m": "近 3 月",
       "lately6m": "近 6 月",
@@ -521,7 +521,7 @@ export default {
       "longestSilenceStart": "最长一次静默开始时间",
       "longestSilenceTime": "最长一次静默时长(s)",
       "lastSilenceStart": "最近一次静默开始时间",
-      "lastSilenceTime": "最近一次静默时长"
+      "lastSilenceTime": "最近一次静默时长(s)"
     };
     const callDurationAnalysisKvs = {
       "desc": "项目",
@@ -557,11 +557,33 @@ export default {
       "attribution": "通话地",
       "callCnt": "通话次数",
       "callNumCnt": "通话号码数",
-      "callTime": "通话时长",
+      "callTime": "通话时长(s)",
       "callingCnt": "主叫次数",
       "callingTime": "主叫时长(s)",
       "calledCnt": "被叫次数",
       "calledTime": "被叫时长(s)"
+    };
+    const activeCallItemKvs = {
+      active_day: '通话活跃天数',
+      call_cnt: '通话次数',
+      call_time: '通话时长(s)',
+      calling_cnt: '主叫次数',
+      calling_time: '主叫时长(s)',
+      called_cnt: '被叫叫次数',
+      called_time: '被叫时长(s)',
+      max_single_call_time: '单次通话最长时长(s)',
+      min_single_call_time: '单次通话最短时长(s)',
+      avg_single_call_time: '单次通话平均时长(s)',
+      call_time_1min_below_cnt_pct: '时长在1分钟内通话次数占比',
+      call_time_1min_3min_cnt_pct: '时长在1-3分钟内通话次数占比',
+      call_time_3min_10min_cnt_pct: '时长在3-10分钟内通话次数占比',
+      call_time_10min_over_cnt_pct: '时长在10分钟以上通话次数占比',
+      sms_cnt: '短信条数'
+    };
+    const activeCallValueFmt = {
+      item: function (v) {
+        return activeCallItemKvs[v] || '未知项';
+      }
     };
     const operatorValueFmt = {
       isHitRiskList: function (v) {
@@ -577,7 +599,7 @@ export default {
       "callTag": "电话标记",
       "attribution": "归属地",
       "callCnt": "通话次数",
-      "callTime": "通话时长",
+      "callTime": "通话时长(s)",
       "callingCnt": "主叫次数",
       "callingTime": "主叫时长(s)",
       "calledCnt": "被叫次数",
@@ -624,8 +646,8 @@ export default {
             "reportNo": "20181115203616017978"
           },
           "basicInfo": {
-            "name": "金春洋",
-            "identityNo": "320219199606286774",
+            "name": "金*洋",
+            "identityNo": "320***********6774",
             "gender": "男",
             "age": "22",
             "mobile": "18795905639",
@@ -633,9 +655,9 @@ export default {
             "nativeAddress": ""
           },
           "contactInfo": [{
-            "name": "金世宽", 
-            "mobile": "13915256527", 
-            "identityNo": "320281199606286770",  
+            "name": "金*宽", 
+            "mobile": "139****6527", 
+            "identityNo": "320***********6770",  
             "relationship": "FATHER",  
             "callCnt": "1",  
             "callTime": "1",  
@@ -643,8 +665,8 @@ export default {
             "isHitRiskList": "1" 
           }],
           "relationInfo": {
-            "identiyNos": ['320281199606286770', '320219196311106774'],
-            "mobiles": ['13815214445', '13815244446'],
+            "identiyNos": ['320***********6770', '320***********6774'],
+            "mobiles": ['138****4445', '138****4446'],
             "homeAddresses": ['昆山美好家园5']
           },
           "personas": {
@@ -865,7 +887,7 @@ export default {
             "desc": "05:30-08:30",
             "callCnt": "2",
             "callNumCnt": "2",
-            "freqContactNum": "18915256527",
+            "freqContactNum": "189****6527",
             "freqContactNumCnt": "1",
             "avgCallTime": "24",
             "callingCnt": "1",
@@ -877,7 +899,7 @@ export default {
             "desc": "08:30-17:30",
             "callCnt": "91",
             "callNumCnt": "68",
-            "freqContactNum": "18915256527",
+            "freqContactNum": "189****6527",
             "freqContactNumCnt": "6",
             "avgCallTime": "40",
             "callingCnt": "9",
@@ -889,7 +911,7 @@ export default {
             "desc": "17:30-19:30",
             "callCnt": "22",
             "callNumCnt": "14",
-            "freqContactNum": "13961631698",
+            "freqContactNum": "139****1698",
             "freqContactNumCnt": "4",
             "avgCallTime": "27",
             "callingCnt": "6",
@@ -943,7 +965,7 @@ export default {
             "contentDesc": "近6个月联系号码数"
           }],
           "contactAnalysis": [{
-            "callNum": "051086417115",
+            "callNum": "0510****7115",
             "callTag": "未知",
             "isHitRiskList": "0",
             "attribution": "",
@@ -956,7 +978,7 @@ export default {
             "lastStart": "2018-08-01 16:41:04",
             "lastTime": "71"
           }, {
-            "callNum": "13636678382",
+            "callNum": "136****8382",
             "callTag": "未知",
             "isHitRiskList": "1",
             "attribution": "上海",
@@ -969,7 +991,7 @@ export default {
             "lastStart": "2018-07-02 19:08:26",
             "lastTime": "16"
           }, {
-            "callNum": "051086191888",
+            "callNum": "0510****1888",
             "callTag": "未知",
             "isHitRiskList": "0",
             "attribution": "",
@@ -982,7 +1004,7 @@ export default {
             "lastStart": "2018-11-14 08:40:37",
             "lastTime": "34"
           }, {
-            "callNum": "15190358642",
+            "callNum": "151****8642",
             "callTag": "未知",
             "isHitRiskList": "0",
             "attribution": "江苏",
@@ -995,7 +1017,7 @@ export default {
             "lastStart": "2018-11-13 11:33:24",
             "lastTime": "4"
           }, {
-            "callNum": "13373611213",
+            "callNum": "133****1213",
             "callTag": "未知",
             "isHitRiskList": "0",
             "attribution": "江苏",
@@ -1008,7 +1030,7 @@ export default {
             "lastStart": "2018-11-02 11:26:42",
             "lastTime": "5"
           }, {
-            "callNum": "18721140001",
+            "callNum": "187****0001",
             "callTag": "未知",
             "isHitRiskList": "0",
             "attribution": "上海",
@@ -1021,7 +1043,7 @@ export default {
             "lastStart": "2018-10-08 16:19:53",
             "lastTime": "32"
           }, {
-            "callNum": "18036868480",
+            "callNum": "180****8480",
             "callTag": "未知",
             "isHitRiskList": "0",
             "attribution": "江苏",
@@ -1034,7 +1056,7 @@ export default {
             "lastStart": "2018-09-27 13:21:41",
             "lastTime": "49"
           }, {
-            "callNum": "15706298178",
+            "callNum": "157****8178",
             "callTag": "未知",
             "isHitRiskList": "0",
             "attribution": "江苏",
@@ -1047,7 +1069,7 @@ export default {
             "lastStart": "2018-08-11 18:59:02",
             "lastTime": "33"
           }, {
-            "callNum": "18549854485",
+            "callNum": "185****4485",
             "callTag": "未知",
             "isHitRiskList": "0",
             "attribution": "江苏",
@@ -1059,32 +1081,6 @@ export default {
             "calledTime": "38",
             "lastStart": "2018-08-07 11:51:32",
             "lastTime": "11"
-          }, {
-            "callNum": "02510086",
-            "callTag": "移动营业厅(清凉门大街店)",
-            "isHitRiskList": "0",
-            "attribution": "",
-            "callCnt": "1",
-            "callTime": "34",
-            "callingCnt": "0",
-            "callingTime": "0",
-            "calledCnt": "1",
-            "calledTime": "34",
-            "lastStart": "2018-10-19 20:59:11",
-            "lastTime": "34"
-          }, {
-            "callNum": "095187",
-            "callTag": "未知",
-            "isHitRiskList": "0",
-            "attribution": "",
-            "callCnt": "1",
-            "callTime": "66",
-            "callingCnt": "0",
-            "callingTime": "0",
-            "calledCnt": "1",
-            "calledTime": "66",
-            "lastStart": "2018-10-17 16:37:28",
-            "lastTime": "66"
           }],
           "callAreaAnalysis": [{
             "attribution": "无锡",
@@ -1206,7 +1202,8 @@ export default {
       socialContactAnalysisKvs,
       callAreaAnalysisKvs,
       contactAnalysisKvs,
-      operatorValueFmt
+      operatorValueFmt,
+      activeCallValueFmt
     };
   },
   methods: {
