@@ -169,7 +169,7 @@ export default {
               authorization: vm.$db.get('authorization')
             }}).then(function (res) {
             if (res.data.code == '000000') {
-                if (res.data.retData) {
+                if (res.data.retData.length > 0) {
                   vm.result = {
                     example: false,
                     resultType: '0000',
