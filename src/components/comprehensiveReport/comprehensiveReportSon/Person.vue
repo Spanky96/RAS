@@ -1071,27 +1071,6 @@
                                 </td>
                             </tr>
                         </table>
-                        <table class="table card-text" v-if="exearr.exe17">
-                            <tr class="text-left">
-                                <el-tag>消费等级</el-tag>
-                            </tr>
-                            <tr class="text-left">
-                                <td>姓名</td>
-                                <td>{{resultData.sourcetArr4[0].name | handleName}}</td>
-                            </tr>
-                            <tr class="text-left">
-                                <td>身份证号码</td>
-                                <td>{{resultData.sourcetArr4[0].idNumber | handleIdCard}}</td>
-                            </tr>
-                            <tr class="text-left">
-                                <td>消费等级</td>
-                                <td>{{resultData.sourcetArr4[0].consumptionGrade}}</td>
-                            </tr>
-                            <tr class="text-left">
-                                <td>消费区间</td>
-                                <td>{{resultData.sourcetArr4[0].consumptionInterval}}</td>
-                            </tr>
-                        </table>
                         <table class="table card-text" v-if="exearr.exe18">
                             <tr>
                                 <td>
@@ -2323,37 +2302,6 @@ export default {
 
         const sourcetArr4 = [
             {
-                id: "0",
-                name: "消费等级",
-                params: ["name", "idCard"],
-                apiUrl: "api/rip/queryOfConsumptionLevel",
-                keyMap: {
-                    name: "name",
-                    idCard: "idCard"
-                },
-                callBack: function (res, id) {
-                    if (res.data.success) {
-                        vm.$set(vm.resultData.sourcetArr4, id, {
-                            example: false,
-                            resultType: "0000",
-                            name: res.data.data.name,
-                            idNumber: res.data.data.identityCard,
-                            consumptionGrade: res.data.data.consumptionGrade,
-                            consumptionInterval:
-                                res.data.data.consumptionInterval
-                        });
-                        vm.exearr.exe17 = true;
-                    } else {
-                        vm.$message({
-                            showClose: true,
-                            message: res.data.errorDesc,
-                            type: "error",
-                            duration: "5000"
-                        });
-                    }
-                }
-            },
-            {
                 id: "1",
                 name: "资产令牌",
                 params: ["name", "mobile", "idCard"],
@@ -2470,14 +2418,14 @@ export default {
                                     res.data.data.flightInfoDetail.flyTotalKm
                             });
                         } else if (res.data.data.status == "NO_DATA") {
-                            vm.result = {
+                             vm.$set(vm.resultData.sourcetArr4, id, {
                                 example: false,
                                 resultType: "0000",
                                 status: "无数据",
                                 identityValid: res.data.data.idCardValidator,
                                 name: res.data.data.name,
                                 idCard: res.data.data.idcard
-                            };
+                            });
                         }
                     } else {
                         vm.$message({
@@ -3366,7 +3314,6 @@ export default {
                 exe14: false,
                 exe15: false,
                 exe16: false,
-                exe17: false,
                 exe18: false,
                 exe19: false,
                 exe20: false
@@ -3374,6 +3321,20 @@ export default {
         };
     },
     watch: {
+        sons: function (val) {
+           if (val.includes('sons1') == false) {
+               this.inputForm.sourcet.sourcetArr1 = [];
+           }
+           if (val.includes('sons2') == false) {
+               this.inputForm.sourcet.sourcetArr2 = [];
+           }
+           if (val.includes('sons3') == false) {
+               this.inputForm.sourcet.sourcetArr3 = [];
+           }
+           if (val.includes('sons3') == false) {
+               this.inputForm.sourcet.sourcetArr3 = [];
+           }
+        },
         pokerHistory: function (val) {
             this.exearr = {
                 exe1: false,
