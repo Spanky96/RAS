@@ -504,32 +504,44 @@
                                 <td>是否在逃(用户选择)</td>
                                 <td>{{resultData.sourcetArr3[1].escape | isOrNoFmt}}</td>
                                 <td>比对结果</td>
-                                <td>
+                                <td v-if="resultData.sourcetArr3[1].escapeCompared != undefined">
                                     <el-tag :type="resultData.sourcetArr3[1].escapeCompared | fuckyizhi">{{resultData.sourcetArr3[1].escapeCompared}}</el-tag>
+                                </td>
+                                <td v-else>
+                                     <el-tag type="danger">不一致</el-tag>
                                 </td>
                             </tr>
                             <tr class="text-left">
                                 <td>是否有前科(用户选择)</td>
                                 <td>{{resultData.sourcetArr3[1].crime | isOrNoFmt}}</td>
                                 <td>比对结果</td>
-                                <td>
+                                <td v-if="resultData.sourcetArr3[1].crimeCompared != undefined">
                                     <el-tag :type="resultData.sourcetArr3[1].crimeCompared | fuckyizhi">{{resultData.sourcetArr3[1].crimeCompared}}</el-tag>
+                                </td>
+                                <td v-else>
+                                     <el-tag type="danger">不一致</el-tag>
                                 </td>
                             </tr>
                             <tr class="text-left">
                                 <td>是否吸毒(用户选择)</td>
                                 <td>{{resultData.sourcetArr3[1].drug | isOrNoFmt}}</td>
                                 <td>比对结果</td>
-                                <td>
+                                <td v-if="resultData.sourcetArr3[1].drugCompared != undefined">
                                     <el-tag :type="resultData.sourcetArr3[1].drugCompared | fuckyizhi">{{resultData.sourcetArr3[1].drugCompared}}</el-tag>
+                                </td>
+                                <td v-else>
+                                     <el-tag type="danger">不一致</el-tag>
                                 </td>
                             </tr>
                             <tr class="text-left">
                                 <td>是否涉毒(用户选择)</td>
                                 <td>{{resultData.sourcetArr3[1].drugRelated | isOrNoFmt}}</td>
                                 <td>比对结果</td>
-                                <td>
+                                <td v-if="resultData.sourcetArr3[1].drugRelatedCompared != undefined">
                                     <el-tag :type="resultData.sourcetArr3[1].drugRelatedCompared | fuckyizhi">{{resultData.sourcetArr3[1].drugRelatedCompared}}</el-tag>
+                                </td>
+                                <td v-else>
+                                     <el-tag type="danger">不一致</el-tag>
                                 </td>
                             </tr>
                             <tr class="text-left">
@@ -2045,6 +2057,7 @@ export default {
                 },
                 callBack: function (res, id) {
                     if (res.data.success && res.data.data) {
+                        vm.exearr.exe11 = true;
                         if (res.data.data.status == "EXIST") {
                             vm.$set(vm.resultData.sourcetArr2, id, {
                                 example: false,
@@ -2057,7 +2070,6 @@ export default {
                                 gradeDesc: res.data.data.gradeDesc,
                                 status: "数据存在"
                             });
-                            vm.exearr.exe11 = true;
                         } else if (res.data.data.status == "NO_DATA") {
                             vm.$set(vm.resultData.sourcetArr2, id, {
                                 example: false,
@@ -2132,6 +2144,7 @@ export default {
                 },
                 callBack: function (res, id) {
                     if (res.data.success && res.data.data) {
+                         vm.exearr.exe13 = true;
                         if (res.data.data.status == "EXIST") {
                             vm.$set(vm.resultData.sourcetArr3, id, {
                                 example: false,
@@ -2146,13 +2159,12 @@ export default {
                                 crimeCompared: res.data.data.crimeCompared,
                                 drugCompared: res.data.data.drugCompared,
                                 drugRelatedCompared:
-                                    res.data.data.drugRelatedCompared,
+                                res.data.data.drugRelatedCompared,
                                 checkCount: res.data.data.checkCount,
                                 caseTime: res.data.data.caseTime,
                                 caseType: res.data.data.caseType,
                                 status: "数据存在"
                             });
-                            vm.exearr.exe13 = true;
                         } else if (res.data.data.status == "NO_DATA") {
                             vm.$set(vm.resultData.sourcetArr3, id, {
                                 example: false,
@@ -2167,7 +2179,7 @@ export default {
                                 crimeCompared: res.data.data.crimeCompared,
                                 drugCompared: res.data.data.drugCompared,
                                 drugRelatedCompared:
-                                    res.data.data.drugRelatedCompared,
+                                res.data.data.drugRelatedCompared,
                                 checkCount: res.data.data.checkCount,
                                 caseTime: res.data.data.caseTime,
                                 caseType: res.data.data.caseType,
@@ -2687,10 +2699,10 @@ export default {
                 bankCardNo: "",
                 beginDate: "",
                 AreaCode: [],
-                escape: "false",
-                crime: "false",
-                drug: "false",
-                drugRelated: "false",
+                escape: "true",
+                crime: "true",
+                drug: "true",
+                drugRelated: "true",
                 pageIndex: "1",
                 month: "请选择",
                 passportNo: ""

@@ -12,7 +12,7 @@
             </el-form-item>
           </el-col>
           <el-col :span="10">
-            <el-form-item label="城市行政编码" label-width="0" prop="AreaCode" class="form-item">
+            <el-form-item label="城市行政编码" label-width="0" class="form-item">
             <el-cascader
                 size="large"
                 :options="options"

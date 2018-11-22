@@ -175,7 +175,7 @@
             </table>
           </td>
         </tr>
-         <tr v-if="resultArr.shareholder!=[]">
+         <tr v-if="resultArr.shareholder.length != 0">
           <td colspan="2">
             <table class="table card-text">
               <tr class="text-left">
@@ -207,7 +207,7 @@
                 <td class="mytd"></td>
               </tr>
               </table>
-              <table class="table card-text">
+              <table class="table card-text" v-if="resultArr.shareholder.length != 0">
                   <tr class="text-left">
                     <td class="mytd" width="20%">股东总数量 : </td>
                     <td class="mytd">{{resultArr.shareholder[0].invaMount}}</td>
@@ -216,7 +216,7 @@
             </table>
           </td>
         </tr>
-         <tr v-if="resultArr.shareholderPersons!=[]">
+         <tr v-if="resultArr.shareholderPersons.length != 0">
           <td colspan="2">
             <table class="table card-text">
               <tr class="text-left">
@@ -236,7 +236,7 @@
                 <td class="mytd"></td>
               </tr>
               </table>
-              <table class="table card-text">
+              <table class="table card-text" v-if="resultArr.shareholderPersons.length != 0">
                   <tr class="text-left">
                     <td class="mytd" width="20%">总人数 : </td>
                     <td class="mytd">{{resultArr.shareholderPersons[0].personAmount}}</td>
@@ -245,7 +245,7 @@
             </table>
           </td>
         </tr>
-        <tr v-if="resultArr.legalPersonInvests!=[]">
+        <tr v-if="resultArr.legalPersonInvests.length != 0">
           <td colspan="2">
             <table class="table card-text">
               <tr class="text-left">
@@ -301,7 +301,7 @@
                 <td class="mytd">{{ret.postCode}}</td>
               </tr>
               </table>
-              <table class="table card-text">
+              <table class="table card-text" v-if="resultArr.legalPersonInvests.length != 0">
                   <tr class="text-left">
                      <td class="mytd" width="20%">企业总数量 ：</td>
                      <td class="mytd">{{resultArr.legalPersonInvests[0].entAmount}}</td>
@@ -312,7 +312,7 @@
             </table>
           </td>
         </tr>
-        <tr v-if="resultArr.legalPersonPostions!=[]">
+        <tr v-if="resultArr.legalPersonPostions.length != 0">
           <td colspan="2">
             <table class="table card-text">
               <tr class="text-left">
@@ -362,7 +362,7 @@
                 <td class="mytd">{{ret.postCode}}</td>
               </tr>
               </table>
-              <table class="table card-text">
+              <table class="table card-text" v-if="resultArr.legalPersonPostions.length != 0">
                   <tr class="text-left">
                      <td class="mytd" width="20%">企业总数量 ：</td>
                      <td class="mytd">{{resultArr.legalPersonPostions[0].entAmount}}</td>
@@ -373,7 +373,7 @@
             </table>
           </td>
         </tr>
-        <tr v-if="resultArr.enterpriseInvests!=[]">
+        <tr v-if="resultArr.enterpriseInvests.length != 0">
           <td colspan="2">
             <table class="table card-text">
               <tr class="text-left">
@@ -436,7 +436,7 @@
               </tr>
               
               </table>
-              <table class="table card-text">
+              <table class="table card-text" v-if="resultArr.enterpriseInvests.length != 0">
                   <tr class="text-left">
                      <td class="mytd" width="20%">企业总数量 ：</td>
                      <td class="mytd">{{resultArr.enterpriseInvests[0].binvvAmount}}</td>
@@ -447,7 +447,7 @@
             </table>
           </td>
         </tr>
-        <tr v-if="resultArr.alterInfos!=[]">
+        <tr v-if="resultArr.alterInfos.length != 0">
           <td colspan="2">
             <table class="table card-text">
               <tr class="text-left">
@@ -470,7 +470,7 @@
             </table>
           </td>
         </tr>
-        <tr v-if="resultArr.filiations!=[]">
+        <tr v-if="resultArr.filiations.length != 0">
           <td colspan="2">
             <table class="table card-text">
               <tr class="text-left">
@@ -505,7 +505,7 @@
             </table>
           </td>
         </tr>
-         <tr v-if="resultArr.morguaInfos!=[]">
+         <tr v-if="resultArr.morguaInfos.length != 0">
           <td colspan="2">
             <table class="table card-text">
               <tr class="text-left">
@@ -534,7 +534,7 @@
             </table>
           </td>
         </tr>
-         <tr v-if="resultArr.punishBreaks!=[]">
+         <tr v-if="resultArr.punishBreaks.length != 0">
           <td colspan="2">
             <table class="table card-text">
               <tr class="text-left">
@@ -611,7 +611,7 @@
             </table>
           </td>
         </tr>
-        <tr v-if="resultArr.punished!=[]">
+        <tr v-if="resultArr.punished.length != 0">
           <td colspan="2">
             <table class="table card-text">
               <tr class="text-left">
@@ -658,7 +658,7 @@
             </table>
           </td>
         </tr>
-           <tr v-if="resultArr.sharesFrosts!=[]">
+           <tr v-if="resultArr.sharesFrosts.length != 0">
           <td colspan="2">
             <table class="table card-text">
               <tr class="text-left">
@@ -699,7 +699,7 @@
             </table>
           </td>
         </tr>
-        <tr v-if="resultArr.liquidations!=[]">
+        <tr v-if="resultArr.liquidations.length != 0">
           <td colspan="2">
             <table class="table card-text">
               <tr class="text-left">
@@ -740,7 +740,7 @@
             </table>
           </td>
         </tr>
-        <tr v-if="resultArr.caseInfos!=[]">
+        <tr v-if="resultArr.caseInfos.length != 0">
           <td colspan="2">
             <table class="table card-text">
               <tr class="text-left">
@@ -763,7 +763,7 @@
             </table>
           </td>
         </tr>
-        <tr v-if="resultArr.mortgageAlter!=[]">
+        <tr v-if="resultArr.mortgageAlter.length != 0">
           <td colspan="2">
             <table class="table card-text">
               <tr class="text-left">
@@ -786,7 +786,7 @@
             </table>
           </td>
         </tr>
-        <tr v-if="resultArr.mortgageCancels!=[]">
+        <tr v-if="resultArr.mortgageCancels.length != 0">
           <td colspan="2">
             <table class="table card-text">
               <tr class="text-left">
@@ -809,7 +809,7 @@
             </table>
           </td>
         </tr>
-        <tr v-if="resultArr.mortgageDebtors!=[]">
+        <tr v-if="resultArr.mortgageDebtors.length != 0">
           <td colspan="2">
             <table class="table card-text">
               <tr class="text-left">
@@ -844,7 +844,7 @@
             </table>
           </td>
         </tr>
-         <tr v-if="resultArr.mortgagePersons!=[]">
+         <tr v-if="resultArr.mortgagePersons.length != 0">
           <td colspan="2">
             <table class="table card-text">
               <tr class="text-left">
@@ -873,7 +873,7 @@
             </table>
           </td>
         </tr>
-        <tr v-if="resultArr.mortgageRegisters!=[]">
+        <tr v-if="resultArr.mortgageRegisters.length != 0">
           <td colspan="2">
             <table class="table card-text">
               <tr class="text-left">
@@ -914,7 +914,7 @@
             </table>
           </td>
         </tr>
-        <tr v-if="resultArr.breakLaw!=[]">
+        <tr v-if="resultArr.breakLaw.length != 0">
           <td colspan="2">
             <table class="table card-text">
               <tr class="text-left">
@@ -949,7 +949,7 @@
             </table>
           </td>
         </tr>
-        <tr v-if="resultArr.exceptionLists!=[]">
+        <tr v-if="resultArr.exceptionLists.length != 0">
           <td colspan="2">
             <table class="table card-text">
               <tr class="text-left">
@@ -990,7 +990,7 @@
             </table>
           </td>
         </tr>
-       <tr v-if="resultArr.orgBasics!=[]">
+       <tr v-if="resultArr.orgBasics.length != 0">
           <td colspan="2">
             <table class="table card-text">
               <tr class="text-left">
@@ -1013,7 +1013,7 @@
             </table>
           </td>
         </tr>
-        <tr v-if="resultArr.orgDetails!=[]">
+        <tr v-if="resultArr.orgDetails.length != 0">
           <td colspan="2">
             <table class="table card-text">
               <tr class="text-left">
@@ -1060,7 +1060,7 @@
             </table>
           </td>
         </tr>
-        <tr v-if="resultArr.equityInfos!=[]">
+        <tr v-if="resultArr.equityInfos.length != 0">
           <td colspan="2">
             <table class="table card-text">
               <tr class="text-left">
@@ -1101,7 +1101,7 @@
             </table>
           </td>
         </tr>
-        <tr v-if="resultArr.equityChangeInfos!=[]">
+        <tr v-if="resultArr.equityChangeInfos.length != 0">
           <td colspan="2">
             <table class="table card-text">
               <tr class="text-left">
@@ -1124,7 +1124,7 @@
             </table>
           </td>
         </tr>
-          <tr v-if="resultArr.cancellationOfInfos!=[]">
+          <tr v-if="resultArr.cancellationOfInfos.length != 0">
           <td colspan="2">
             <table class="table card-text">
               <tr class="text-left">
@@ -1147,7 +1147,7 @@
             </table>
           </td>
         </tr>
-         <tr v-if="resultArr.tradeMarks!=[]">
+         <tr v-if="resultArr.tradeMarks.length != 0">
           <td colspan="2">
             <table class="table card-text">
               <tr class="text-left">

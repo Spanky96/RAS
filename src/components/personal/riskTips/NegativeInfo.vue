@@ -18,26 +18,34 @@
           </el-col>
           <el-col :span="10">
             <el-form-item label="是否在逃" label-width="0" prop="escape" class="form-item">
-              <el-radio v-model="inputFrom.escape" checked = "checked" label="true">是</el-radio>
-              <el-radio v-model="inputFrom.escape" label="false">否</el-radio>
+              <el-select v-model="inputFrom.escape">
+                  <el-option label="是" value="true"></el-option>
+                  <el-option label="否" value="false"></el-option>
+              </el-select>
             </el-form-item>
           </el-col>
           <el-col :span="10">
             <el-form-item label="是否有前科" label-width="0" prop="crime" class="form-item">
-              <el-radio v-model="inputFrom.crime" label="true">是</el-radio>
-              <el-radio v-model="inputFrom.crime" label="false">否</el-radio>
+              <el-select v-model="inputFrom.crime">
+                  <el-option label="是" value="true"></el-option>
+                  <el-option label="否" value="false"></el-option>
+              </el-select>
             </el-form-item>
           </el-col>
           <el-col :span="10">
             <el-form-item label="是否吸毒" label-width="0" prop="drug" class="form-item">
-              <el-radio v-model="inputFrom.drug" label="true">是</el-radio>
-              <el-radio v-model="inputFrom.drug" label="false">否</el-radio>
+              <el-select v-model="inputFrom.drug">
+                  <el-option label="是" value="true"></el-option>
+                  <el-option label="否" value="false"></el-option>
+              </el-select>
             </el-form-item>
           </el-col>
           <el-col :span="10">
             <el-form-item label="是否涉毒" label-width="0" prop="drugRelated" class="form-item">
-              <el-radio v-model="inputFrom.drugRelated" label="true">是</el-radio>
-              <el-radio v-model="inputFrom.drugRelated" label="false">否</el-radio>
+              <el-select v-model="inputFrom.drugRelated">
+                  <el-option label="是" value="true"></el-option>
+                  <el-option label="否" value="false"></el-option>
+              </el-select>
             </el-form-item>
           </el-col>
           </el-row>
@@ -142,8 +150,8 @@ export default {
         idCard: '320281199606286770',
         escape: 'true',
         crime: 'true',
-        drug: 'false',
-        drugRelated: 'false',
+        drug: 'true',
+        drugRelated: 'true',
         escapeCompared: '一致',
         crimeCompared: '不一致',
         drugCompared: '一致',

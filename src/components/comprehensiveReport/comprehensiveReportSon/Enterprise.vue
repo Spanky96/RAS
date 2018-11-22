@@ -266,7 +266,7 @@
                         <span class="color-r">高管信息</span>
                       </td>
                     </tr>
-                    <tr class="text-left resultRows">
+                    <tr class="text-left resultRows" v-if="resultArr.shareholderPersons.length != 0">
                       <td class="mytd" width="20%">姓名 ：</td>
                       <td class="mytd" width="20%">性别 ：</td>
                       <td class="mytd" width="20%">职位 ：</td>

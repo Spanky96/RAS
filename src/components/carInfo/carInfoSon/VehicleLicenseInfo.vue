@@ -40,7 +40,7 @@
           <td>车辆状态</td>
           <td>{{result.vehicleStatus}}</td>
           <td>车牌号</td>
-          <td>{{result.plateNumber}}</td>
+          <td>{{result.plateNumber | PlateNumber}}</td>
         </tr>
         <tr class="text-left">
           <td>号牌种类</td>

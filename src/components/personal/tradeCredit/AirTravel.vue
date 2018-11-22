@@ -21,13 +21,12 @@
               <el-cascader
               placeholder="请选择"
               :options="options"
-              v-model="inputFrom.month"
-              @change="handleChange">
+              v-model="inputFrom.month">
             </el-cascader>
             </el-form-item>
           </el-col>
           <el-col :span="10">
-            <el-form-item label="护照号(国际航班需要)" label-width="0" prop="passportNo" class="form-item">
+            <el-form-item label="护照号(国际航班需要)" label-width="0" class="form-item">
               <el-input v-model="inputFrom.passportNo"></el-input>
             </el-form-item>
           </el-col>
@@ -188,7 +187,8 @@ export default {
       },
       rules: {
         name: [{ required: true, message: '请输入姓名', trigger: 'blur' }],
-        idCard: [{ validator: this.$validator.idCardValidator, trigger: 'blur' }]
+        idCard: [{ validator: this.$validator.idCardValidator, trigger: 'blur' }],
+        month: [{ required: true, message: '请选择', trigger: 'blur' }]
       },
       result: {
         example: true,

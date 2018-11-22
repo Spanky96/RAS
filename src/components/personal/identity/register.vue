@@ -119,7 +119,7 @@
         </tr>
         <tr class="text-left">
           <td>身份一致性</td>
-          <td> <el-tag v-if='result.compareStatus' :type="result.compareStatus | tagtype" class="tag">{{result.compareStatus}}</el-tag></td>
+          <td> <el-tag v-if='result.compareStatus' :type="result.compareStatus | tagtype" class="tag">{{CompareStatus}}</el-tag></td>
           <td>身份一致性说明</td>
           <td><el-tag v-if='result.compareStatusDesc' :type="result.compareStatusDesc | tagtype" class="tag">{{result.compareStatusDesc}}</el-tag></td>
         </tr>
@@ -254,6 +254,17 @@ export default {
             });
         }
       });
+    }
+  },
+  computed: {
+    CompareStatus: function () {
+      if (this.result.compareStatus == 'SAME') {
+        return "一致";
+      } else if (this.result.compareStatus == 'DIFFERENT') {
+        return "不一致";
+      } else {
+         return "无数据";
+      }
     }
   }
 };

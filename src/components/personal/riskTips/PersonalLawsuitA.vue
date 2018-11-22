@@ -394,7 +394,7 @@ export default {
             return '未知';
         }
     },
-    tuomin (v, keyName) {
+    tuomin (v, keyName) { 
       if (['name', 'title', 'party', 'proposer'].includes(keyName)) {
         return (new Array(v.length)).join("*") + v.slice(-1);
       } else if (['caseStatus'].includes(keyName)) {
@@ -403,9 +403,14 @@ export default {
         } else {
           return '执行中';
         }
+      } else if (['caseNO'].includes(keyName)) {
+        return this.caseNOto(v);
       } else {
         return v;
       }
+    },
+     caseNOto: function (val) {
+      return val.slice(0, 12) + '*****' + val.slice(-1);
     }
   }
 };

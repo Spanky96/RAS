@@ -255,5 +255,8 @@ timestampToTime: function (val) {
     var newdata = new Date(val);
     return newdata.toLocaleString();
   }
+},
+PlateNumber: function (val) {
+  return val.slice(0, (val.length - 3) - 1) + '**' + val.slice(-1);
 }
 };
