@@ -247,6 +247,13 @@ export default {
         pageIndex: '1'
       },
       rules: {
+         name: [
+                    {
+                        required: true,
+                        message: "请输入企业名称",
+                        trigger: "blur"
+                    }
+                ]
       },
       result: {
         example: true,

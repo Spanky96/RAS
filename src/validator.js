@@ -146,5 +146,14 @@ export default {
         } else {
             callback();
         }
+    },
+    creditCode: (rule, value, callback) => {
+        if (value.length < 18) {
+            callback(new Error('统一信用代码格式不正确'));
+        } else if (value.length > 18) {
+            callback(new Error('统一信用代码格式不正确'));
+        } else {
+            callback();
+        }
     }
 };

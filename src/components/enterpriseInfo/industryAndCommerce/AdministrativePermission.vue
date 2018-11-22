@@ -7,12 +7,12 @@
       <el-form :model="inputFrom" :rules="rules" ref="inputFrom" id="inputForm">
         <el-row>
           <el-col :span="10">
-            <el-form-item label="查询主体名称（企业名称）" label-width="0" prop="c" class="form-item">
+            <el-form-item label="查询主体名称（企业名称）" label-width="0" prop="entname" class="form-item">
               <el-input v-model="inputFrom.entname"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="10">
-            <el-form-item label="统一的信用代码" label-width="0" prop="creditCode" class="form-item">
+            <el-form-item label="统一信用代码" label-width="0" prop="creditCode" class="form-item">
               <el-input v-model="inputFrom.creditCode"></el-input>
             </el-form-item>
           </el-col>
@@ -133,6 +133,11 @@ export default {
         creditCode: ''
       },
       rules: {
+        entname: [{required: true, message: '请输入企业名称', trigger: 'blur'}],
+        creditCode: [
+          {required: true, message: '请输入统一信用代码', trigger: 'blur'},
+          {validator: this.$validator.creditCode, trigger: 'change'}
+        ]
       },
       result: {
         example: true,
