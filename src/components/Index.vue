@@ -2,7 +2,7 @@
   <div>
     <el-container>
        <el-header>
-        <div class="company-logo" :class="{collapse: isCollapse}">天眼大数据风控系统</div>
+        <div class="company-logo" :class="{collapse: isCollapse}">大数据风控系统</div>
         <div class="toggle-btn" @click="isCollapse = !isCollapse;"><i class="iconfont icon-zhankai"></i></div>
         <el-menu
           :default-active="defultActive"
