@@ -13,6 +13,9 @@
           </el-col>
         </el-row>
         <el-row type="flex" justify="end" align="bottom">
+          <el-col :span="6" class="top-mar">
+            <span>我已经阅读并同意<el-button type="text" @click="open">《授权协议》</el-button></span>
+          </el-col>
           <el-col :span="4">
             <el-form-item>
               <el-button type="primary" @click="onSubmit" round size="small" :loading="loading">{{btnText}}</el-button>
@@ -661,7 +664,24 @@ export default {
         vm.loading = false;
         vm.btnText = '执行查询';
       }
-    }
+    },
+    open () {
+            var vm = this;
+            this.$http
+                .get("static/licenseAgreement.txt")
+                .then(function (response) {
+                    vm.$alert(response.data, "授权数据采集服务协议", {
+                        dangerouslyUseHTMLString: true,
+                        showConfirmButton: false,
+                        callback: action => {
+                            vm.$message({
+                                type: "success",
+                                message: `已同意`
+                            });
+                        }
+                    });
+                });
+        }
   },
   destroyed: function () {
     var vm = this;

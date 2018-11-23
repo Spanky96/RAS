@@ -6,6 +6,9 @@
       </div>
       <el-form ref="inputFrom" id="inputForm">
         <el-row type="flex">
+          <el-col  :span="5">
+            <span class="top-mar-color">我已经阅读并同意<el-button type="text" @click="open">《授权协议》</el-button></span>
+          </el-col>
           <el-col :span="4">
             <el-form-item>
               <el-button type="primary" @click="onSubmit" round size="small" :loading="loading">{{btnText}}</el-button>
@@ -68,6 +71,12 @@
     </el-card>
   </div>
 </template>
+
+<style scoped>
+.top-mar-color{
+  color: #0000ff;
+}
+</style>
 
 <script>
 export default {
@@ -302,7 +311,24 @@ export default {
         vm.loading = false;
         vm.btnText = '执行查询';
       }
-    }
+    },
+    open () {
+            var vm = this;
+            this.$http
+                .get("static/licenseAgreement.txt")
+                .then(function (response) {
+                    vm.$alert(response.data, "授权数据采集服务协议", {
+                        dangerouslyUseHTMLString: true,
+                        showConfirmButton: false,
+                        callback: action => {
+                            vm.$message({
+                                type: "success",
+                                message: `已同意`
+                            });
+                        }
+                    });
+                });
+        }
   },
   destroyed: function () {
     var vm = this;
