@@ -165,9 +165,9 @@
             subs: [
               {name: '行驶证信息查询', index: "/carInfo/carInfoSon/VehicleLicenseInfo", icon: 'buhuanhangshizheng'},
               {name: '车辆详情核验', index: "/carInfo/carInfoSon/VehicleDetails", icon: 'chepai'},
-              {name: '驾驶证扣分查询', index: "/carInfo/carInfoSon/LicenseDeductMarks", icon: 'chaxunjiashizhengxinxi'}
+              {name: '驾驶证扣分查询', index: "/carInfo/carInfoSon/LicenseDeductMarks", icon: 'chaxunjiashizhengxinxi'},
               // {name: '出险记录（未开放）', index: "4-4", icon: 'cheliangpengzhuang'},
-              // {name: '车辆违章查询', index: "/carInfo/carInfoSon/VehicleViolation", icon: 'weizhang'}
+              {name: '车辆违章查询', index: "/carInfo/carInfoSon/VehicleViolation", icon: 'weizhang'}
             ]}
           ]
         },
