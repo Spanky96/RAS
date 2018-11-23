@@ -17,6 +17,46 @@ export default new Router({
           component: resolve => require(['@/components/Guide'], resolve)
         },
         {
+          path: 'user/agentmodel/agentManagement',
+          name: 'AgentManagement',
+          component: resolve => require(['@/components/User/AgentModel/AgentManagement'], resolve)
+        },
+        {
+          path: 'user/agentmodel/balance',
+          name: 'Balance',
+          component: resolve => require(['@/components/User/AgentModel/Balance'], resolve)
+        },
+        {
+          path: 'user/agentmodel/lnterfacequote',
+          name: 'LnterfaceQuote',
+          component: resolve => require(['@/components/User/AgentModel/LnterfaceQuote'], resolve)
+        },
+        {
+          path: 'user/agentmodel/profitdistribution',
+          name: 'ProfitDistribution',
+          component: resolve => require(['@/components/User/AgentModel/ProfitDistribution'], resolve)
+        },
+        {
+          path: 'user/agentmodel/useristration',
+          name: 'UserIstration',
+          component: resolve => require(['@/components/User/AgentModel/UserIstration'], resolve)
+        },
+        {
+          path: 'user/usermodel/query',
+          name: 'Query',
+          component: resolve => require(['@/components/User/UserModel/Query'], resolve)
+        },
+        {
+          path: 'user/usermodel/userbalance',
+          name: 'UserBalance',
+          component: resolve => require(['@/components/User/UserModel/UserBalance'], resolve)
+        },
+        {
+          path: 'user/usermodel/userInformation',
+          name: 'UserInformation',
+          component: resolve => require(['@/components/User/UserModel/UserInformation'], resolve)
+        },
+        {
           path: 'personal/identity/idCheck',
           name: 'PersonalIdentityIdCheck',
           component: resolve => require(['@/components/personal/identity/IdCheck'], resolve)

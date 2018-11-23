@@ -185,6 +185,40 @@
               ]
             }
           ]
+        },
+        {
+          index: "6",
+          name: '代理商模块',
+          functions: [
+            {
+              name: '代理商模块',
+               icon: 'liuliangyunpingtaitubiao03',
+              index: "5-1",
+              subs: [
+                {name: '代理商管理', index: "/user/agentmodel/agentManagement", icon: 'liuliangyunpingtaitubiao03'},
+                {name: '分润管理', index: "/user/agentmodel/profitdistribution", icon: 'qunfengmaidanfenrunbili'},
+                {name: '余额管理', index: "/user/agentmodel/balance", icon: 'yue01'},
+                {name: '接口报价管理', index: "/user/agentmodel/lnterfacequote", icon: 'baojia'},
+                {name: '用户管理', index: "/user/agentmodel/useristration", icon: 'yonghuguanli'}
+              ]
+            }
+          ]
+        },
+        {
+          index: "7",
+          name: '用户模块',
+          functions: [
+            {
+              name: '用户模块',
+               icon: 'yonghuguanli',
+              index: "5-1",
+              subs: [
+                {name: '查询记录', index: "/user/usermodel/query", icon: 'chaxun'},
+                {name: '余额管理', index: "/user/usermodel/userbalance", icon: 'yue01'},
+                {name: '用户信息', index: "/user/usermodel/userinformation", icon: 'yonghuxinxi'}
+              ]
+            }
+          ]
         }
       ];
       return {
